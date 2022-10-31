@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import styles from './page.module.scss'
+import Image from 'next/image';
+import styles from './page.module.scss';
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -53,5 +53,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
