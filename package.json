@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "openapi-gen": "openapi-generator-cli generate",
+    "postinstall": "npm run openapi-gen",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -14,6 +16,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@types/node": "18.11.7",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
