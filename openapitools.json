@@ -6,7 +6,7 @@
     "generators": {
       "v3.0": {
         "generatorName": "typescript-fetch",
-        "output": "./lib/api",
+        "output": "./lib/api/client",
         "inputSpec": "https://github.com/michalmarchewczyk/ecommerce-platform-nestjs-api/releases/download/v1.3.6/specification.json",
         "reservedWordsMappings": "return=return"
       }
