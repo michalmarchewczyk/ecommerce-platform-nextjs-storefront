@@ -3,6 +3,7 @@
     "next",
     "next/core-web-vitals",
     "prettier",
+    "mantine",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -11,7 +12,11 @@
     "prettier",
     "@typescript-eslint"
   ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "prettier/prettier": [
       "error",
       {
