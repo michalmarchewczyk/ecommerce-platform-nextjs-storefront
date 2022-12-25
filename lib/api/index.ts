@@ -1,5 +1,6 @@
 import {
   AuthApi,
+  CartsApi,
   CategoriesApi,
   Configuration,
   ProductsApi,
@@ -25,5 +26,6 @@ const settingsApi = new SettingsApi(configuration);
 const usersApi = new UsersApi(configuration);
 const categoriesApi = new CategoriesApi(configuration);
 const productsApi = new ProductsApi(configuration);
+const cartsApi = new CartsApi(configuration);
 
-export { authApi, settingsApi, usersApi, categoriesApi, productsApi };
+export { authApi, settingsApi, usersApi, categoriesApi, productsApi, cartsApi };

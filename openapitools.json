@@ -8,7 +8,10 @@
         "generatorName": "typescript-fetch",
         "output": "./lib/api/client",
         "inputSpec": "https://github.com/michalmarchewczyk/ecommerce-platform-nestjs-api/releases/download/v1.4.8/specification.json",
-        "reservedWordsMappings": "return=return"
+        "reservedWordsMappings": "return=return",
+        "additionalProperties": {
+          "withoutRuntimeChecks": true
+        }
       }
     }
   }

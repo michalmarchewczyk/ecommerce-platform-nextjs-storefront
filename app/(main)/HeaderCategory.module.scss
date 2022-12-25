@@ -1,0 +1,22 @@
+.link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  text-decoration: none;
+  color: var(--mantine-color-black);
+  font-weight: 500;
+  font-size: var(--mantine-font-size-md);
+  @media screen and (max-width: 767px){
+	color: red;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+  }
+
+  &:hover {
+	background-color: var(--mantine-color-gray-0);
+  }
+}

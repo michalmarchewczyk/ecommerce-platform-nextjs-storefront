@@ -23,7 +23,7 @@ export default function RootStyleRegistry({
 
   return (
     <CacheProvider value={cache}>
-      <MantineProvider withGlobalStyles withNormalizeCSS>
+      <MantineProvider withGlobalStyles withNormalizeCSS withCSSVariables>
         {children}
       </MantineProvider>
     </CacheProvider>
