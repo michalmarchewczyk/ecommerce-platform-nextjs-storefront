@@ -16,6 +16,9 @@ import Stack from './Stack';
 import Center from './Center';
 import Text from './Text';
 import Title from './Title';
+import Paper from './Paper';
+import Space from './Space';
+import NavLink from './NavLink';
 
 export {
   ActionIcon,
@@ -36,4 +39,7 @@ export {
   Stack,
   Text,
   Title,
+  Paper,
+  Space,
+  NavLink,
 };

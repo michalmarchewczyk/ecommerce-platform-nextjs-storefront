@@ -1,4 +1,4 @@
-import { IconChevronDown } from '@tabler/icons';
+import { IconChevronDown, IconChevronRight } from '@tabler/icons';
 import Link from 'next/link';
 import {
   Box,
@@ -11,6 +11,7 @@ import {
   HoverCardDropdown,
   Text,
   Title,
+  NavLink,
 } from '../../../lib/components/wrappers';
 import styles from './HeaderCategory.module.scss';
 import { categoriesApi } from '../../../lib/api';
@@ -34,13 +35,23 @@ export default async function HeaderCategory({
     return null;
   }
 
+  if (category.childCategories.length === 0) {
+    return (
+      <Link href={`/category/${category.id}`} className={styles.link}>
+        {category.name}
+      </Link>
+    );
+  }
+
   return (
     <HoverCard
-      width={600}
+      width={360}
       position="bottom"
       radius="md"
       shadow="md"
       withinPortal
+      closeDelay={50}
+      transitionDuration={100}
     >
       <HoverCardTarget>
         <Link href={`/categories/${category.id}`} className={styles.link}>
@@ -53,8 +64,8 @@ export default async function HeaderCategory({
         </Link>
       </HoverCardTarget>
 
-      <HoverCardDropdown sx={{ overflow: 'hidden' }}>
-        <Group position="apart" px="0" noWrap align="flex-start">
+      <HoverCardDropdown sx={{ overflow: 'hidden', marginTop: -16 }}>
+        <Group position="apart" px="0" noWrap align="center">
           <div>
             <Title order={4}>{category.name}</Title>
             <Text weight={500} lineClamp={2}>
@@ -73,7 +84,17 @@ export default async function HeaderCategory({
         </Group>
 
         <Divider my="sm" mx="-md" />
-        <div>{JSON.stringify(category.childCategories)}</div>
+        <Box px={0} mx={-8}>
+          {category.childCategories.map((childCategory) => (
+            <NavLink
+              key={childCategory.id}
+              label={<Text weight={500}>{childCategory.name}</Text>}
+              rightSection={<IconChevronRight size={18} stroke={2} />}
+              component={Link}
+              href={`/categories/${childCategory.id}`}
+            />
+          ))}
+        </Box>
       </HoverCardDropdown>
     </HoverCard>
   );
