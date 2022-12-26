@@ -1,4 +1,5 @@
-import MainHeader from './MainHeader';
+import MainHeader from './Header/MainHeader';
+import MainFooter from './Footer/MainFooter';
 
 export default async function Layout({
   children,
@@ -10,6 +11,7 @@ export default async function Layout({
       {/* @ts-expect-error Server Component */}
       <MainHeader />
       <main>{children}</main>
+      <MainFooter />
     </>
   );
 }

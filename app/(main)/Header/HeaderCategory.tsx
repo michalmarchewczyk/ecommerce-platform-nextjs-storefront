@@ -11,9 +11,9 @@ import {
   HoverCardDropdown,
   Text,
   Title,
-} from '../../lib/components/wrappers';
+} from '../../../lib/components/wrappers';
 import styles from './HeaderCategory.module.scss';
-import { categoriesApi } from '../../lib/api';
+import { categoriesApi } from '../../../lib/api';
 
 async function getData(categoryId: number) {
   try {

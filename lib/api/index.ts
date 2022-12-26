@@ -3,6 +3,7 @@ import {
   CartsApi,
   CategoriesApi,
   Configuration,
+  PagesApi,
   ProductsApi,
   SettingsApi,
   UsersApi,
@@ -23,9 +24,18 @@ const configuration = new Configuration({
 
 const authApi = new AuthApi(configuration);
 const settingsApi = new SettingsApi(configuration);
+const pagesApi = new PagesApi(configuration);
 const usersApi = new UsersApi(configuration);
 const categoriesApi = new CategoriesApi(configuration);
 const productsApi = new ProductsApi(configuration);
 const cartsApi = new CartsApi(configuration);
 
-export { authApi, settingsApi, usersApi, categoriesApi, productsApi, cartsApi };
+export {
+  authApi,
+  settingsApi,
+  pagesApi,
+  usersApi,
+  categoriesApi,
+  productsApi,
+  cartsApi,
+};

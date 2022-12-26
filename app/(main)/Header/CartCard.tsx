@@ -1,11 +1,11 @@
 import { IconShoppingCart } from '@tabler/icons';
-import { cartsApi } from '../../lib/api';
+import { cartsApi } from '../../../lib/api';
 import {
   ActionIcon,
   HoverCard,
   HoverCardTarget,
   HoverCardDropdown,
-} from '../../lib/components/wrappers';
+} from '../../../lib/components/wrappers';
 
 async function getData() {
   return cartsApi.getCart();

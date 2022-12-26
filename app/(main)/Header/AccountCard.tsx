@@ -1,6 +1,6 @@
 import { IconUser } from '@tabler/icons';
 import Link from 'next/link';
-import { usersApi } from '../../lib/api';
+import { usersApi } from '../../../lib/api';
 import {
   ActionIcon,
   HoverCard,
@@ -9,7 +9,7 @@ import {
   Button,
   Divider,
   Stack,
-} from '../../lib/components/wrappers';
+} from '../../../lib/components/wrappers';
 
 async function getData() {
   try {

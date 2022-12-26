@@ -1,10 +1,10 @@
-import { Header, Group, Container } from '../../lib/components/wrappers';
-import Logo from './Logo';
+import { Header, Group, Container } from '../../../lib/components/wrappers';
+import Logo from '../Logo';
 import styles from './MainHeader.module.scss';
 import AccountCard from './AccountCard';
 import CartCard from './CartCard';
 import HeaderCategory from './HeaderCategory';
-import { categoriesApi } from '../../lib/api';
+import { categoriesApi } from '../../../lib/api';
 
 async function getData() {
   const categoryGroups = await categoriesApi.getCategoryGroups();

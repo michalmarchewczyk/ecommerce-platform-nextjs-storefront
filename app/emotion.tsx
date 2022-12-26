@@ -23,7 +23,17 @@ export default function RootStyleRegistry({
 
   return (
     <CacheProvider value={cache}>
-      <MantineProvider withGlobalStyles withNormalizeCSS withCSSVariables>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        withCSSVariables
+        theme={{
+          fontFamily: 'Roboto, sans-serif',
+          headings: {
+            fontFamily: 'Poppins, sans-serif',
+          },
+        }}
+      >
         {children}
       </MantineProvider>
     </CacheProvider>
