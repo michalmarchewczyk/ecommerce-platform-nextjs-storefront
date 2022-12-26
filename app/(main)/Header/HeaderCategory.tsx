@@ -15,19 +15,20 @@ import {
 import styles from './HeaderCategory.module.scss';
 import { categoriesApi } from '../../../lib/api';
 
-async function getData(categoryId: number) {
+async function getCategory(categoryId: number) {
   try {
     return await categoriesApi.getCategory({ id: categoryId });
   } catch (error) {
     return null;
   }
 }
+
 export default async function HeaderCategory({
   categoryId,
 }: {
   categoryId: number;
 }) {
-  const category = await getData(categoryId);
+  const category = await getCategory(categoryId);
 
   if (!category) {
     return null;

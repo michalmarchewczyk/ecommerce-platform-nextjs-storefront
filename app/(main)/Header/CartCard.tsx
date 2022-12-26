@@ -1,4 +1,5 @@
 import { IconShoppingCart } from '@tabler/icons';
+import { cookies } from 'next/headers';
 import { cartsApi } from '../../../lib/api';
 import {
   ActionIcon,
@@ -7,12 +8,21 @@ import {
   HoverCardDropdown,
 } from '../../../lib/components/wrappers';
 
-async function getData() {
-  return cartsApi.getCart();
+async function getCart() {
+  const reqCookies = cookies()
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join('; ');
+  return cartsApi.getCart({
+    cache: 'no-store',
+    headers: {
+      Cookie: reqCookies,
+    },
+  });
 }
 
 export default async function CartCard() {
-  const data = await getData();
+  const data = await getCart();
 
   return (
     <HoverCard
@@ -27,7 +37,7 @@ export default async function CartCard() {
           <IconShoppingCart size={26} />
         </ActionIcon>
       </HoverCardTarget>
-      <HoverCardDropdown>Empty cart</HoverCardDropdown>
+      <HoverCardDropdown>{JSON.stringify(data)}</HoverCardDropdown>
     </HoverCard>
   );
 }

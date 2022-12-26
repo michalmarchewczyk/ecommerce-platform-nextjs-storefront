@@ -1,0 +1,17 @@
+.logo {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  padding: 36px;
+  background: none;
+  color: #212121;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 0;
+  top: 0;
+
+  &:first-line {
+	color: #303f9f;
+  }
+}

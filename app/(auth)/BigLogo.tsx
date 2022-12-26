@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import styles from './Logo.module.scss';
+import styles from './BigLogo.module.scss';
 
-export default function Logo() {
+export default function BigLogo() {
   return (
     <Link href="/">
       <h1 className={styles.logo}>

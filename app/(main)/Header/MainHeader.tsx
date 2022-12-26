@@ -6,13 +6,13 @@ import CartCard from './CartCard';
 import HeaderCategory from './HeaderCategory';
 import { categoriesApi } from '../../../lib/api';
 
-async function getData() {
+async function getMainCategories() {
   const categoryGroups = await categoriesApi.getCategoryGroups();
   return categoryGroups.find((g) => g.name === 'main')?.categories;
 }
 
 export default async function MainHeader() {
-  const mainCategories = await getData();
+  const mainCategories = await getMainCategories();
   return (
     <Header height={64} px="md">
       <Container sx={{ height: '100%' }} size="xl" px={0}>

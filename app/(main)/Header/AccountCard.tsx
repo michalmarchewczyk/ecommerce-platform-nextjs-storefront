@@ -1,5 +1,6 @@
 import { IconUser } from '@tabler/icons';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { usersApi } from '../../../lib/api';
 import {
   ActionIcon,
@@ -11,16 +12,26 @@ import {
   Stack,
 } from '../../../lib/components/wrappers';
 
-async function getData() {
+async function getAccount() {
+  const reqCookies = cookies()
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join('; ');
+  const req = usersApi.getCurrentUser({
+    cache: 'no-store',
+    headers: {
+      Cookie: reqCookies,
+    },
+  });
   try {
-    return await usersApi.getCurrentUser();
+    return await req;
   } catch (e) {
     return null;
   }
 }
 
 export default async function AccountCard() {
-  const data = await getData();
+  const data = await getAccount();
 
   return (
     <HoverCard
@@ -37,7 +48,13 @@ export default async function AccountCard() {
       </HoverCardTarget>
       <HoverCardDropdown>
         {data ? (
-          <div>Account info</div>
+          <Stack>
+            {data.email}
+            <Divider />
+            <Button variant="light" component={Link} href="/logout">
+              Sign out
+            </Button>
+          </Stack>
         ) : (
           <Stack spacing="sm">
             <Button component={Link} href="/login">

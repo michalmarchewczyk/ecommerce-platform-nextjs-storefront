@@ -18,6 +18,7 @@
     "@mantine/form": "^5.9.5",
     "@mantine/hooks": "^5.9.5",
     "@mantine/next": "^5.9.5",
+    "@mantine/notifications": "^5.9.5",
     "@mantine/styles": "^5.9.5",
     "@next/font": "^13.1.0",
     "@tabler/icons": "^1.118.0",
