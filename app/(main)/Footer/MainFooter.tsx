@@ -16,7 +16,7 @@ import FooterLinks from './FooterLinks';
 export default function MainFooter() {
   return (
     <footer className={styles.footer}>
-      <Container className={styles.inner} size="xl" px="0">
+      <Container className={styles.inner} size="xl" px="md">
         <div className={styles.logo}>
           <Logo />
         </div>
@@ -25,7 +25,7 @@ export default function MainFooter() {
           <FooterLinks />
         </div>
       </Container>
-      <Container className={styles.afterFooter} size="xl" px="0">
+      <Container className={styles.afterFooter} size="xl" px="md">
         <Text color="dimmed" size="sm">
           Created by Michał Marchewczyk
         </Text>

@@ -1,6 +1,10 @@
 
 .wrapper {
   width: 180px;
+
+  @media screen and (max-width: 767px) {
+    text-align: center;
+  }
 }
 
 .link {

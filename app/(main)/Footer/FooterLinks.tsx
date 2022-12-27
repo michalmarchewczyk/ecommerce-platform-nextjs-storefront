@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { pagesApi } from '../../../lib/api';
 import { Text } from '../../../lib/components/wrappers';
 import styles from './FooterLinks.module.scss';
@@ -17,7 +18,7 @@ export default async function FooterLinks() {
       <Text
         key={page.id}
         className={styles.link}
-        component="a"
+        component={Link}
         href={`/pages/${page.id}`}
         fw={400}
       >

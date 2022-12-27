@@ -31,6 +31,7 @@ export default async function CartCard() {
       radius="md"
       shadow="md"
       withinPortal
+      zIndex={2000}
     >
       <HoverCardTarget>
         <ActionIcon size="lg">

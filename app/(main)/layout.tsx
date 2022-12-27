@@ -1,5 +1,6 @@
 import MainHeader from './Header/MainHeader';
 import MainFooter from './Footer/MainFooter';
+import { Container } from '../../lib/components/wrappers';
 
 export const revalidate = 0;
 
@@ -8,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       {/* @ts-expect-error Server Component */}
       <MainHeader />
-      <main>{children}</main>
+      <Container size="xl" mt={80} px="md">
+        {children}
+      </Container>
       <MainFooter />
     </>
   );

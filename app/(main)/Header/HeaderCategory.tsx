@@ -52,6 +52,7 @@ export default async function HeaderCategory({
       withinPortal
       closeDelay={50}
       transitionDuration={100}
+      zIndex={2000}
     >
       <HoverCardTarget>
         <Link href={`/categories/${category.id}`} className={styles.link}>
