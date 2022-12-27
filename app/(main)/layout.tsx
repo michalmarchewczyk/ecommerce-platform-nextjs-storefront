@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       {/* @ts-expect-error Server Component */}
       <MainHeader />
-      <Container size="xl" mt={80} px="md">
+      <Container size="xl" mt={80} px="md" mih="calc(100vh - 500px)">
         {children}
       </Container>
       <MainFooter />

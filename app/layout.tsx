@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en-US" className={`${poppins.className} ${roboto.className}`}>
       <head>
-        <title>Ecommerce platform</title>
+        <title>Ecommerce Platform</title>
       </head>
       <body>
         <RootStyleRegistry>{children}</RootStyleRegistry>
