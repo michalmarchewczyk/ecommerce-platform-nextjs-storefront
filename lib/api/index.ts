@@ -4,6 +4,7 @@ import {
   CategoriesApi,
   Configuration,
   PagesApi,
+  ProductRatingsApi,
   ProductsApi,
   SettingsApi,
   UsersApi,
@@ -28,6 +29,7 @@ const pagesApi = new PagesApi(configuration);
 const usersApi = new UsersApi(configuration);
 const categoriesApi = new CategoriesApi(configuration);
 const productsApi = new ProductsApi(configuration);
+const productRatingsApi = new ProductRatingsApi(configuration);
 const cartsApi = new CartsApi(configuration);
 
 export {
@@ -37,5 +39,6 @@ export {
   usersApi,
   categoriesApi,
   productsApi,
+  productRatingsApi,
   cartsApi,
 };

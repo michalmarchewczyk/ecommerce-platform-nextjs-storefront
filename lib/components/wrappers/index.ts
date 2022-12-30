@@ -3,6 +3,7 @@ import Box from './Box';
 import Burger from './Burger';
 import Button from './Button';
 import Card from './Card';
+import CardSection from './Card.Section';
 import Container from './Container';
 import Divider from './Divider';
 import Drawer from './Drawer';
@@ -19,6 +20,11 @@ import Title from './Title';
 import Paper from './Paper';
 import Space from './Space';
 import NavLink from './NavLink';
+import ScrollArea from './ScrollArea';
+import Image from './Image';
+import Rating from './Rating';
+import Carousel from './Carousel';
+import CarouselSlide from './Carousel.Slide';
 
 export {
   ActionIcon,
@@ -26,6 +32,7 @@ export {
   Burger,
   Button,
   Card,
+  CardSection,
   Center,
   Container,
   Divider,
@@ -42,4 +49,9 @@ export {
   Paper,
   Space,
   NavLink,
+  ScrollArea,
+  Image,
+  Rating,
+  Carousel,
+  CarouselSlide,
 };

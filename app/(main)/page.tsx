@@ -1,3 +1,21 @@
-export default function Page() {
-  return <h1>Main page</h1>;
+import { categoriesApi } from '../../lib/api';
+import CategorySection from './CategorySection';
+
+async function getFeaturedCategories() {
+  const categoryGroups = await categoriesApi.getCategoryGroups();
+  return categoryGroups.find((g) => g.name === 'featured')?.categories;
+}
+
+export default async function Page() {
+  const featuredCategories = await getFeaturedCategories();
+  return (
+    <>
+      {featuredCategories?.map((c) => (
+        <div key={c.id}>
+          {/* @ts-expect-error Server Component */}
+          <CategorySection categoryId={c.id} />
+        </div>
+      ))}
+    </>
+  );
 }
