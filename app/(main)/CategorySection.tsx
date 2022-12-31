@@ -41,9 +41,11 @@ export default async function CategorySection({
         </Title>
         <Button
           variant="outline"
+          radius="xl"
           rightIcon={<IconArrowRight />}
           component={Link}
           href={`/categories/${category.id}`}
+          sx={{ marginTop: 1 }}
         >
           View All Products
         </Button>

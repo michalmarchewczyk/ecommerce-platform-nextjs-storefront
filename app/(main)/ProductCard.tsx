@@ -65,7 +65,7 @@ export default async function ProductCard({
           ({ratings.count})
         </Text>
       </Flex>
-      <Text fz="xl" fw={600}>
+      <Text fz={24} fw={600} sx={{ position: 'absolute', bottom: 8 }}>
         $ {product.price}
       </Text>
     </Card>

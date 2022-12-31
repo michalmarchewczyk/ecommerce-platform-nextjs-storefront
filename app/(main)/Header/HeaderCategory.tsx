@@ -77,7 +77,8 @@ export default async function HeaderCategory({
             <Button
               component={Link}
               href={`/categories/${category.id}`}
-              variant="subtle"
+              variant="outline"
+              radius="xl"
             >
               View products
             </Button>

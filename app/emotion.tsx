@@ -33,6 +33,17 @@ export default function RootStyleRegistry({
           headings: {
             fontFamily: 'Poppins, sans-serif',
           },
+          defaultRadius: 'md',
+          primaryColor: 'indigo',
+          components: {
+            NavLink: {
+              styles: {
+                root: {
+                  borderRadius: 'var(--mantine-radius-md)',
+                },
+              },
+            },
+          },
         }}
       >
         <NotificationsProvider>{children}</NotificationsProvider>
