@@ -1,4 +1,8 @@
-import { IconArrowRight } from '@tabler/icons';
+import {
+  IconArrowRight,
+  IconChevronLeft,
+  IconChevronRight,
+} from '@tabler/icons';
 import Link from 'next/link';
 import { categoriesApi } from '../../lib/api';
 import {
@@ -16,7 +20,8 @@ async function getCategory(categoryId: number) {
 }
 
 async function getCategoryProducts(categoryId: number) {
-  return categoriesApi.getCategoryProducts({ id: categoryId });
+  const products = await categoriesApi.getCategoryProducts({ id: categoryId });
+  return products.slice(0, 16);
 }
 
 export default async function CategorySection({
@@ -56,16 +61,19 @@ export default async function CategorySection({
           slideSize="20%"
           align="start"
           slideGap={0}
-          controlSize={30}
+          controlSize={36}
           draggable={false}
           slidesToScroll={2}
           controlsOffset={20}
           containScroll="trimSnaps"
           mx={-10}
           breakpoints={[{ maxWidth: 1320, slideSize: 260 }]}
+          nextControlIcon={<IconChevronRight size={24} />}
+          previousControlIcon={<IconChevronLeft size={24} />}
           styles={{
             control: {
               marginTop: -40,
+              color: 'var(--mantine-color-blue-7)',
               '&[data-inactive]': {
                 opacity: 0,
                 cursor: 'default',
@@ -80,6 +88,22 @@ export default async function CategorySection({
               <ProductCard productId={product.id} />
             </CarouselSlide>
           ))}
+          {products.length > 5 && (
+            <CarouselSlide>
+              <Button
+                variant="outline"
+                w={240}
+                h={370}
+                rightIcon={<IconArrowRight />}
+                component={Link}
+                href={`/categories/${category.id}`}
+                ml={10}
+                size="lg"
+              >
+                View all products
+              </Button>
+            </CarouselSlide>
+          )}
         </Carousel>
       </Box>
     </Box>
