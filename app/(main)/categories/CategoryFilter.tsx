@@ -1,4 +1,6 @@
-import { Box, Card, Text } from '../../../lib/components/wrappers';
+import Link from 'next/link';
+import { IconX } from '@tabler/icons';
+import { Box, Button, Card, Text } from '../../../lib/components/wrappers';
 import { AttributeType, categoriesApi } from '../../../lib/api';
 import CategoryFilterGroup from './CategoryFilterGroup';
 import CategoryPriceFilter from './CategoryPriceFilter';
@@ -42,7 +44,7 @@ export default async function CategoryFilter({
 
   return (
     <Card withBorder w={250} py="sm" px="md">
-      <Box mb="md">
+      <Box mb="lg">
         <Text>Price</Text>
         <CategoryPriceFilter priceMin={priceMin} priceMax={priceMax} />
       </Box>
@@ -55,6 +57,16 @@ export default async function CategoryFilter({
           />
         </Box>
       ))}
+      <Button
+        mt="xs"
+        leftIcon={<IconX />}
+        component={Link}
+        href={`/categories/${categoryId}`}
+        variant="light"
+        w="100%"
+      >
+        Clear filters
+      </Button>
     </Card>
   );
 }

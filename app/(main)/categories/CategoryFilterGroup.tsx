@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Checkbox } from '@mantine/core';
+import { Checkbox, CheckIcon, ColorSwatch, Group } from '@mantine/core';
 import { AttributeType } from '../../../lib/api';
 
 type AttributeTypeWithValues = AttributeType & { values: string[] };
@@ -39,6 +39,33 @@ export default function CategoryFilterGroup({
   };
 
   const selected = params.getAll(attributeType.id.toString());
+
+  if (attributeType.valueType === 'color') {
+    return (
+      <Group mt={12} mb={24} spacing="xs">
+        {values.map((value) => (
+          <ColorSwatch
+            w={32}
+            h={32}
+            color={value}
+            key={value}
+            component={Link}
+            href={getHref(value)}
+            sx={{
+              color: '#ffffff',
+              border: params.getAll(attributeType.id.toString()).includes(value)
+                ? '3px solid var(--mantine-color-gray-7)'
+                : 'none',
+            }}
+          >
+            {params.getAll(attributeType.id.toString()).includes(value) && (
+              <CheckIcon width={16} />
+            )}
+          </ColorSwatch>
+        ))}
+      </Group>
+    );
+  }
 
   return (
     <Checkbox.Group orientation="vertical" spacing="xs" value={selected}>
