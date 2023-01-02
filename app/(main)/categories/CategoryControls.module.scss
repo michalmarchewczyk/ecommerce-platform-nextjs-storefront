@@ -1,0 +1,30 @@
+.sortMenu {
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--mantine-color-gray-3);
+  transition: background-color 150ms ease;
+  background-color: var(--mantine-theme-white);
+
+  &[data-expanded] {
+    background-color: var(--mantine-color-gray-0);
+  }
+
+  &:hover {
+	background-color: var(--mantine-color-gray-0);
+  };
+
+  > svg {
+    transition: transform 150ms ease;
+    transform: rotate(0deg);
+  }
+
+  &[data-expanded] {
+    > svg {
+      transform: rotate(180deg);
+    }
+  }
+}

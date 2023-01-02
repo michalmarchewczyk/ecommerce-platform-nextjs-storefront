@@ -29,12 +29,14 @@ export default async function ProductCard({
 }: {
   productId: number;
 }) {
-  const product = await getProduct(productId);
+  const [product, ratings] = await Promise.all([
+    getProduct(productId),
+    getProductRatings(productId),
+  ]);
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
   const photoUrl = `http://localhost/products/${product.id}/photos/${photoId}?thumbnail=false`;
-  const ratings = await getProductRatings(productId);
 
   return (
     <Card
@@ -47,7 +49,7 @@ export default async function ProductCard({
       component={Link}
       href={`/products/${product.id}`}
     >
-      <CardSection h={240} className={styles.photo}>
+      <CardSection h={236} px={2} className={styles.photo}>
         {photoId ? (
           <Image src={photoUrl} />
         ) : (

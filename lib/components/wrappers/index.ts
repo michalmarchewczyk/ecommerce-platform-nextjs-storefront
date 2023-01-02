@@ -25,6 +25,10 @@ import Image from './Image';
 import Rating from './Rating';
 import Carousel from './Carousel';
 import CarouselSlide from './Carousel.Slide';
+import List from './List';
+import ListItem from './List.Item';
+import Checkbox from './Checkbox';
+import CheckboxGroup from './Checkbox.Group';
 
 export {
   ActionIcon,
@@ -54,4 +58,8 @@ export {
   Rating,
   Carousel,
   CarouselSlide,
+  List,
+  ListItem,
+  Checkbox,
+  CheckboxGroup,
 };

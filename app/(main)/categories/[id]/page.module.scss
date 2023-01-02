@@ -1,0 +1,7 @@
+.container {
+  padding-bottom: 24px;
+  &::after {
+	content: '';
+	flex: auto;
+  }
+}

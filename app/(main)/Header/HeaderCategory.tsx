@@ -37,7 +37,7 @@ export default async function HeaderCategory({
 
   if (category.childCategories.length === 0) {
     return (
-      <Link href={`/category/${category.id}`} className={styles.link}>
+      <Link href={`/categories/${category.id}`} className={styles.link}>
         {category.name}
       </Link>
     );
