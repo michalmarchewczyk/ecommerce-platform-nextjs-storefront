@@ -13,7 +13,7 @@ import {
 export * from './client';
 
 const configuration = new Configuration({
-  basePath: 'http://localhost',
+  basePath: process.env.API_PATH ?? 'http://localhost',
   middleware: [
     {
       onError: async (error) => {

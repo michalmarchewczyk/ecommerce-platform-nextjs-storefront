@@ -6,14 +6,26 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --ignore-scripts
 
+FROM node:18-alpine AS openapi-generate
+
+RUN apk add openjdk11-jre-headless
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+RUN npm i -g @openapitools/openapi-generator-cli
+
+RUN npm run openapi-gen
 
 # Rebuild the source code only when needed
 FROM node:18-alpine AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=openapi-generate /app ./
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry

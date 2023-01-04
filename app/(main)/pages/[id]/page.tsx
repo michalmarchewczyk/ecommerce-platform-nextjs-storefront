@@ -4,12 +4,12 @@ import { pagesApi } from '../../../../lib/api';
 import { Container, Text, Title } from '../../../../lib/components/wrappers';
 import styles from './page.module.scss';
 
-export async function generateStaticParams() {
-  const pages = await pagesApi.getPages();
-  return pages.map((page) => ({
-    id: page.id.toString(),
-  }));
-}
+// export async function generateStaticParams() {
+//   const pages = await pagesApi.getPages();
+//   return pages.map((page) => ({
+//     id: page.id.toString(),
+//   }));
+// }
 
 async function getPage(id: number) {
   const page = await pagesApi.getPage({ id });
