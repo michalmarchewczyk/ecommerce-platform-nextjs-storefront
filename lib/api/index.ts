@@ -21,6 +21,7 @@ const configuration = new Configuration({
       },
     },
   ],
+  credentials: 'include',
 });
 
 const authApi = new AuthApi(configuration);

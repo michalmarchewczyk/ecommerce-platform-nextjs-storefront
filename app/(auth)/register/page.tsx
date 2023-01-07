@@ -39,10 +39,7 @@ export default function Page() {
 
   const submit = async (values: typeof form.values) => {
     try {
-      const res = await authApi.register(
-        { registerDto: values },
-        { credentials: 'include' },
-      );
+      const res = await authApi.register({ registerDto: values });
       router.push('/login');
       showNotification({
         title: 'Account created',

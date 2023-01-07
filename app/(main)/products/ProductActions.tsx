@@ -1,35 +1,16 @@
 'use client';
 
-import { Button, Flex, NumberInput, Text } from '@mantine/core';
-import { IconHeartPlus, IconShoppingCartPlus } from '@tabler/icons';
+import { Button, Flex, Text } from '@mantine/core';
+import { IconHeartPlus } from '@tabler/icons';
 import { Product } from '../../../lib/api';
 import ProductShareButton from './ProductShareButton';
+import ProductCartButton from './ProductCartButton';
 
 export default function ProductActions({ product }: { product: Product }) {
   return (
     <>
       <Flex gap="md" mb="lg">
-        <NumberInput
-          radius="xl"
-          size="lg"
-          defaultValue={1}
-          min={1}
-          max={product.stock}
-          step={1}
-          styles={{
-            rightSection: { width: '40px' },
-            control: { width: '39px', paddingRight: '4px' },
-          }}
-          w={160}
-        />
-        <Button
-          leftIcon={<IconShoppingCartPlus />}
-          radius="xl"
-          size="lg"
-          sx={{ flex: 1 }}
-        >
-          Add to cart
-        </Button>
+        <ProductCartButton product={product} />
       </Flex>
       <Flex align="center" gap="md" wrap="wrap">
         <Text sx={{ flex: 1 }} c="gray.7" fw={500} fz={18}>

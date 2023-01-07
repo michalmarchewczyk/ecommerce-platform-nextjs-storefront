@@ -12,7 +12,7 @@ export default function Page() {
   const router = useRouter();
   useEffect(() => {
     authApi
-      .logout({ credentials: 'include' })
+      .logout()
       .then()
       .catch(() => {
         // ignore

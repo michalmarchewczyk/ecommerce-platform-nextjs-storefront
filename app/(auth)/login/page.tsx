@@ -34,10 +34,7 @@ export default function Page() {
 
   const submit = async (values: typeof form.values) => {
     try {
-      const res = await authApi.login(
-        { loginDto: values },
-        { credentials: 'include' },
-      );
+      const res = await authApi.login({ loginDto: values });
       router.push('/');
       router.refresh();
       showNotification({

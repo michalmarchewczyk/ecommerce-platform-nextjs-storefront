@@ -6,6 +6,28 @@
   &:hover {
 	box-shadow: var(--mantine-shadow-md);
   }
+
+  .cartButton {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s var(--mantine-transition-timing-function);
+  }
+
+  &:hover .cartButton {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 10;
 }
 
 .photo {
@@ -22,4 +44,13 @@
   color: var(--mantine-color-gray-6);
   margin-left: -2px;
   margin-right: -2px;
+}
+
+.cartButton {
+  display: block;
+  position: absolute;
+  bottom: 6px;
+  right: 10px;
+  z-index: 20;
+  border: 10px solid transparent;
 }

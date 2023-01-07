@@ -9,9 +9,11 @@ import {
   Rating,
   Flex,
   Center,
+  Box,
 } from '../../lib/components/wrappers';
 import styles from './ProductCard.module.scss';
 import Price from './products/Price';
+import ProductCartButton from './products/ProductCartButton';
 
 async function getProduct(id: number) {
   return productsApi.getProduct({ id });
@@ -40,16 +42,8 @@ export default async function ProductCard({
   const photoUrl = `http://localhost/products/${product.id}/photos/${photoId}?thumbnail=false`;
 
   return (
-    <Card
-      w={240}
-      p="lg"
-      mx="auto"
-      mah={370}
-      h={370}
-      className={styles.card}
-      component={Link}
-      href={`/products/${product.id}`}
-    >
+    <Card w={240} p="lg" mx="auto" mah={370} h={370} className={styles.card}>
+      <Link href={`/products/${product.id}`} className={styles.link} />
       <CardSection h={236} px={2} className={styles.photo}>
         {photoId ? (
           <Image src={photoUrl} />
@@ -72,6 +66,9 @@ export default async function ProductCard({
         {/* @ts-expect-error Server Component */}
         <Price price={product.price} />
       </Text>
+      <Box className={styles.cartButton}>
+        <ProductCartButton product={product} simple />
+      </Box>
     </Card>
   );
 }
