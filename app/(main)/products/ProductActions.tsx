@@ -1,8 +1,9 @@
 'use client';
 
 import { Button, Flex, NumberInput, Text } from '@mantine/core';
-import { IconHeartPlus, IconShare, IconShoppingCartPlus } from '@tabler/icons';
+import { IconHeartPlus, IconShoppingCartPlus } from '@tabler/icons';
 import { Product } from '../../../lib/api';
+import ProductShareButton from './ProductShareButton';
 
 export default function ProductActions({ product }: { product: Product }) {
   return (
@@ -42,14 +43,7 @@ export default function ProductActions({ product }: { product: Product }) {
         >
           Save
         </Button>
-        <Button
-          leftIcon={<IconShare />}
-          radius="xl"
-          size="lg"
-          variant="outline"
-        >
-          Share
-        </Button>
+        <ProductShareButton />
       </Flex>
     </>
   );

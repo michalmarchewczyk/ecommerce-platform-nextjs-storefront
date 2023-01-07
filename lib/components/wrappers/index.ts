@@ -31,6 +31,10 @@ import Checkbox from './Checkbox';
 import CheckboxGroup from './Checkbox.Group';
 import AspectRatio from './AspectRatio';
 import Table from './Table';
+import Menu from './Menu';
+import MenuTarget from './Menu.Target';
+import MenuDropdown from './Menu.Dropdown';
+import MenuItem from './Menu.Item';
 
 export {
   ActionIcon,
@@ -66,4 +70,8 @@ export {
   CheckboxGroup,
   AspectRatio,
   Table,
+  Menu,
+  MenuTarget,
+  MenuDropdown,
+  MenuItem,
 };
