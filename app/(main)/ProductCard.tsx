@@ -11,6 +11,7 @@ import {
   Center,
 } from '../../lib/components/wrappers';
 import styles from './ProductCard.module.scss';
+import Price from './products/Price';
 
 async function getProduct(id: number) {
   return productsApi.getProduct({ id });
@@ -68,7 +69,8 @@ export default async function ProductCard({
         </Text>
       </Flex>
       <Text fz={24} fw={600} sx={{ position: 'absolute', bottom: 8 }}>
-        $ {product.price}
+        {/* @ts-expect-error Server Component */}
+        <Price price={product.price} />
       </Text>
     </Card>
   );

@@ -10,7 +10,7 @@ import DrawerCategory from './DrawerCategory';
 
 async function getMainCategories() {
   const categoryGroups = await categoriesApi.getCategoryGroups();
-  return categoryGroups.find((g) => g.name === 'main')?.categories;
+  return categoryGroups.find((g) => g.name === 'main')?.categories ?? [];
 }
 
 export default async function MainHeader() {

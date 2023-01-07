@@ -29,6 +29,8 @@ import List from './List';
 import ListItem from './List.Item';
 import Checkbox from './Checkbox';
 import CheckboxGroup from './Checkbox.Group';
+import AspectRatio from './AspectRatio';
+import Table from './Table';
 
 export {
   ActionIcon,
@@ -62,4 +64,6 @@ export {
   ListItem,
   Checkbox,
   CheckboxGroup,
+  AspectRatio,
+  Table,
 };

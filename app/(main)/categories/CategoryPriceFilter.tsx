@@ -58,7 +58,6 @@ export default function CategoryPriceFilter({
         value={priceRange}
         onChange={updatePriceRange}
         step={1}
-        label={(value) => `$ ${value}`}
       />
       <Group position="apart" spacing={0}>
         <Input

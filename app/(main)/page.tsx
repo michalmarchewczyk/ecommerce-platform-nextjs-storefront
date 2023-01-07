@@ -3,7 +3,7 @@ import CategorySection from './CategorySection';
 
 async function getFeaturedCategories() {
   const categoryGroups = await categoriesApi.getCategoryGroups();
-  return categoryGroups.find((g) => g.name === 'featured')?.categories;
+  return categoryGroups.find((g) => g.name === 'featured')?.categories ?? [];
 }
 
 export default async function Page() {
