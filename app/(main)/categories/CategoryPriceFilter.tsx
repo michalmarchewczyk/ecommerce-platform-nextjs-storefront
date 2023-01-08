@@ -19,7 +19,7 @@ export default function CategoryPriceFilter({
     Math.floor(priceMin),
     Math.ceil(priceMax),
   ]);
-  const [debounced] = useDebouncedValue(priceRange, 500);
+  const [debounced] = useDebouncedValue(priceRange, 200);
 
   useEffect(() => {
     if (

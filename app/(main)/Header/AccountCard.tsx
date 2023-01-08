@@ -1,4 +1,11 @@
-import { IconUser } from '@tabler/icons';
+import {
+  IconFileInvoice,
+  IconHeart,
+  IconLogin,
+  IconLogout,
+  IconUser,
+  IconUserPlus,
+} from '@tabler/icons';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { usersApi } from '../../../lib/api';
@@ -10,6 +17,11 @@ import {
   Button,
   Divider,
   Stack,
+  Avatar,
+  Center,
+  Text,
+  Box,
+  Flex,
 } from '../../../lib/components/wrappers';
 
 async function getAccount() {
@@ -32,6 +44,7 @@ async function getAccount() {
 
 export default async function AccountCard() {
   const data = await getAccount();
+  const initials = `${data?.firstName?.[0] ?? ''}${data?.lastName?.[0] ?? ''}`;
 
   return (
     <HoverCard
@@ -43,26 +56,101 @@ export default async function AccountCard() {
       zIndex={2000}
     >
       <HoverCardTarget>
-        <ActionIcon size="lg">
-          <IconUser size={26} />
-        </ActionIcon>
+        {data ? (
+          <Avatar
+            color="indigo"
+            size={44}
+            radius="xl"
+            sx={{ cursor: 'pointer' }}
+          >
+            {initials}
+          </Avatar>
+        ) : (
+          <ActionIcon size="xl" radius="xl">
+            <IconUser size="26" />
+          </ActionIcon>
+        )}
       </HoverCardTarget>
       <HoverCardDropdown>
         {data ? (
-          <Stack>
-            {data.email}
-            <Divider />
-            <Button variant="light" component={Link} href="/logout">
+          <Stack spacing="xs">
+            <Flex gap="sm" sx={{ overflow: 'hidden' }} align="center">
+              <Avatar color="indigo" size={60} radius={30}>
+                {initials}
+              </Avatar>
+              <Box sx={{ width: '132px', overflow: 'hidden' }}>
+                <Text
+                  fz={18}
+                  fw={600}
+                  lineClamp={1}
+                  sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+                >
+                  {data.firstName} {data.lastName}
+                </Text>
+                <Text
+                  fz={16}
+                  fw={500}
+                  c="gray.7"
+                  lineClamp={1}
+                  mt={-3}
+                  sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+                >
+                  {data.email}
+                </Text>
+              </Box>
+            </Flex>
+            <Divider mx="-md" my={4} />
+            <Button
+              component={Link}
+              href="/account"
+              leftIcon={<IconUser />}
+              variant="light"
+            >
+              My account
+            </Button>
+            <Button
+              component={Link}
+              href="/account/orders"
+              leftIcon={<IconFileInvoice />}
+              variant="light"
+            >
+              My orders
+            </Button>
+            <Button
+              component={Link}
+              href="/account/wishlists"
+              leftIcon={<IconHeart />}
+              variant="light"
+            >
+              My wishlists
+            </Button>
+            <Divider mx="-md" my={4} />
+            <Button
+              variant="filled"
+              component={Link}
+              href="/logout"
+              leftIcon={<IconLogout />}
+            >
               Sign out
             </Button>
           </Stack>
         ) : (
           <Stack spacing="sm">
-            <Button component={Link} href="/login">
+            <Center h={60}>
+              <Text fz={20} fw={400} c="gray.6">
+                You are not signed in
+              </Text>
+            </Center>
+            <Divider mx="-md" />
+            <Button component={Link} href="/login" leftIcon={<IconLogin />}>
               Sign in
             </Button>
-            <Divider />
-            <Button variant="light" component={Link} href="/register">
+            <Button
+              variant="light"
+              component={Link}
+              href="/register"
+              leftIcon={<IconUserPlus />}
+            >
               Create account
             </Button>
           </Stack>

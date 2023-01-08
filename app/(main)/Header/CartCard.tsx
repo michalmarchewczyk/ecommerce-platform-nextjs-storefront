@@ -54,8 +54,9 @@ export default async function CartCard() {
           size={cart.items.length > 0 ? 18 : 0}
           label={cart.items.length}
           showZero={false}
+          offset={6}
         >
-          <ActionIcon size="lg">
+          <ActionIcon size="xl" radius="xl">
             <IconShoppingCart size={26} />
           </ActionIcon>
         </Indicator>

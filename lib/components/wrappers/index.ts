@@ -36,6 +36,7 @@ import MenuTarget from './Menu.Target';
 import MenuDropdown from './Menu.Dropdown';
 import MenuItem from './Menu.Item';
 import Indicator from './Indicator';
+import Avatar from './Avatar';
 
 export {
   ActionIcon,
@@ -76,4 +77,5 @@ export {
   MenuDropdown,
   MenuItem,
   Indicator,
+  Avatar,
 };
