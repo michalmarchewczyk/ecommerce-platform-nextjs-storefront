@@ -8,9 +8,19 @@ import {
   IconShare,
 } from '@tabler/icons';
 import { useClipboard } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
 
-export default function ProductShareButton() {
+export default function ProductShareButton({
+  productId,
+}: {
+  productId: number;
+}) {
   const clipboard = useClipboard();
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  useEffect(() => {
+    setCurrentUrl(`${window.location.origin}/products/${productId}`);
+  }, [productId]);
 
   return (
     <Menu radius="xl" shadow="lg" withinPortal position="bottom">
@@ -28,7 +38,7 @@ export default function ProductShareButton() {
         <Menu.Item
           icon={<IconBrandFacebook size={24} />}
           component="a"
-          href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
           target="_blank"
         >
           <Text fw={500} fz={18}>
@@ -38,7 +48,7 @@ export default function ProductShareButton() {
         <Menu.Item
           icon={<IconBrandTwitter size={24} />}
           component="a"
-          href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+          href={`https://twitter.com/intent/tweet?url=${currentUrl}`}
           target="_blank"
         >
           <Text fw={500} fz={18}>
@@ -47,7 +57,7 @@ export default function ProductShareButton() {
         </Menu.Item>
         <Menu.Item
           icon={<IconCopy size={24} />}
-          onClick={() => clipboard.copy(window.location.href)}
+          onClick={() => clipboard.copy(currentUrl)}
         >
           <Text fw={500} fz={18}>
             {clipboard.copied ? 'Copied' : 'Copy link'}

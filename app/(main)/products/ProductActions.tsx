@@ -24,7 +24,7 @@ export default function ProductActions({ product }: { product: Product }) {
         >
           Save
         </Button>
-        <ProductShareButton />
+        <ProductShareButton productId={product.id} />
       </Flex>
     </>
   );
