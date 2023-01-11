@@ -46,7 +46,14 @@ export default async function ProductCard({
       <Link href={`/products/${product.id}`} className={styles.link} />
       <CardSection h={236} px={2} className={styles.photo}>
         {photoId ? (
-          <Image src={photoUrl} />
+          <Image
+            src={photoUrl}
+            mah="100%"
+            maw="100%"
+            fit="contain"
+            width={234}
+            height={236}
+          />
         ) : (
           <Center className={styles.photoPlaceholder}>
             <IconPackage size={120} strokeWidth={0.8} />
@@ -57,7 +64,7 @@ export default async function ProductCard({
         {product.name}
       </Text>
       <Flex align="center">
-        <Rating value={ratings.average} fractions={2} readOnly />
+        <Rating value={ratings.average} fractions={2} readOnly ml={-3} />
         <Text fw={400} fz="md" ml={4} c="gray.7">
           ({ratings.count})
         </Text>

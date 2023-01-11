@@ -33,6 +33,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
       <Carousel
         height="100%"
         h="100%"
+        w="100%"
         controlSize={36}
         align="start"
         slideGap={0}
@@ -60,7 +61,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
         }}
       >
         {photosUrls.map((url) => (
-          <CarouselSlide key={url} h="100%">
+          <CarouselSlide key={url} h="100%" w="100%">
             <Image
               src={url}
               fit="contain"
