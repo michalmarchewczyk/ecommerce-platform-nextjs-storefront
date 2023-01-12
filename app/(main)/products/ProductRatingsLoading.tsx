@@ -7,7 +7,7 @@ import {
   Stack,
   Text,
 } from '../../../lib/components/wrappers';
-import ProductNavigationAnchor from './ProductNavigationAnchor';
+import PageNavigationAnchor from './PageNavigationAnchor';
 
 export default function ProductRatingsLoading() {
   return (
@@ -15,7 +15,7 @@ export default function ProductRatingsLoading() {
       <Text fz={24} fw={600} mb="lg">
         Ratings
       </Text>
-      <ProductNavigationAnchor label="ratings" />
+      <PageNavigationAnchor label="ratings" />
       <Paper withBorder w="100%" px="sm" mb="md">
         <Flex>
           <Box p="md">

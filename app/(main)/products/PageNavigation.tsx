@@ -1,60 +1,35 @@
 'use client';
 
 import { Flex, MediaQuery, SegmentedControl, Text } from '@mantine/core';
-import {
-  IconAlignJustified,
-  IconList,
-  IconPhoto,
-  IconStar,
-} from '@tabler/icons';
 import { useWindowEvent } from '@mantine/hooks';
 import { useState } from 'react';
 
-export default function ProductNavigation() {
+interface PageNavigationItem {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}
+
+export default function PageNavigation({
+  items,
+}: {
+  items: PageNavigationItem[];
+}) {
   const [hash, setHash] = useState('');
 
   useWindowEvent('hashchange', () => {
     setHash(window.location.hash.replace('#', ''));
   });
 
-  const items = [
-    {
-      label: (
-        <Flex py={4} px={4}>
-          <IconPhoto size={24} />
-          <Text ml={12}>Photos</Text>
-        </Flex>
-      ),
-      value: '',
-    },
-    {
-      label: (
-        <Flex py={4} px={4}>
-          <IconAlignJustified size={24} />
-          <Text ml={12}>Description</Text>
-        </Flex>
-      ),
-      value: 'description',
-    },
-    {
-      label: (
-        <Flex py={4} px={4}>
-          <IconList size={24} />
-          <Text ml={12}>Details</Text>
-        </Flex>
-      ),
-      value: 'details',
-    },
-    {
-      label: (
-        <Flex py={4} px={4}>
-          <IconStar size={24} />
-          <Text ml={12}>Ratings</Text>
-        </Flex>
-      ),
-      value: 'ratings',
-    },
-  ];
+  const itemsData = items.map((item) => ({
+    label: (
+      <Flex py={4} px={4}>
+        {item.icon}
+        <Text ml={12}>{item.label}</Text>
+      </Flex>
+    ),
+    value: item.value,
+  }));
 
   const update = (value: string) => {
     if (value === '') {
@@ -63,14 +38,14 @@ export default function ProductNavigation() {
     }
     document
       .getElementById(`nav-${value}`)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   return (
     <>
       <MediaQuery query="(max-width: 750px)" styles={{ display: 'none' }}>
         <SegmentedControl
-          sx={{ position: 'sticky', top: 90 }}
+          sx={{ position: 'sticky', top: 90, zIndex: 100 }}
           fullWidth
           orientation="vertical"
           size="md"
@@ -89,7 +64,7 @@ export default function ProductNavigation() {
               boxShadow: 'var(--mantine-shadow-sm)',
             },
           }}
-          data={items}
+          data={itemsData}
           onChange={update}
         />
       </MediaQuery>
@@ -114,7 +89,7 @@ export default function ProductNavigation() {
               boxShadow: 'var(--mantine-shadow-sm)',
             },
           }}
-          data={items}
+          data={itemsData}
           onChange={update}
         />
       </MediaQuery>

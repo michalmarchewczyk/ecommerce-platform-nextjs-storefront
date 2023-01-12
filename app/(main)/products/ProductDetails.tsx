@@ -1,15 +1,15 @@
 import { Product } from '../../../lib/api';
 import { Box, Table, Text } from '../../../lib/components/wrappers';
 import styles from './ProductDetails.module.scss';
-import ProductNavigationAnchor from './ProductNavigationAnchor';
+import PageNavigationAnchor from './PageNavigationAnchor';
 
 export default function ProductDetails({ product }: { product: Product }) {
   return (
-    <Box mt="lg" mb="xl">
+    <Box mt="lg" mb="xl" pos="relative">
       <Text fz={24} fw={600} mb="lg">
         Details
       </Text>
-      <ProductNavigationAnchor label="details" />
+      <PageNavigationAnchor label="details" />
       {product.attributes.length === 0 && (
         <Text fz={36} fw={400} c="gray.6" align="center">
           No details available

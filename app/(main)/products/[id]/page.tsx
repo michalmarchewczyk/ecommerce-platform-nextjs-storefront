@@ -1,4 +1,10 @@
 import { Suspense } from 'react';
+import {
+  IconAlignJustified,
+  IconList,
+  IconPhoto,
+  IconStar,
+} from '@tabler/icons';
 import { productRatingsApi, productsApi } from '../../../../lib/api';
 import ProductPhotos from '../ProductPhotos';
 import {
@@ -10,7 +16,7 @@ import {
 import ProductHeader from '../ProductHeader';
 import ProductDescription from '../ProductDescription';
 import ProductDetails from '../ProductDetails';
-import ProductNavigation from '../ProductNavigation';
+import PageNavigation from '../PageNavigation';
 import ProductRatings from '../ProductRatings';
 import ProductRatingsLoading from '../ProductRatingsLoading';
 
@@ -64,10 +70,34 @@ export default async function Page({
               position: 'sticky',
               top: '32px',
               marginBottom: '-64px',
+              zIndex: 100,
             },
           }}
         >
-          <ProductNavigation />
+          <PageNavigation
+            items={[
+              {
+                label: 'Photos',
+                icon: <IconPhoto size={24} />,
+                value: '',
+              },
+              {
+                label: 'Description',
+                icon: <IconAlignJustified size={24} />,
+                value: 'description',
+              },
+              {
+                label: 'Details',
+                icon: <IconList size={24} />,
+                value: 'details',
+              },
+              {
+                label: 'Ratings',
+                icon: <IconStar size={24} />,
+                value: 'ratings',
+              },
+            ]}
+          />
         </Box>
         <Box
           pt={32}

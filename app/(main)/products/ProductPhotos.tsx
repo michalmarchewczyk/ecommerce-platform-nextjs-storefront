@@ -6,7 +6,7 @@ import {
   Paper,
 } from '../../../lib/components/wrappers';
 import { productsApi } from '../../../lib/api';
-import ProductNavigationAnchor from './ProductNavigationAnchor';
+import PageNavigationAnchor from './PageNavigationAnchor';
 
 async function getProductPhotosUrls(id: number) {
   const product = await productsApi.getProduct({ id });
@@ -29,7 +29,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
 
   return (
     <Paper shadow="sm" withBorder radius="lg">
-      <ProductNavigationAnchor label="" />
+      <PageNavigationAnchor label="" />
       <Carousel
         height="100%"
         h="100%"

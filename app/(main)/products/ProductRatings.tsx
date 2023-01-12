@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from '../../../lib/components/wrappers';
-import ProductNavigationAnchor from './ProductNavigationAnchor';
+import PageNavigationAnchor from './PageNavigationAnchor';
 import { Product, productRatingsApi } from '../../../lib/api';
 import ProductRatingItem from './ProductRatingItem';
 
@@ -20,8 +20,9 @@ async function getProductRatings(id: number) {
   const average =
     ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length || 0;
   const count = ratings.length;
-  // eslint-disable-next-line no-promise-executor-return
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 100);
+  });
   return { average, count, ratings };
 }
 
@@ -50,11 +51,11 @@ export default async function ProductRatings({
   };
 
   return (
-    <Box mt="lg" mb="xl">
+    <Box mt="lg" mb="xl" pos="relative">
       <Text fz={24} fw={600} mb="lg">
         Ratings
       </Text>
-      <ProductNavigationAnchor label="ratings" />
+      <PageNavigationAnchor label="ratings" />
       <Paper withBorder w="100%" px="sm" mb="md">
         <Flex>
           <Box p="md">
@@ -66,8 +67,16 @@ export default async function ProductRatings({
               {count} ratings
             </Text>
           </Box>
-          <Divider orientation="vertical" mx="sm" />
-          <Stack spacing={2} p="md">
+          <Divider
+            orientation="vertical"
+            mx="sm"
+            sx={{ '@media (max-width: 750px)': { display: 'none' } }}
+          />
+          <Stack
+            spacing={2}
+            p="md"
+            sx={{ '@media (max-width: 750px)': { display: 'none' } }}
+          >
             {getRatingBar(5)}
             {getRatingBar(4)}
             {getRatingBar(3)}
