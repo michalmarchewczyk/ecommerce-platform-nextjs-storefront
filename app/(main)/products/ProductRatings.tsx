@@ -1,17 +1,103 @@
-import { Box, Text } from '../../../lib/components/wrappers';
+import {
+  Box,
+  Divider,
+  Flex,
+  Paper,
+  Progress,
+  Rating,
+  Stack,
+  Text,
+} from '../../../lib/components/wrappers';
 import ProductNavigationAnchor from './ProductNavigationAnchor';
-import { Product } from '../../../lib/api';
+import { Product, productRatingsApi } from '../../../lib/api';
+import ProductRatingItem from './ProductRatingItem';
 
-export default function ProductRatings({ product }: { product: Product }) {
+async function getProductRatings(id: number) {
+  const ratings = await productRatingsApi.getProductRatings(
+    { productId: id },
+    { next: { revalidate: 10 } },
+  );
+  const average =
+    ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length || 0;
+  const count = ratings.length;
+  // eslint-disable-next-line no-promise-executor-return
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  return { average, count, ratings };
+}
+
+export default async function ProductRatings({
+  product,
+}: {
+  product: Product;
+}) {
+  const { average, count, ratings } = await getProductRatings(product.id);
+  const withComments = ratings.filter((r) => r.comment);
+
+  const getRatingBar = (rating: number) => {
+    const ratingCount = ratings.filter((r) => r.rating === rating).length;
+    const percent = (ratingCount / count) * 100 || 0;
+    return (
+      <Flex w={260} align="center" gap="sm">
+        <Text fz={16} fw={400}>
+          {rating}
+        </Text>
+        <Progress value={percent} color="indigo" size="md" sx={{ flex: 1 }} />
+        <Text fz={16} fw={400} color="gray.7" w={90}>
+          {ratingCount} ({percent.toFixed(0)}%)
+        </Text>
+      </Flex>
+    );
+  };
+
   return (
     <Box mt="lg" mb="xl">
       <Text fz={24} fw={600} mb="lg">
         Ratings
       </Text>
       <ProductNavigationAnchor label="ratings" />
-      <Text fz={16} fw={400} lh={1.5}>
-        {JSON.stringify(product.ratings)}
-      </Text>
+      <Paper withBorder w="100%" px="sm" mb="md">
+        <Flex>
+          <Box p="md">
+            <Text fz={28} fw={600} mb="xs">
+              {average.toFixed(1)} / 5
+            </Text>
+            <Rating value={average} fractions={4} readOnly size="md" ml={-3} />
+            <Text fz={16} fw={400} mt="md">
+              {count} ratings
+            </Text>
+          </Box>
+          <Divider orientation="vertical" mx="sm" />
+          <Stack spacing={2} p="md">
+            {getRatingBar(5)}
+            {getRatingBar(4)}
+            {getRatingBar(3)}
+            {getRatingBar(2)}
+            {getRatingBar(1)}
+          </Stack>
+        </Flex>
+      </Paper>
+      {withComments.length === 0 && (
+        <Text
+          fz={36}
+          color="gray.6"
+          fw={400}
+          align="center"
+          w="100%"
+          h={160}
+          lh="160px"
+        >
+          No comments found
+        </Text>
+      )}
+      <Stack w="100%" spacing="md">
+        {withComments.length > 0 && (
+          <>
+            {withComments.map((rating) => (
+              <ProductRatingItem key={rating.id} rating={rating} />
+            ))}
+          </>
+        )}
+      </Stack>
     </Box>
   );
 }

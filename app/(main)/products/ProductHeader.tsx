@@ -36,7 +36,13 @@ export default function ProductHeader({
           {product.name}
         </Title>
         <Flex>
-          <Rating value={ratings.average} fractions={2} readOnly size="md" />
+          <Rating
+            value={ratings.average}
+            fractions={2}
+            readOnly
+            size="md"
+            ml={-3}
+          />
           <Text fw={400} fz="md" ml={4} c="gray.7" mt={-2}>
             ({ratings.count})
           </Text>

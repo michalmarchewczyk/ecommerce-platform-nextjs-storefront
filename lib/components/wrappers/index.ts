@@ -37,6 +37,8 @@ import MenuDropdown from './Menu.Dropdown';
 import MenuItem from './Menu.Item';
 import Indicator from './Indicator';
 import Avatar from './Avatar';
+import Progress from './Progress';
+import Skeleton from './Skeleton';
 
 export {
   ActionIcon,
@@ -78,4 +80,6 @@ export {
   MenuItem,
   Indicator,
   Avatar,
+  Progress,
+  Skeleton,
 };

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { productRatingsApi, productsApi } from '../../../../lib/api';
 import ProductPhotos from '../ProductPhotos';
 import {
@@ -11,6 +12,7 @@ import ProductDescription from '../ProductDescription';
 import ProductDetails from '../ProductDetails';
 import ProductNavigation from '../ProductNavigation';
 import ProductRatings from '../ProductRatings';
+import ProductRatingsLoading from '../ProductRatingsLoading';
 
 // export async function generateStaticParams() {
 //   const products = await productsApi.getProducts();
@@ -51,7 +53,7 @@ export default async function Page({
         </AspectRatio>
         <ProductHeader product={product} ratings={ratings} />
       </Flex>
-      <Flex direction="row" gap={40} wrap="wrap">
+      <Flex direction="row" gap={40} wrap="wrap" w="100%">
         <Box
           w={180}
           miw={180}
@@ -81,7 +83,10 @@ export default async function Page({
           <Divider mt={60} />
           <ProductDetails product={product} />
           <Divider mt={60} />
-          <ProductRatings product={product} />
+          <Suspense fallback={<ProductRatingsLoading />}>
+            {/* @ts-expect-error Server Component */}
+            <ProductRatings product={product} />
+          </Suspense>
         </Box>
       </Flex>
     </Box>
