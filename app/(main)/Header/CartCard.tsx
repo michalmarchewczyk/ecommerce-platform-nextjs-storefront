@@ -56,7 +56,7 @@ export default async function CartCard() {
           showZero={false}
           offset={6}
         >
-          <ActionIcon size="xl" radius="xl">
+          <ActionIcon size="xl" radius="xl" component={Link} href="/cart">
             <IconShoppingCart size={26} />
           </ActionIcon>
         </Indicator>

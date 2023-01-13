@@ -25,7 +25,15 @@ export default function CartCardItem({ item }: { item: CartItem }) {
         }}
       >
         {photoId ? (
-          <Image src={photoUrl} width={60} height={60} radius="md" />
+          <Image
+            src={photoUrl}
+            width={60}
+            height={60}
+            radius="md"
+            mah="100%"
+            maw="100%"
+            fit="contain"
+          />
         ) : (
           <Center
             w={60}

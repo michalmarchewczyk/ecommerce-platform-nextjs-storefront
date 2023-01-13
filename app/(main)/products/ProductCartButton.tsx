@@ -27,7 +27,7 @@ export default function ProductCartButton({
     }));
     const item = items.find((i) => i.productId === product.id);
     if (item) {
-      item.quantity += quantity;
+      item.quantity = Math.min(product.stock, item.quantity + quantity);
     } else {
       items.push({ quantity, productId: product.id });
     }
