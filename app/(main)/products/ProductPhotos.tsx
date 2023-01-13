@@ -1,7 +1,8 @@
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
+import { IconChevronLeft, IconChevronRight, IconPhotoOff } from '@tabler/icons';
 import {
   Carousel,
   CarouselSlide,
+  Center,
   Image,
   Paper,
 } from '../../../lib/components/wrappers';
@@ -37,9 +38,10 @@ export default async function ProductPhotos({ id }: { id: number }) {
         controlSize={36}
         align="start"
         slideGap={0}
-        withIndicators
+        withIndicators={photosUrls.length > 1}
         nextControlIcon={<IconChevronRight size={24} />}
         previousControlIcon={<IconChevronLeft size={24} />}
+        draggable={photosUrls.length > 1}
         styles={{
           indicator: {
             width: 12,
@@ -78,6 +80,15 @@ export default async function ProductPhotos({ id }: { id: number }) {
             />
           </CarouselSlide>
         ))}
+        {photosUrls.length === 0 && (
+          <Center h="100%" w="100%" bg="gray.2">
+            <IconPhotoOff
+              size={160}
+              strokeWidth={0.8}
+              color="var(--mantine-color-gray-6)"
+            />
+          </Center>
+        )}
       </Carousel>
     </Paper>
   );
