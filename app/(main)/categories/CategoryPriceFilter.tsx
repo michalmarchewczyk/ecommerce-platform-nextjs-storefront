@@ -34,6 +34,9 @@ export default function CategoryPriceFilter({
       params.get('priceMax') !== debounced[1].toString()
     ) {
       const newParams = new URLSearchParams(params);
+      if (newParams.has('page')) {
+        newParams.delete('page');
+      }
       newParams.set('priceMin', debounced[0].toString());
       newParams.set('priceMax', debounced[1].toString());
       router.push(`${pathname}?${newParams.toString()}`);

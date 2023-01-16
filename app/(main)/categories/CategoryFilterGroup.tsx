@@ -24,6 +24,9 @@ export default function CategoryFilterGroup({
   const getHref = (value: string) => {
     const key = attributeType.id.toString();
     const newParams = new URLSearchParams(params);
+    if (newParams.has('page')) {
+      newParams.delete('page');
+    }
     if (newParams.has(key)) {
       if (newParams.getAll(key).includes(value)) {
         const newValues = newParams.getAll(key).filter((v) => v !== value);
