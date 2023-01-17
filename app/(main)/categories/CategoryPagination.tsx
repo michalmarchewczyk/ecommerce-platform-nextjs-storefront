@@ -2,7 +2,7 @@
 
 import { Pagination, Flex } from '@mantine/core';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PAGE_SIZE = 12;
 
@@ -23,6 +23,17 @@ export default function CategoryPagination({
     router.push(`${pathname}?${newParams.toString()}`);
     setPage(newPage);
   };
+
+  useEffect(() => {
+    if (params.has('page')) {
+      const newPage = parseInt(params.get('page') ?? '1', 10);
+      if (newPage !== page) {
+        setPage(newPage);
+      }
+    } else {
+      setPage(1);
+    }
+  }, [params]);
 
   return (
     <Flex w="100%" py="sm" sx={{ overflow: 'hidden' }} justify="center">
