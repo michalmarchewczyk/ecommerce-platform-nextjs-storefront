@@ -3,7 +3,10 @@ import {
   CartsApi,
   CategoriesApi,
   Configuration,
+  DeliveryMethodsApi,
+  OrdersApi,
   PagesApi,
+  PaymentMethodsApi,
   ProductRatingsApi,
   ProductsApi,
   SettingsApi,
@@ -32,6 +35,9 @@ const categoriesApi = new CategoriesApi(configuration);
 const productsApi = new ProductsApi(configuration);
 const productRatingsApi = new ProductRatingsApi(configuration);
 const cartsApi = new CartsApi(configuration);
+const deliveryMethodsApi = new DeliveryMethodsApi(configuration);
+const paymentMethodsApi = new PaymentMethodsApi(configuration);
+const ordersApi = new OrdersApi(configuration);
 
 export {
   authApi,
@@ -42,4 +48,7 @@ export {
   productsApi,
   productRatingsApi,
   cartsApi,
+  deliveryMethodsApi,
+  paymentMethodsApi,
+  ordersApi,
 };

@@ -1,0 +1,82 @@
+'use client';
+
+import { IconPackage } from '@tabler/icons';
+import Link from 'next/link';
+import { Box, Center, Flex, Image, Text } from '@mantine/core';
+import { CartItem as CartItemModel } from '../../lib/api';
+import PriceClient from './PriceClient';
+
+export default function CheckoutItem({ item }: { item: CartItemModel }) {
+  const { product } = item;
+  const photoId = product.photosOrder
+    ? parseInt(product.photosOrder.split(',')[0], 10)
+    : product.photos[0]?.id;
+  const photoUrl = `http://localhost/products/${product.id}/photos/${photoId}?thumbnail=false`;
+
+  return (
+    <Flex
+      direction="row"
+      gap="md"
+      p={2}
+      px={16}
+      align="center"
+      sx={{
+        position: 'relative',
+        overflow: 'visible',
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+        '&:not(:last-child)': {
+          marginBottom: 'var(--mantine-spacing-md)',
+        },
+      }}
+    >
+      <Box
+        component={Link}
+        href={`/products/${item.product.id}`}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 100,
+          zIndex: 10,
+        }}
+      />
+      {photoId ? (
+        <Image
+          src={photoUrl}
+          width={40}
+          height={40}
+          radius="md"
+          mah="100%"
+          maw="100%"
+          fit="contain"
+        />
+      ) : (
+        <Center
+          w={40}
+          h={40}
+          sx={{
+            backgroundColor: 'var(--mantine-color-gray-2)',
+            color: 'var(--mantine-color-gray-6)',
+            borderRadius: 'var(--mantine-radius-md)',
+          }}
+        >
+          <IconPackage size={30} strokeWidth={1} />
+        </Center>
+      )}
+      <div>
+        <Text fz={18} fw={600} lineClamp={1}>
+          {item.quantity} x {product.name}
+        </Text>
+      </div>
+      <Box sx={{ flex: 1 }} />
+      <Flex direction="column" align="flex-end" gap="sm" sx={{ zIndex: 20 }}>
+        <Text fz={20} fw={600} lineClamp={1} sx={{ whiteSpace: 'nowrap' }}>
+          <PriceClient price={item.quantity * product.price} />
+        </Text>
+      </Flex>
+    </Flex>
+  );
+}
