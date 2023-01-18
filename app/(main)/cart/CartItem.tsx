@@ -29,7 +29,7 @@ export default function CartItem({ item }: { item: CartItemModel }) {
         borderRadius: 'var(--mantine-radius-md)',
         border: '1px solid transparent',
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'visible',
         '&:hover': {
           border: '1px solid var(--mantine-color-gray-4)',
           '> div:nth-child(3)': {
