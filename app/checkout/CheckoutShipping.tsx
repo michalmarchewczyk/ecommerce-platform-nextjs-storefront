@@ -1,16 +1,11 @@
 'use client';
 
-import { Button, Divider, Flex, Select, TextInput } from '@mantine/core';
-import { countries, getEmojiFlag } from 'countries-list';
-import useSWR from 'swr';
+import { Button, Divider, Flex, TextInput } from '@mantine/core';
+import dynamic from 'next/dynamic';
 import { useCheckoutFormContext } from './checkoutForm';
 import CheckoutShippingMethods from './CheckoutShippingMethods';
-import { settingsApi } from '../../lib/api';
 
-const countriesData = Object.entries(countries).map(([code, country]) => ({
-  value: code,
-  label: `${getEmojiFlag(code)} ${country.name} (${code})`,
-}));
+const CountrySelect = dynamic(() => import('./CountrySelect'));
 
 export default function CheckoutShipping({
   back,
@@ -20,16 +15,6 @@ export default function CheckoutShipping({
   next: () => void;
 }) {
   const form = useCheckoutFormContext();
-
-  const { data: countriesFilter } = useSWR('countriesFilter', () =>
-    settingsApi.getSettingValueByName({ name: 'Countries' }),
-  );
-
-  const filteredCountriesData =
-    countriesFilter
-      ?.split(',')
-      .map((code) => countriesData.find((c) => c.value === code))
-      .filter((v): v is { value: string; label: string } => !!v) ?? [];
 
   return (
     <Flex direction="column">
@@ -68,13 +53,12 @@ export default function CheckoutShipping({
             label="Postal code"
             {...form.getInputProps('delivery.postalCode')}
           />
-          <Select
+          <CountrySelect
             label="Country"
             searchable
             nothingFound="No countries found"
             withAsterisk
             {...form.getInputProps('delivery.country')}
-            data={filteredCountriesData}
           />
         </Flex>
       </Flex>
