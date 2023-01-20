@@ -2,9 +2,10 @@
 
 import { Select } from '@mantine/core';
 import useSWR from 'swr';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Noto_Color_Emoji } from '@next/font/google';
-import { countries, getEmojiFlag } from 'countries-list';
+import { countries, Country, getEmojiFlag } from 'countries-list';
+import { CountryCode, getCountryCallingCode } from 'libphonenumber-js';
 import { settingsApi } from '../../lib/api';
 
 const notoColorEmoji = Noto_Color_Emoji({
@@ -16,7 +17,9 @@ const notoColorEmoji = Noto_Color_Emoji({
 });
 
 export default function CountrySelect(
-  props: Omit<React.ComponentProps<typeof Select>, 'data'>,
+  props: Omit<React.ComponentProps<typeof Select>, 'data'> & {
+    type: 'normal' | 'phone';
+  },
 ) {
   const [filteredCountriesData, setFilteredCountriesData] = useState<
     { value: string; label: string }[]
@@ -26,10 +29,23 @@ export default function CountrySelect(
     settingsApi.getSettingValueByName({ name: 'Countries' }),
   );
 
-  const getData = async () => {
+  const formatCountry = (code: string, country: Country) => {
+    if (props.type === 'phone') {
+      try {
+        const callingCode = getCountryCallingCode(code as CountryCode);
+        return `${getEmojiFlag(code)}  +${callingCode}`;
+      } catch (e) {
+        return `${getEmojiFlag(code)}  ${country.name} (${code})`;
+      }
+    } else {
+      return `${getEmojiFlag(code)}  ${country.name} (${code})`;
+    }
+  };
+
+  const getData = () => {
     const countriesData = Object.entries(countries).map(([code, country]) => ({
       value: code,
-      label: `${getEmojiFlag(code)}  ${country.name} (${code})`,
+      label: formatCountry(code, country),
     }));
     setFilteredCountriesData(
       countriesFilter
@@ -38,6 +54,12 @@ export default function CountrySelect(
         .filter((v): v is { value: string; label: string } => !!v) ?? [],
     );
   };
+
+  useEffect(() => {
+    if (props.value && filteredCountriesData.length === 0) {
+      getData();
+    }
+  }, [props.value]);
 
   return (
     <Select
@@ -48,9 +70,15 @@ export default function CountrySelect(
       styles={{
         item: {
           fontFamily: 'Roboto, var(--font-noto-color-emoji), sans-serif',
+          '@-moz-document url-prefix()': {
+            fontFamily: 'Roboto, sans-serif',
+          },
         },
         input: {
           fontFamily: 'Roboto, var(--font-noto-color-emoji), sans-serif',
+          '@-moz-document url-prefix()': {
+            fontFamily: 'Roboto, sans-serif',
+          },
         },
       }}
     />

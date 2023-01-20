@@ -6,6 +6,7 @@ import { useCheckoutFormContext } from './checkoutForm';
 import CheckoutShippingMethods from './CheckoutShippingMethods';
 
 const CountrySelect = dynamic(() => import('./CountrySelect'));
+const PhoneInput = dynamic(() => import('./PhoneInput'));
 
 export default function CheckoutShipping({
   back,
@@ -32,7 +33,7 @@ export default function CheckoutShipping({
             withAsterisk
             {...form.getInputProps('contactEmail')}
           />
-          <TextInput
+          <PhoneInput
             label="Contact phone"
             withAsterisk
             {...form.getInputProps('contactPhone')}
@@ -58,6 +59,7 @@ export default function CheckoutShipping({
             searchable
             nothingFound="No countries found"
             withAsterisk
+            type="normal"
             {...form.getInputProps('delivery.country')}
           />
         </Flex>
@@ -70,7 +72,12 @@ export default function CheckoutShipping({
         </Button>
         <Button
           variant="filled"
-          onClick={next}
+          onClick={() => {
+            const { hasError } = form.validateField('contactPhone');
+            if (!hasError) {
+              next();
+            }
+          }}
           disabled={
             !form.isDirty('fullName') ||
             !form.isDirty('contactPhone') ||

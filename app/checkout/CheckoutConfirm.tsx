@@ -97,8 +97,7 @@ export default function CheckoutConfirm({ back }: { back: () => void }) {
             {form.values.fullName}
             <br />
             {form.values.contactEmail}
-            <br />
-            {form.values.contactPhone}
+            <br />+{form.values.contactPhone}
           </Text>
           <Text fw={700} fz={18} mt="sm">
             Delivery

@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons';
 import useSWR from 'swr';
 import { isEmail, isNotEmpty } from '@mantine/form';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import CheckoutShipping from './CheckoutShipping';
 import CheckoutPayment from './CheckoutPayment';
 import CheckoutConfirm from './CheckoutConfirm';
@@ -49,11 +50,19 @@ export default function Page() {
         methodId: -1,
       },
     },
-    validateInputOnChange: true,
+    validateInputOnChange: false,
     validateInputOnBlur: true,
     validate: {
       contactEmail: isEmail('Invalid email'),
-      contactPhone: isNotEmpty('Phone number is required'),
+      contactPhone: (value) => {
+        if (parseInt(value, 10) < 0) {
+          return 'Phone is required';
+        }
+        if (parseInt(value, 10) > 0 && !isValidPhoneNumber(`+${value}`)) {
+          return 'Invalid phone number';
+        }
+        return null;
+      },
       fullName: isNotEmpty('Enter your full name'),
       delivery: {
         address: isNotEmpty('Delivery address is required'),
@@ -75,8 +84,11 @@ export default function Page() {
       quantity: item.quantity,
     }));
     if (!orderItems) return;
+    const orderDto = { ...form.values, items: orderItems };
+    orderDto.contactPhone = `+${orderDto.contactPhone}`;
+    orderDto.delivery.postalCode = orderDto.delivery.postalCode || undefined;
     const order = await ordersApi.createOrder({
-      orderCreateDto: { ...form.values, items: orderItems },
+      orderCreateDto: orderDto,
     });
     setOrderId(order.id);
     updateStep(4);
