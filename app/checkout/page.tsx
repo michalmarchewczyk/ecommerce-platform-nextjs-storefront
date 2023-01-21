@@ -1,7 +1,7 @@
 'use client';
 
 import { Stepper } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   IconCash,
@@ -10,12 +10,14 @@ import {
   IconTruckDelivery,
 } from '@tabler/icons';
 import useSWR from 'swr';
-import { isEmail, isNotEmpty } from '@mantine/form';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 import CheckoutShipping from './CheckoutShipping';
 import CheckoutPayment from './CheckoutPayment';
 import CheckoutConfirm from './CheckoutConfirm';
-import { CheckoutFormProvider, useCheckoutForm } from './checkoutForm';
+import {
+  checkoutFormOptions,
+  CheckoutFormProvider,
+  useCheckoutForm,
+} from './checkoutForm';
 import CheckoutCompleted from './CheckoutCompleted';
 import { cartsApi, ordersApi } from '../../lib/api';
 
@@ -34,49 +36,24 @@ export default function Page() {
 
   const { data: cart } = useSWR('cart', () => cartsApi.getCart());
 
-  const form = useCheckoutForm({
-    initialValues: {
-      contactEmail: '',
-      contactPhone: '',
-      fullName: '',
-      delivery: {
-        methodId: -1,
-        address: '',
-        city: '',
-        postalCode: undefined,
-        country: '',
-      },
-      payment: {
-        methodId: -1,
-      },
-    },
-    validateInputOnChange: false,
-    validateInputOnBlur: true,
-    validate: {
-      contactEmail: isEmail('Invalid email'),
-      contactPhone: (value) => {
-        if (parseInt(value, 10) < 0) {
-          return 'Phone is required';
-        }
-        if (parseInt(value, 10) > 0 && !isValidPhoneNumber(`+${value}`)) {
-          return 'Invalid phone number';
-        }
-        return null;
-      },
-      fullName: isNotEmpty('Enter your full name'),
-      delivery: {
-        address: isNotEmpty('Delivery address is required'),
-        city: isNotEmpty('Delivery city is required'),
-        country: isNotEmpty('Delivery country is required'),
-        methodId: (value) =>
-          value === -1 ? 'Delivery method is required' : null,
-      },
-      payment: {
-        methodId: (value) =>
-          value === -1 ? 'Payment method is required' : null,
-      },
-    },
-  });
+  const form = useCheckoutForm(checkoutFormOptions);
+
+  useEffect(() => {
+    const storedValues = localStorage.getItem('checkout-form');
+    if (storedValues) {
+      try {
+        form.setValues(JSON.parse(storedValues));
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (form.isTouched()) {
+      localStorage.setItem('checkout-form', JSON.stringify(form.values));
+    }
+  }, [form.values]);
 
   const submit = async () => {
     const orderItems = cart?.items.map((item) => ({

@@ -20,12 +20,16 @@ export default function PhoneInput(
 
   useEffect(() => {
     if (!props.value) return;
-    const parsed = parsePhoneNumber(`+${props.value}`);
-    if (parsed) {
-      setCountry(parsed.country ?? null);
-      setPhone(parseInt(parsed.nationalNumber, 10));
+    try {
+      const parsed = parsePhoneNumber(`+${props.value}`);
+      if (parsed) {
+        setCountry(parsed.country ?? null);
+        setPhone(parseInt(parsed.nationalNumber, 10));
+      }
+    } catch (e) {
+      // ignore
     }
-  }, []);
+  }, [props.value]);
 
   const update = (c: string | null, p: number | undefined) => {
     if (!c || !p || !isSupportedCountry(c)) {

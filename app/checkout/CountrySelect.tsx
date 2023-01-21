@@ -25,7 +25,7 @@ export default function CountrySelect(
     { value: string; label: string }[]
   >([]);
 
-  const { data: countriesFilter } = useSWR('countriesFilter', () =>
+  const { data: countriesFilter, isLoading } = useSWR('countriesFilter', () =>
     settingsApi.getSettingValueByName({ name: 'Countries' }),
   );
 
@@ -43,6 +43,9 @@ export default function CountrySelect(
   };
 
   const getData = () => {
+    if (filteredCountriesData.length > 0) {
+      return;
+    }
     const countriesData = Object.entries(countries).map(([code, country]) => ({
       value: code,
       label: formatCountry(code, country),
@@ -56,10 +59,10 @@ export default function CountrySelect(
   };
 
   useEffect(() => {
-    if (props.value && filteredCountriesData.length === 0) {
+    if (props.value && !isLoading) {
       getData();
     }
-  }, [props.value]);
+  }, [props.value, isLoading]);
 
   return (
     <Select

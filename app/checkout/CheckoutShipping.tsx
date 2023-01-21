@@ -73,7 +73,13 @@ export default function CheckoutShipping({
         <Button
           variant="filled"
           onClick={() => {
-            const { hasError } = form.validateField('contactPhone');
+            let { hasError } = form.validateField('contactPhone');
+            hasError ||= form.validateField('contactEmail').hasError;
+            hasError ||= form.validateField('fullName').hasError;
+            hasError ||= form.validateField('delivery.address').hasError;
+            hasError ||= form.validateField('delivery.city').hasError;
+            hasError ||= form.validateField('delivery.country').hasError;
+            hasError ||= form.validateField('delivery.methodId').hasError;
             if (!hasError) {
               next();
             }
