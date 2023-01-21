@@ -7,7 +7,7 @@ import {
   IconUserPlus,
 } from '@tabler/icons';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { usersApi } from '../../../lib/api';
 import {
   ActionIcon,
@@ -25,15 +25,10 @@ import {
 } from '../../../lib/components/wrappers';
 
 async function getAccount() {
-  const reqCookies = cookies()
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join('; ');
+  const cookie = headers().get('cookie') ?? '';
   const req = usersApi.getCurrentUser({
     cache: 'no-store',
-    headers: {
-      Cookie: reqCookies,
-    },
+    headers: { cookie },
   });
   try {
     return await req;

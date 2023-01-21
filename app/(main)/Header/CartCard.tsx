@@ -1,5 +1,5 @@
 import { IconShoppingCart } from '@tabler/icons';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 import { cartsApi } from '../../../lib/api';
 import {
@@ -20,15 +20,10 @@ import Price from '../products/Price';
 import CartCardItem from './CartCardItem';
 
 async function getCart() {
-  const reqCookies = cookies()
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join('; ');
+  const cookie = headers().get('cookie') ?? '';
   return cartsApi.getCart({
     cache: 'no-store',
-    headers: {
-      Cookie: reqCookies,
-    },
+    headers: { cookie },
   });
 }
 

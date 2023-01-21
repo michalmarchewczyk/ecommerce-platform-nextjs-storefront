@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import {
   Center,
   Container,
@@ -15,15 +15,10 @@ import { cartsApi } from '../../lib/api';
 import Price from '../(main)/products/Price';
 
 async function getCart() {
-  const reqCookies = cookies()
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join('; ');
+  const cookie = headers().get('cookie') ?? '';
   const cart = await cartsApi.getCart({
     cache: 'no-store',
-    headers: {
-      Cookie: reqCookies,
-    },
+    headers: { cookie },
   });
   return {
     count: cart.items.length,

@@ -21,7 +21,7 @@ async function getCategory(categoryId: number) {
 
 async function getCategoryProducts(categoryId: number) {
   const products = await categoriesApi.getCategoryProducts({ id: categoryId });
-  return products.slice(0, 16);
+  return products.slice(0, 12);
 }
 
 export default async function CategorySection({
@@ -84,8 +84,7 @@ export default async function CategorySection({
         >
           {products.map((product) => (
             <CarouselSlide key={product.id}>
-              {/* @ts-expect-error Server Component */}
-              <ProductCard productId={product.id} />
+              <ProductCard product={product} />
             </CarouselSlide>
           ))}
           {products.length > 5 && (

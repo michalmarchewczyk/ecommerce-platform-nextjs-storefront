@@ -128,8 +128,7 @@ export default async function Page({
       >
         {products.map((product) => (
           <div key={product.id}>
-            {/* @ts-expect-error Server Component */}
-            <ProductCard productId={product.id} />
+            <ProductCard product={product} />
           </div>
         ))}
       </Flex>
