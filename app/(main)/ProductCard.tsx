@@ -2,7 +2,7 @@ import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Image from 'next/image';
-import { Product } from '../../lib/api';
+import { API_URL, Product } from '../../lib/api';
 import {
   Card,
   CardSection,
@@ -20,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
-  const photoUrl = `http://localhost/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
 
   return (
     <Card

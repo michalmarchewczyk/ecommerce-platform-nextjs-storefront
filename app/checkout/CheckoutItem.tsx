@@ -4,7 +4,7 @@ import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import { Box, Center, Flex, Text } from '@mantine/core';
 import Image from 'next/image';
-import { CartItem as CartItemModel } from '../../lib/api';
+import { API_URL, CartItem as CartItemModel } from '../../lib/api';
 import PriceClient from './PriceClient';
 
 export default function CheckoutItem({ item }: { item: CartItemModel }) {
@@ -12,7 +12,7 @@ export default function CheckoutItem({ item }: { item: CartItemModel }) {
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
-  const photoUrl = `http://localhost/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
 
   return (
     <Flex

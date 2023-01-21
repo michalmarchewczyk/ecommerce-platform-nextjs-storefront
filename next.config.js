@@ -8,9 +8,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: new URL(
-          process.env.API_PATH ?? 'http://localhost',
+          process.env.NEXT_PUBLIC_API_PATH ?? 'http://localhost',
         ).protocol.slice(0, -1),
-        hostname: new URL(process.env.API_PATH ?? 'http://localhost').hostname,
+        hostname: new URL(
+          process.env.NEXT_PUBLIC_API_PATH ?? 'http://localhost',
+        ).hostname,
       },
     ],
   },

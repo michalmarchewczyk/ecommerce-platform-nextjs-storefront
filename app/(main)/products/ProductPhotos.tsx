@@ -6,7 +6,7 @@ import {
   Center,
   Paper,
 } from '../../../lib/components/wrappers';
-import { productsApi } from '../../../lib/api';
+import { API_URL, productsApi } from '../../../lib/api';
 import PageNavigationAnchor from './PageNavigationAnchor';
 
 async function getProductPhotosUrls(id: number) {
@@ -21,7 +21,7 @@ async function getProductPhotosUrls(id: number) {
     });
   }
   return photos.map(
-    (photo) => `http://localhost/products/${product.id}/photos/${photo.id}`,
+    (photo) => `${API_URL}/products/${product.id}/photos/${photo.id}`,
   );
 }
 
