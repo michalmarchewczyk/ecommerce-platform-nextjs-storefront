@@ -13,14 +13,19 @@ export default function RootStyleRegistry({
   const cache = useEmotionCache();
   cache.compat = true;
 
-  useServerInsertedHTML(() => (
-    <style
-      data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(' ')}`}
-      dangerouslySetInnerHTML={{
-        __html: Object.values(cache.inserted).join(' '),
-      }}
-    />
-  ));
+  useServerInsertedHTML(() => {
+    const cacheKeys = Object.keys(cache.inserted);
+    const cacheValues = Object.values(cache.inserted);
+    cache.inserted = {};
+    return (
+      <style
+        data-emotion={`${cache.key} ${cacheKeys.join(' ')}`}
+        dangerouslySetInnerHTML={{
+          __html: cacheValues.join(' '),
+        }}
+      />
+    );
+  });
 
   return (
     <CacheProvider value={cache}>
