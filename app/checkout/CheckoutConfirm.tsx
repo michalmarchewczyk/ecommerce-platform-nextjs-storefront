@@ -2,6 +2,7 @@
 
 import { Box, Button, Divider, Flex, Text } from '@mantine/core';
 import useSWR from 'swr';
+import Link from 'next/link';
 import { useCheckoutFormContext } from './checkoutForm';
 import { cartsApi, deliveryMethodsApi, paymentMethodsApi } from '../../lib/api';
 import CheckoutItem from './CheckoutItem';
@@ -50,9 +51,22 @@ export default function CheckoutConfirm({ back }: { back: () => void }) {
       <Flex>
         <Box sx={{ flex: 1 }} pt={2} ml="-sm">
           <div>
-            {cart.items.map((item) => (
+            {cart.items.slice(0, 6).map((item) => (
               <CheckoutItem key={item.id} item={item} />
             ))}
+            {cart.items.length > 6 && (
+              <Button
+                variant="subtle"
+                component={Link}
+                target="_blank"
+                href="/cart"
+                w="100%"
+                color="gray.7"
+                size="md"
+              >
+                + {cart.items.length - 6} more items
+              </Button>
+            )}
           </div>
           <Divider mt="xs" mb="xs" />
           <Flex justify="space-between" px="sm" align="flex-end">

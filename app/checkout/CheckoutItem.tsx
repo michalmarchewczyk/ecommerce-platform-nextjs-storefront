@@ -35,6 +35,7 @@ export default function CheckoutItem({ item }: { item: CartItemModel }) {
       <Box
         component={Link}
         href={`/products/${item.product.id}`}
+        target="_blank"
         sx={{
           position: 'absolute',
           top: 0,
