@@ -70,7 +70,7 @@ export default function CategoryControls({
   const productsEnd = Math.min(page * PAGE_SIZE, countProducts);
 
   return (
-    <Flex w="100%" justify="space-between" align="end">
+    <Flex w="100%" justify="space-between" align="end" wrap="wrap" rowGap={12}>
       <Text fw={400} c="gray.9">
         Showing {productsStart} - {productsEnd} (
         {productsEnd - productsStart + 1}) of&nbsp;{countProducts} products

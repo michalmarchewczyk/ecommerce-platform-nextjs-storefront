@@ -15,8 +15,10 @@ import {
 
 export * from './client';
 
+export const API_URL = process.env.API_PATH ?? 'http://localhost';
+
 const configuration = new Configuration({
-  basePath: process.env.API_PATH ?? 'http://localhost',
+  basePath: API_URL,
   middleware: [
     {
       onError: async (error) => {

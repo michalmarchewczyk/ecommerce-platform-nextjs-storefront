@@ -1,7 +1,8 @@
 import { categoriesApi } from '../../../../lib/api';
-import { Box, Flex, Title } from '../../../../lib/components/wrappers';
+import { Box, Flex, Space, Title } from '../../../../lib/components/wrappers';
 import CategoriesTree from '../CategoriesTree';
 import CategoryFilter from '../CategoryFilter';
+import CategoryDrawer from '../CategoryDrawer';
 
 async function getCategory(id: number) {
   return categoriesApi.getCategory(
@@ -24,17 +25,36 @@ export default async function Layout({
   const category = await getCategory(parseInt(id, 10));
 
   return (
-    <Flex wrap="wrap" direction="row" gap="lg">
+    <Flex
+      wrap="wrap"
+      direction="row"
+      gap="lg"
+      sx={{ '@media (max-width: 850px)': { gap: 0 } }}
+    >
       <Title order={2} mb="xs" pt="md" w="100%">
         {category.name}
       </Title>
-      <Flex w={250} direction="column" gap="md">
+      <Flex
+        w={250}
+        direction="column"
+        gap="md"
+        sx={{ '@media (max-width: 850px)': { display: 'none' } }}
+      >
         {/* @ts-expect-error Server Component */}
         <CategoriesTree categoryId={category.id} />
         {/* @ts-expect-error Server Component */}
         <CategoryFilter categoryId={category.id} />
       </Flex>
       <Box sx={{ flex: 1 }}>{children}</Box>
+      <Box sx={{ '@media (min-width: 851px)': { display: 'none' } }}>
+        <CategoryDrawer>
+          {/* @ts-expect-error Server Component */}
+          <CategoriesTree categoryId={category.id} />
+          <Space h="md" />
+          {/* @ts-expect-error Server Component */}
+          <CategoryFilter categoryId={category.id} />
+        </CategoryDrawer>
+      </Box>
     </Flex>
   );
 }
