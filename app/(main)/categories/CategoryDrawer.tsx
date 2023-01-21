@@ -41,6 +41,7 @@ export default function CategoryDrawer({
         }
         padding="md"
         size={286}
+        lockScroll={false}
       >
         <ScrollArea sx={{ height: 'calc(100vh - 60px)' }} mx={-16} px={16}>
           {children}

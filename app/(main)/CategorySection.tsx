@@ -62,11 +62,11 @@ export default async function CategorySection({
           align="start"
           slideGap={0}
           controlSize={36}
-          draggable={false}
+          draggable
           slidesToScroll={2}
           controlsOffset={20}
           containScroll="trimSnaps"
-          mx={-10}
+          mx={-16}
           breakpoints={[{ maxWidth: 1320, slideSize: 260 }]}
           nextControlIcon={<IconChevronRight size={24} />}
           previousControlIcon={<IconChevronLeft size={24} />}
@@ -79,6 +79,10 @@ export default async function CategorySection({
                 cursor: 'default',
                 pointerEvents: 'none',
               },
+            },
+            viewport: {
+              paddingLeft: '6px',
+              paddingRight: '6px',
             },
           }}
         >

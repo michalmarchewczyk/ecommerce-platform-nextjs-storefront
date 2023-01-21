@@ -23,6 +23,7 @@ export default function HeaderDrawer({ children }: { children: ReactNode }) {
         padding="md"
         size="lg"
         className={styles.hiddenDesktop}
+        lockScroll={false}
       >
         <ScrollArea sx={{ height: 'calc(100vh - 60px)' }} mx={-16} px={16}>
           {children}
