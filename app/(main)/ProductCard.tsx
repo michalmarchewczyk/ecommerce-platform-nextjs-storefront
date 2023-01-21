@@ -1,11 +1,11 @@
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import Image from 'next/image';
 import { Product } from '../../lib/api';
 import {
   Card,
   CardSection,
-  Image,
   Text,
   Center,
   Box,
@@ -36,11 +36,14 @@ export default function ProductCard({ product }: { product: Product }) {
         {photoId ? (
           <Image
             src={photoUrl}
-            mah="100%"
-            maw="100%"
-            fit="contain"
             width={234}
             height={236}
+            alt=""
+            style={{
+              maxHeight: '100%',
+              maxWidth: '100%',
+              objectFit: 'contain',
+            }}
           />
         ) : (
           <Center className={styles.photoPlaceholder}>

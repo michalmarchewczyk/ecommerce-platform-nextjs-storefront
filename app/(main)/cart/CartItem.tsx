@@ -1,13 +1,8 @@
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CartItem as CartItemModel } from '../../../lib/api';
-import {
-  Box,
-  Center,
-  Flex,
-  Image,
-  Text,
-} from '../../../lib/components/wrappers';
+import { Box, Center, Flex, Text } from '../../../lib/components/wrappers';
 import Price from '../products/Price';
 import CartItemActions from './CartItemActions';
 
@@ -68,10 +63,13 @@ export default function CartItem({ item }: { item: CartItemModel }) {
           src={photoUrl}
           width={90}
           height={90}
-          radius="md"
-          mah="100%"
-          maw="100%"
-          fit="contain"
+          alt=""
+          style={{
+            maxHeight: '100%',
+            maxWidth: '100%',
+            objectFit: 'contain',
+            borderRadius: 'var(--mantine-radius-md)',
+          }}
         />
       ) : (
         <Center

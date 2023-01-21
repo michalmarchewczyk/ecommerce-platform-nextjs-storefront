@@ -2,7 +2,8 @@
 
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
-import { Box, Center, Flex, Image, Text } from '@mantine/core';
+import { Box, Center, Flex, Text } from '@mantine/core';
+import Image from 'next/image';
 import { CartItem as CartItemModel } from '../../lib/api';
 import PriceClient from './PriceClient';
 
@@ -48,10 +49,13 @@ export default function CheckoutItem({ item }: { item: CartItemModel }) {
           src={photoUrl}
           width={40}
           height={40}
-          radius="md"
-          mah="100%"
-          maw="100%"
-          fit="contain"
+          alt=""
+          style={{
+            maxHeight: '100%',
+            maxWidth: '100%',
+            objectFit: 'contain',
+            borderRadius: 'var(--mantine-radius-md)',
+          }}
         />
       ) : (
         <Center

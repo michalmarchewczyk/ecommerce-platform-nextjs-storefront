@@ -1,9 +1,9 @@
 import { IconChevronLeft, IconChevronRight, IconPhotoOff } from '@tabler/icons';
+import Image from 'next/image';
 import {
   Carousel,
   CarouselSlide,
   Center,
-  Image,
   Paper,
 } from '../../../lib/components/wrappers';
 import { productsApi } from '../../../lib/api';
@@ -66,16 +66,12 @@ export default async function ProductPhotos({ id }: { id: number }) {
           <CarouselSlide key={url} h="100%" w="100%">
             <Image
               src={url}
-              fit="contain"
-              h="100%"
-              height="100%"
-              styles={{
-                figure: {
-                  height: '100%',
-                },
-                imageWrapper: {
-                  height: '100%',
-                },
+              alt=""
+              fill
+              quality={100}
+              style={{
+                objectFit: 'contain',
+                maxHeight: '100%',
               }}
             />
           </CarouselSlide>
