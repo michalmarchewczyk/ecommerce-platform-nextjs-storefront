@@ -3,6 +3,7 @@
 import { Flex, MediaQuery, SegmentedControl, Text } from '@mantine/core';
 import { useWindowEvent } from '@mantine/hooks';
 import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface PageNavigationItem {
   icon: React.ReactNode;
@@ -12,13 +13,19 @@ interface PageNavigationItem {
 
 export default function PageNavigation({
   items,
+  type = 'hash',
 }: {
   items: PageNavigationItem[];
+  type?: 'hash' | 'url';
 }) {
   const [hash, setHash] = useState('');
+  const router = useRouter();
+  const pathname = usePathname() ?? '';
 
   useWindowEvent('hashchange', () => {
-    setHash(window.location.hash.replace('#', ''));
+    if (type === 'hash') {
+      setHash(window.location.hash.replace('#', ''));
+    }
   });
 
   const itemsData = items.map((item) => ({
@@ -32,13 +39,17 @@ export default function PageNavigation({
   }));
 
   const update = (value: string) => {
-    if (value === '') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
+    if (type === 'hash') {
+      if (value === '') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      document
+        .getElementById(`nav-${value}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (type === 'url') {
+      router.push(value);
     }
-    document
-      .getElementById(`nav-${value}`)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   return (
@@ -51,7 +62,7 @@ export default function PageNavigation({
           size="md"
           radius="lg"
           color="indigo"
-          value={hash}
+          value={type === 'hash' ? hash : pathname}
           styles={{
             root: {
               backgroundColor: 'var(--mantine-color-white)',
@@ -75,7 +86,7 @@ export default function PageNavigation({
           size="md"
           radius="lg"
           color="indigo"
-          value={hash}
+          value={type === 'hash' ? hash : pathname}
           styles={{
             root: {
               backgroundColor: 'var(--mantine-color-white)',

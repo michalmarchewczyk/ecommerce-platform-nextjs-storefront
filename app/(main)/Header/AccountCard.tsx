@@ -1,8 +1,8 @@
 import {
-  IconFileInvoice,
   IconHeart,
   IconLogin,
   IconLogout,
+  IconReceipt,
   IconUser,
   IconUserPlus,
 } from '@tabler/icons';
@@ -57,6 +57,8 @@ export default async function AccountCard() {
             size={44}
             radius="xl"
             sx={{ cursor: 'pointer' }}
+            component={Link}
+            href="/account"
           >
             {initials}
           </Avatar>
@@ -106,7 +108,7 @@ export default async function AccountCard() {
             <Button
               component={Link}
               href="/account/orders"
-              leftIcon={<IconFileInvoice />}
+              leftIcon={<IconReceipt />}
               variant="light"
             >
               My orders
