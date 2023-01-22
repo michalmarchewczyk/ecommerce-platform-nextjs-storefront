@@ -39,6 +39,7 @@ import Indicator from './Indicator';
 import Avatar from './Avatar';
 import Progress from './Progress';
 import Skeleton from './Skeleton';
+import Badge from './Badge';
 
 export {
   ActionIcon,
@@ -82,4 +83,5 @@ export {
   Avatar,
   Progress,
   Skeleton,
+  Badge,
 };
