@@ -30,9 +30,16 @@ export default function PageNavigation({
 
   const itemsData = items.map((item) => ({
     label: (
-      <Flex py={4} px={4}>
+      <Flex
+        py={4}
+        px={4}
+        gap={12}
+        sx={{ '@media (max-width: 530px)': { justifyContent: 'center' } }}
+      >
         {item.icon}
-        <Text ml={12}>{item.label}</Text>
+        <Text sx={{ '@media (max-width: 530px)': { display: 'none' } }}>
+          {item.label}
+        </Text>
       </Flex>
     ),
     value: item.value,
@@ -92,6 +99,11 @@ export default function PageNavigation({
               backgroundColor: 'var(--mantine-color-white)',
               border: '1px solid var(--mantine-color-gray-2)',
               boxShadow: 'var(--mantine-shadow-md)',
+              '@media (max-width: 600px)': {
+                marginLeft: '-16px',
+                marginRight: '-16px',
+                borderRadius: '0',
+              },
             },
             control: {
               border: 'none !important',
