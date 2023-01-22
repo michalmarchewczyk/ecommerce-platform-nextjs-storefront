@@ -20,13 +20,6 @@ import PageNavigation from '../PageNavigation';
 import ProductRatings from '../ProductRatings';
 import ProductRatingsLoading from '../ProductRatingsLoading';
 
-// export async function generateStaticParams() {
-//   const products = await productsApi.getProducts();
-//   return products.map((product) => ({
-//     id: product.id.toString(),
-//   }));
-// }
-
 async function getProduct(id: number) {
   return productsApi.getProduct({ id });
 }
