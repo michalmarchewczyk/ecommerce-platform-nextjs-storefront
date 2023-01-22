@@ -42,9 +42,16 @@ export default async function DrawerCategory({
           {category.name}
         </Text>
       }
-      component={Link}
-      href={`/categories/${category.id}`}
     >
+      <NavLink
+        label={
+          <Text weight={500} fz="md">
+            View all in {category.name}
+          </Text>
+        }
+        component={Link}
+        href={`/categories/${category.id}`}
+      />
       {category.childCategories.map((childCategory) => (
         <div key={childCategory.id}>
           <NavLink

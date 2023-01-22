@@ -1,4 +1,9 @@
-import { Header, Group, Container } from '../../../lib/components/wrappers';
+import {
+  Header,
+  Group,
+  Container,
+  Box,
+} from '../../../lib/components/wrappers';
 import Logo from '../Logo';
 import styles from './MainHeader.module.scss';
 import AccountCard from './AccountCard';
@@ -24,6 +29,9 @@ export default async function MainHeader() {
           </div>
           <div className={styles.hiddenDesktop}>
             <HeaderDrawer>
+              <Box ml={12} mb={16} mt={4}>
+                <Logo />
+              </Box>
               {mainCategories?.map((c) => (
                 <div key={c.id}>
                   {/* @ts-expect-error Server Component */}
