@@ -13,7 +13,7 @@ async function getUserOrders() {
     .sort((a, b) => b.id - a.id)
     .map((order) => ({
       ...order,
-      items: order.items.slice(0, 3),
+      items: order.items.slice(0, 5),
       countItems: order.items.length,
       total: order.items.reduce(
         (acc, item) => acc + item.price * item.quantity,

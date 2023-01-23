@@ -13,6 +13,8 @@ import { ordersApi } from '../../../../../lib/api';
 import OrderBadge from '../OrderBadge';
 import Price from '../../../products/Price';
 import OrderItem from './OrderItem';
+import ReturnFormModal from './ReturnFormModal';
+import ReturnBadge from '../ReturnBadge';
 
 async function getOrder(id: number) {
   const cookie = headers().get('cookie') ?? '';
@@ -56,6 +58,29 @@ export default async function Page({
         <OrderBadge status={order.status} />
       </Flex>
       <Divider />
+      {order.return && (
+        <>
+          <Flex align="center" mt="lg" mb="sm" gap="md">
+            <Title order={3}>Return</Title>
+            <ReturnBadge status={order.return.status} />
+            <Box sx={{ flex: 1 }} />{' '}
+            <Text fw={500} fz={16} c="gray.6">
+              Created:
+              {new Intl.DateTimeFormat('en-US', {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }).format(new Date(order.return.created))}
+            </Text>
+          </Flex>
+
+          <Text fw={400} mb="lg">
+            Message: <br />
+            {order.return.message}
+          </Text>
+          <Divider />
+        </>
+      )}
+
       <Flex direction="row" mt="lg" gap="xl" wrap="wrap" mb="lg">
         <Box>
           <Text fw={700} fz={18}>
@@ -69,6 +94,9 @@ export default async function Page({
               dateStyle: 'medium',
               timeStyle: 'short',
             }).format(new Date(order.created))}
+            <br />
+            {!order.return && <ReturnFormModal order={order} />}
+            {order.return && `Return: ${order.return}`}
           </Text>
         </Box>
         <Box>

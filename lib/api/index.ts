@@ -9,6 +9,7 @@ import {
   PaymentMethodsApi,
   ProductRatingsApi,
   ProductsApi,
+  ReturnsApi,
   SettingsApi,
   UsersApi,
 } from './client';
@@ -43,6 +44,7 @@ const cartsApi = new CartsApi(configuration);
 const deliveryMethodsApi = new DeliveryMethodsApi(configuration);
 const paymentMethodsApi = new PaymentMethodsApi(configuration);
 const ordersApi = new OrdersApi(configuration);
+const returnsApi = new ReturnsApi(configuration);
 
 export {
   authApi,
@@ -56,4 +58,5 @@ export {
   deliveryMethodsApi,
   paymentMethodsApi,
   ordersApi,
+  returnsApi,
 };
