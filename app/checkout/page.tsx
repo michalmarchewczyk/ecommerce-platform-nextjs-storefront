@@ -67,6 +67,7 @@ export default function Page() {
     const order = await ordersApi.createOrder({
       orderCreateDto: orderDto,
     });
+    await cartsApi.updateCart({ cartDto: { items: [] } });
     setOrderId(order.id);
     updateStep(4);
   };

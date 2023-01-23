@@ -15,7 +15,7 @@ import Price from '../../products/Price';
 export default function OrdersListItem({
   order,
 }: {
-  order: Order & { total: number };
+  order: Order & { total: number; countItems: number };
 }) {
   const items = order.items.map((item) => {
     const photoId = item.product.photosOrder
@@ -76,12 +76,19 @@ export default function OrdersListItem({
         <Text fw={500} fz={16} c="gray.6">
           {new Intl.DateTimeFormat('en-US', {
             dateStyle: 'medium',
-            timeStyle: 'medium',
+            timeStyle: 'short',
           }).format(new Date(order.created))}
         </Text>
       </Flex>
       <Flex direction="row" gap="md" align="flex-end" mt="xs">
         {items}
+        {order.items.length < order.countItems && (
+          <Center w={60} h={40}>
+            <Text fw={500} fz={16} color="gray.7">
+              +{order.countItems - order.items.length} more
+            </Text>
+          </Center>
+        )}
         <Box sx={{ flex: 1 }} />
         <Text fz={20} fw={700}>
           {/* @ts-expect-error Server Component */}

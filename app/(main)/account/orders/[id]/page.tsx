@@ -59,6 +59,20 @@ export default async function Page({
       <Flex direction="row" mt="lg" gap="xl" wrap="wrap" mb="lg">
         <Box>
           <Text fw={700} fz={18}>
+            Details
+          </Text>
+          <Text fw={400}>
+            ID: {order.id}
+            <br />
+            Created:{' '}
+            {new Intl.DateTimeFormat('en-US', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            }).format(new Date(order.created))}
+          </Text>
+        </Box>
+        <Box>
+          <Text fw={700} fz={18}>
             Contact info
           </Text>
           <Text fw={400}>
@@ -105,7 +119,7 @@ export default async function Page({
       <Divider />
       <Box pt={2} mt="lg">
         <div>
-          {order.items.slice(0, 6).map((item) => (
+          {order.items.map((item) => (
             <OrderItem key={item.id} item={item} />
           ))}
         </div>

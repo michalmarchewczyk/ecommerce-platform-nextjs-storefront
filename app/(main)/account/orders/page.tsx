@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { Flex, Title } from '../../../../lib/components/wrappers';
+import { Center, Flex, Text, Title } from '../../../../lib/components/wrappers';
 import { ordersApi } from '../../../../lib/api';
 import OrdersListItem from './OrdersListItem';
 
@@ -14,6 +14,7 @@ async function getUserOrders() {
     .map((order) => ({
       ...order,
       items: order.items.slice(0, 3),
+      countItems: order.items.length,
       total: order.items.reduce(
         (acc, item) => acc + item.price * item.quantity,
         0,
@@ -29,6 +30,13 @@ export default async function Page() {
         My orders
       </Title>
       <Flex direction="column" gap="md">
+        {orders.length === 0 && (
+          <Center mih={200}>
+            <Text fz={40} fw={400} c="gray.6">
+              No orders found
+            </Text>
+          </Center>
+        )}
         {orders.map((order) => (
           <div key={order.id}>
             <OrdersListItem order={order} />
