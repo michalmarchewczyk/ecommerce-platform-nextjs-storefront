@@ -47,6 +47,8 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app ./
 
+RUN chown -R nextjs:nodejs /app
+
 USER nextjs
 
 CMD ["npm", "start"]
