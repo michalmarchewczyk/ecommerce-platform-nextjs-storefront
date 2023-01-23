@@ -35,7 +35,7 @@ export default async function Layout({
 
   return (
     <>
-      <Flex direction="row" gap={40} wrap="wrap" w="100%" mih={300}>
+      <Flex direction="row" gap={40} wrap="wrap" w="100%" mih={100}>
         <Box
           w={180}
           miw={180}
@@ -83,7 +83,7 @@ export default async function Layout({
             '@media (max-width: 750px)': {
               paddingLeft: '16px',
               paddingRight: '16px',
-              paddingTop: '40px',
+              paddingTop: '64px',
             },
           }}
         >
