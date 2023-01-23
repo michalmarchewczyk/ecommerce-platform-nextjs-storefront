@@ -32,6 +32,11 @@ COPY --from=openapi-generate /app ./
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+ARG API_PATH
+ARG NEXT_PUBLIC_API_PATH
+ENV API_PATH $API_PATH
+ENV NEXT_PUBLIC_API_PATH $NEXT_PUBLIC_API_PATH
+
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -41,6 +46,8 @@ WORKDIR /app
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
+
+ENV NEXT_SHARP_PATH /app/node_modules/sharp
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
