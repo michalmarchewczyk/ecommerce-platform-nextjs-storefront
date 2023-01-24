@@ -21,7 +21,7 @@ async function getCategory(categoryId: number) {
 
 async function getCategoryProducts(categoryId: number) {
   const products = await categoriesApi.getCategoryProducts({ id: categoryId });
-  return products.slice(0, 12);
+  return products.slice(0, 10);
 }
 
 export default async function CategorySection({

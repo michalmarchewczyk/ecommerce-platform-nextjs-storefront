@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { Flex, Title, Text, Center } from '../../../../lib/components/wrappers';
-import { ordersApi } from '../../../../lib/api';
+import { Order, ordersApi, Return } from '../../../../lib/api';
+import ReturnsListItem from '../orders/ReturnsListItem';
 
 async function getUserReturns() {
   const cookie = headers().get('cookie') ?? '';
@@ -9,7 +10,7 @@ async function getUserReturns() {
     headers: { cookie },
   });
   return orders
-    .filter((o) => o.return !== null)
+    .filter((o): o is Order & { return: Return } => o.return !== null)
     .sort((a, b) => b.id - a.id)
     .map((order) => ({
       ...order.return,
@@ -32,6 +33,11 @@ export default async function Page() {
             </Text>
           </Center>
         )}
+        {returns.map((item) => (
+          <div key={item.id}>
+            <ReturnsListItem item={item} />
+          </div>
+        ))}
       </Flex>
     </>
   );
