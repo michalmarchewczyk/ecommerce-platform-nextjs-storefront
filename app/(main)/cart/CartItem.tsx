@@ -11,7 +11,7 @@ export default function CartItem({ item }: { item: CartItemModel }) {
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
-  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=true`;
 
   return (
     <Flex

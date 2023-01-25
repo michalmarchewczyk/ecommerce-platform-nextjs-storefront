@@ -21,7 +21,8 @@ async function getProductPhotosUrls(id: number) {
     });
   }
   return photos.map(
-    (photo) => `${API_URL}/products/${product.id}/photos/${photo.id}`,
+    (photo) =>
+      `${API_URL}/products/${product.id}/photos/${photo.id}?thumbnail=false`,
   );
 }
 

@@ -21,7 +21,7 @@ export default function OrdersListItem({
     const photoId = item.product.photosOrder
       ? parseInt(item.product.photosOrder.split(',')[0], 10)
       : item.product.photos[0]?.id;
-    const photoUrl = `${API_URL}/products/${item.product.id}/photos/${photoId}?thumbnail=false`;
+    const photoUrl = `${API_URL}/products/${item.product.id}/photos/${photoId}?thumbnail=true`;
     return photoId ? (
       <Image
         key={item.product.id}

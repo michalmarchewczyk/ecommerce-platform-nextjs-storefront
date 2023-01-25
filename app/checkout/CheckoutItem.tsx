@@ -7,12 +7,16 @@ import Image from 'next/image';
 import { API_URL, CartItem as CartItemModel } from '../../lib/api';
 import PriceClient from './PriceClient';
 
+const imageLoader = ({ src }: { src: string }) => {
+  return src;
+};
+
 export default function CheckoutItem({ item }: { item: CartItemModel }) {
   const { product } = item;
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
-  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=true`;
 
   return (
     <Flex
@@ -47,6 +51,7 @@ export default function CheckoutItem({ item }: { item: CartItemModel }) {
       />
       {photoId ? (
         <Image
+          loader={imageLoader}
           src={photoUrl}
           width={40}
           height={40}
