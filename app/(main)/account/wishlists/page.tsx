@@ -1,5 +1,42 @@
-import { Title } from '../../../../lib/components/wrappers';
+import { headers } from 'next/headers';
+import { Center, Flex, Text, Title } from '../../../../lib/components/wrappers';
+import { wishlistsApi } from '../../../../lib/api';
+import WishlistsListItem from './WishlistsListItem';
 
-export default function Page() {
-  return <Title order={2}>My wishlists</Title>;
+async function getUserWishlists() {
+  const cookie = headers().get('cookie') ?? '';
+  const wishlists = await wishlistsApi.getUserWishlists({
+    cache: 'no-store',
+    headers: { cookie },
+  });
+  return wishlists.map((wishlist) => ({
+    ...wishlist,
+    products: wishlist.products.slice(0, 5),
+    countProducts: wishlist.products.length,
+  }));
+}
+
+export default async function Page() {
+  const wishlists = await getUserWishlists();
+  return (
+    <>
+      <Title order={2} mb="md">
+        My wishlists
+      </Title>
+      <Flex direction="column" gap="md">
+        {wishlists.length === 0 && (
+          <Center mih={200}>
+            <Text fz={40} fw={400} c="gray.6">
+              No orders found
+            </Text>
+          </Center>
+        )}
+        {wishlists.map((wishlist) => (
+          <div key={wishlist.id}>
+            <WishlistsListItem wishlist={wishlist} />
+          </div>
+        ))}
+      </Flex>
+    </>
+  );
 }
