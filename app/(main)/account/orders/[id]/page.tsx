@@ -96,7 +96,6 @@ export default async function Page({
             }).format(new Date(order.created))}
             <br />
             {!order.return && <ReturnFormModal order={order} />}
-            {order.return && `Return: ${order.return}`}
           </Text>
         </Box>
         <Box>
