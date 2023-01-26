@@ -12,6 +12,7 @@ import {
   ReturnsApi,
   SettingsApi,
   UsersApi,
+  WishlistsApi,
 } from './client';
 
 export * from './client';
@@ -45,6 +46,7 @@ const deliveryMethodsApi = new DeliveryMethodsApi(configuration);
 const paymentMethodsApi = new PaymentMethodsApi(configuration);
 const ordersApi = new OrdersApi(configuration);
 const returnsApi = new ReturnsApi(configuration);
+const wishlistsApi = new WishlistsApi(configuration);
 
 export {
   authApi,
@@ -59,4 +61,5 @@ export {
   paymentMethodsApi,
   ordersApi,
   returnsApi,
+  wishlistsApi,
 };
