@@ -47,6 +47,7 @@ ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+RUN npm i sharp
 ENV NEXT_SHARP_PATH /app/node_modules/sharp
 
 RUN addgroup --system --gid 1001 nodejs
