@@ -69,6 +69,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
               src={url}
               alt=""
               fill
+              sizes="(max-width: 828px) 100vw, 50vw"
               quality={100}
               style={{
                 objectFit: 'contain',
