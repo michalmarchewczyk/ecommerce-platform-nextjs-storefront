@@ -6,19 +6,19 @@ import {
   IconStar,
 } from '@tabler/icons';
 import { productRatingsApi, productsApi } from '../../../../lib/api';
-import ProductPhotos from '../ProductPhotos';
+import ProductPhotos from './header/ProductPhotos';
 import {
   AspectRatio,
   Box,
   Divider,
   Flex,
 } from '../../../../lib/components/wrappers';
-import ProductHeader from '../ProductHeader';
-import ProductDescription from '../ProductDescription';
-import ProductDetails from '../ProductDetails';
-import PageNavigation from '../PageNavigation';
-import ProductRatings from '../ProductRatings';
-import ProductRatingsLoading from '../ProductRatingsLoading';
+import ProductHeader from './header/ProductHeader';
+import ProductDescription from './ProductDescription';
+import ProductDetails from './ProductDetails';
+import PageNavigation from '../../../../lib/components/ui/PageNavigation';
+import ProductRatings from './ratings/ProductRatings';
+import ProductRatingsLoading from './ratings/ProductRatingsLoading';
 
 async function getProduct(id: number) {
   return productsApi.getProduct({ id });

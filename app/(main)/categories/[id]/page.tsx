@@ -5,10 +5,10 @@ import {
   Flex,
   Text,
 } from '../../../../lib/components/wrappers';
-import ProductCard from '../../ProductCard';
+import ProductCard from '../../../../lib/components/products/ProductCard';
 import styles from './page.module.scss';
-import CategoryControls from '../CategoryControls';
-import CategoryPagination from '../CategoryPagination';
+import CategoryControls from './CategoryControls';
+import CategoryPagination from './CategoryPagination';
 
 const PAGE_SIZE = 12;
 

@@ -10,15 +10,15 @@ import {
   IconTruckDelivery,
 } from '@tabler/icons';
 import useSWR from 'swr';
-import CheckoutShipping from './CheckoutShipping';
-import CheckoutPayment from './CheckoutPayment';
-import CheckoutConfirm from './CheckoutConfirm';
+import CheckoutShipping from './steps/CheckoutShipping';
+import CheckoutPayment from './steps/CheckoutPayment';
+import CheckoutConfirm from './steps/CheckoutConfirm';
 import {
   checkoutFormOptions,
   CheckoutFormProvider,
   useCheckoutForm,
 } from './checkoutForm';
-import CheckoutCompleted from './CheckoutCompleted';
+import CheckoutCompleted from './steps/CheckoutCompleted';
 import { cartsApi, ordersApi } from '../../lib/api';
 
 export default function Page() {

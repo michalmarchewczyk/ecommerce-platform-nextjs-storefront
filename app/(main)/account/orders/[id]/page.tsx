@@ -11,10 +11,10 @@ import {
 } from '../../../../../lib/components/wrappers';
 import { ordersApi } from '../../../../../lib/api';
 import OrderBadge from '../OrderBadge';
-import Price from '../../../products/Price';
+import Price from '../../../../../lib/components/ui/Price';
 import OrderItem from './OrderItem';
 import ReturnFormModal from './ReturnFormModal';
-import ReturnBadge from '../ReturnBadge';
+import ReturnBadge from '../../returns/ReturnBadge';
 
 async function getOrder(id: number) {
   const cookie = headers().get('cookie') ?? '';

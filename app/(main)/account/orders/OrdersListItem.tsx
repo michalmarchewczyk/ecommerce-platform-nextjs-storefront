@@ -10,7 +10,7 @@ import {
   Center,
 } from '../../../../lib/components/wrappers';
 import OrderBadge from './OrderBadge';
-import Price from '../../products/Price';
+import Price from '../../../../lib/components/ui/Price';
 
 export default function OrdersListItem({
   order,

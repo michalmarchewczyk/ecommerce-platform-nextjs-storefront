@@ -9,10 +9,10 @@ import {
   Text,
   Box,
 } from '../../lib/components/wrappers';
-import BigLogo from '../(auth)/BigLogo';
-import Background from '../(auth)/Background';
+import BigLogo from '../../lib/components/ui/BigLogo';
+import Background from '../../lib/components/ui/Background';
 import { cartsApi } from '../../lib/api';
-import Price from '../(main)/products/Price';
+import Price from '../../lib/components/ui/Price';
 
 async function getCart() {
   const cookie = headers().get('cookie') ?? '';

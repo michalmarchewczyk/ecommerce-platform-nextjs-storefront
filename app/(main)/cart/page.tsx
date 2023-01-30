@@ -12,7 +12,7 @@ import {
   Button,
 } from '../../../lib/components/wrappers';
 import CartItem from './CartItem';
-import Price from '../products/Price';
+import Price from '../../../lib/components/ui/Price';
 import ClearCartButton from './ClearCartButton';
 
 async function getCart() {

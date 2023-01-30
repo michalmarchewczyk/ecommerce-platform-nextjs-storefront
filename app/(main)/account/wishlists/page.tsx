@@ -27,7 +27,7 @@ export default async function Page() {
         {wishlists.length === 0 && (
           <Center mih={200}>
             <Text fz={40} fw={400} c="gray.6">
-              No orders found
+              No wishlists found
             </Text>
           </Center>
         )}

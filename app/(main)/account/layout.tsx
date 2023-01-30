@@ -7,7 +7,7 @@ import {
   IconUser,
 } from '@tabler/icons';
 import { usersApi } from '../../../lib/api';
-import PageNavigation from '../products/PageNavigation';
+import PageNavigation from '../../../lib/components/ui/PageNavigation';
 import { Box, Flex } from '../../../lib/components/wrappers';
 
 async function getAccount() {

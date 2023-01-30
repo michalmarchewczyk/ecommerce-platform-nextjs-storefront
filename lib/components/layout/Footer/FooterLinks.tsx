@@ -1,0 +1,36 @@
+import Link from 'next/link';
+import { pagesApi } from '../../../api';
+import { Text } from '../../wrappers';
+import styles from './FooterLinks.module.scss';
+
+async function getPageGroups() {
+  const pageGroups = await pagesApi.getPageGroups();
+  return pageGroups.filter((g) =>
+    ['orders', 'info', 'my account'].includes(g.name),
+  );
+}
+
+export default async function FooterLinks() {
+  const pageGroups = await getPageGroups();
+
+  return pageGroups.map((group) => {
+    const links = group.pages.map((page) => (
+      <Text
+        key={page.id}
+        className={styles.link}
+        component={Link}
+        href={`/pages/${page.id}`}
+        fw={400}
+      >
+        {page.title}
+      </Text>
+    ));
+
+    return (
+      <div className={styles.wrapper} key={group.id}>
+        <Text className={styles.title}>{group.name}</Text>
+        {links}
+      </div>
+    );
+  });
+}
