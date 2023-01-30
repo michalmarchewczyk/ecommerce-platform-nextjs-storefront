@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { pagesApi } from '../../../api';
+import { pagesApi } from '@lib/api';
 import { Text } from '../../wrappers';
 import styles from './FooterLinks.module.scss';
 

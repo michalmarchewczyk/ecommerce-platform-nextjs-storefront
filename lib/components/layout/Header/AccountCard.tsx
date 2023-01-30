@@ -8,7 +8,7 @@ import {
 } from '@tabler/icons';
 import Link from 'next/link';
 import { headers } from 'next/headers';
-import { usersApi } from '../../../api';
+import { usersApi } from '@lib/api';
 import {
   ActionIcon,
   HoverCard,

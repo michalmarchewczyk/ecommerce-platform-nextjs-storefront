@@ -3,14 +3,10 @@
 import { Box, Button, Divider, Flex, Text } from '@mantine/core';
 import useSWR from 'swr';
 import Link from 'next/link';
+import { cartsApi, deliveryMethodsApi, paymentMethodsApi } from '@lib/api';
+import PriceClient from '@lib/components/ui/PriceClient';
 import { useCheckoutFormContext } from '../checkoutForm';
-import {
-  cartsApi,
-  deliveryMethodsApi,
-  paymentMethodsApi,
-} from '../../../lib/api';
 import CheckoutItem from './CheckoutItem';
-import PriceClient from '../../../lib/components/ui/PriceClient';
 
 export default function CheckoutConfirm({ back }: { back: () => void }) {
   const form = useCheckoutFormContext();

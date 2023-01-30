@@ -8,8 +8,8 @@ import {
   Paper,
   Text,
   Title,
-} from '../../../lib/components/wrappers';
-import { usersApi } from '../../../lib/api';
+} from '@lib/components/wrappers';
+import { usersApi } from '@lib/api';
 
 async function getAccount() {
   const cookie = headers().get('cookie') ?? '';
@@ -18,7 +18,7 @@ async function getAccount() {
     headers: { cookie },
   });
   try {
-    return await req;
+    return req;
   } catch (e) {
     return null;
   }

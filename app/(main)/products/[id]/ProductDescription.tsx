@@ -1,6 +1,6 @@
-import { Product } from '../../../../lib/api';
-import { Box, Text } from '../../../../lib/components/wrappers';
-import PageNavigationAnchor from '../../../../lib/components/ui/PageNavigationAnchor';
+import { Product } from '@lib/api';
+import { Box, Text } from '@lib/components/wrappers';
+import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 
 export default function ProductDescription({ product }: { product: Product }) {
   return (

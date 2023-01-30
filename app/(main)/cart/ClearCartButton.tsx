@@ -5,7 +5,7 @@ import { IconShoppingCartOff } from '@tabler/icons';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mantine/core';
-import { cartsApi } from '../../../lib/api';
+import { cartsApi } from '@lib/api';
 
 export default function ClearCartButton() {
   const [loading, setLoading] = useState(false);

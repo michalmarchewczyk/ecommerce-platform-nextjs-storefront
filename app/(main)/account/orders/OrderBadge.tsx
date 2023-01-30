@@ -1,5 +1,5 @@
-import { OrderStatusEnum } from '../../../../lib/api';
-import { Badge } from '../../../../lib/components/wrappers';
+import { OrderStatusEnum } from '@lib/api';
+import { Badge } from '@lib/components/wrappers';
 
 export default function OrderBadge({ status }: { status: OrderStatusEnum }) {
   const color = {

@@ -7,9 +7,9 @@ import {
   Rating,
   Stack,
   Text,
-} from '../../../../../lib/components/wrappers';
-import PageNavigationAnchor from '../../../../../lib/components/ui/PageNavigationAnchor';
-import { Product, productRatingsApi } from '../../../../../lib/api';
+} from '@lib/components/wrappers';
+import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
+import { Product, productRatingsApi } from '@lib/api';
 import ProductRatingItem from './ProductRatingItem';
 
 async function getProductRatings(id: number) {

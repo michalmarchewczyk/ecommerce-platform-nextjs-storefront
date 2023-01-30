@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { Center, Flex, Text, Title } from '../../../../lib/components/wrappers';
-import { wishlistsApi } from '../../../../lib/api';
+import { Center, Flex, Text, Title } from '@lib/components/wrappers';
+import { wishlistsApi } from '@lib/api';
 import WishlistsListItem from './WishlistsListItem';
 
 async function getUserWishlists() {

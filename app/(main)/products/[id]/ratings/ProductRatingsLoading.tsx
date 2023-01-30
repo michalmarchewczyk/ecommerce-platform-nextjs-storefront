@@ -6,8 +6,8 @@ import {
   Skeleton,
   Stack,
   Text,
-} from '../../../../../lib/components/wrappers';
-import PageNavigationAnchor from '../../../../../lib/components/ui/PageNavigationAnchor';
+} from '@lib/components/wrappers';
+import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 
 export default function ProductRatingsLoading() {
   return (

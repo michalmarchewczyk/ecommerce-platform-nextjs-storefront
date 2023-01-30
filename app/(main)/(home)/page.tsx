@@ -1,4 +1,4 @@
-import { categoriesApi } from '../../../lib/api';
+import { categoriesApi } from '@lib/api';
 import CategorySection from './CategorySection';
 
 async function getFeaturedCategories() {

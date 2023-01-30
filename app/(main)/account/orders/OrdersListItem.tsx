@@ -1,16 +1,10 @@
 import Image from 'next/image';
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
-import { API_URL, Order } from '../../../../lib/api';
-import {
-  Box,
-  Flex,
-  Paper,
-  Text,
-  Center,
-} from '../../../../lib/components/wrappers';
+import { API_URL, Order } from '@lib/api';
+import { Box, Flex, Paper, Text, Center } from '@lib/components/wrappers';
+import Price from '@lib/components/ui/Price';
 import OrderBadge from './OrderBadge';
-import Price from '../../../../lib/components/ui/Price';
 
 export default function OrdersListItem({
   order,

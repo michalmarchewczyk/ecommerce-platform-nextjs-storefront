@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { wishlistsApi } from '../../../../../lib/api';
+import { wishlistsApi } from '@lib/api';
 
 async function getWishlist(id: number) {
   const cookie = headers().get('cookie') ?? '';

@@ -6,11 +6,9 @@ import { useCheckoutFormContext } from '../checkoutForm';
 import CheckoutShippingMethods from './CheckoutShippingMethods';
 
 const CountrySelect = dynamic(
-  () => import('../../../lib/components/form/CountrySelect'),
+  () => import('@lib/components/form/CountrySelect'),
 );
-const PhoneInput = dynamic(
-  () => import('../../../lib/components/form/PhoneInput'),
-);
+const PhoneInput = dynamic(() => import('@lib/components/form/PhoneInput'));
 
 export default function CheckoutShipping({
   back,

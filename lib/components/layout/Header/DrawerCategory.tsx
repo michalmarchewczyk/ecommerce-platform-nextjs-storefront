@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { categoriesApi } from '@lib/api';
 import { NavLink, Text } from '../../wrappers';
-import { categoriesApi } from '../../../api';
 
 async function getCategory(categoryId: number) {
   try {

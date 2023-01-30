@@ -1,11 +1,6 @@
 import Link from 'next/link';
-import { categoriesApi, Category } from '../../../../lib/api';
-import {
-  Card,
-  List,
-  ListItem,
-  Text,
-} from '../../../../lib/components/wrappers';
+import { categoriesApi, Category } from '@lib/api';
+import { Card, List, ListItem, Text } from '@lib/components/wrappers';
 import styles from './CategoriesTree.module.scss';
 
 async function getCategory(id: number) {

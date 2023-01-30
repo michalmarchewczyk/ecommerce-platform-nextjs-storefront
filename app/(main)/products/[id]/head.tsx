@@ -1,4 +1,4 @@
-import { productsApi } from '../../../../lib/api';
+import { productsApi } from '@lib/api';
 
 async function getProduct(id: number) {
   return productsApi.getProduct({ id });

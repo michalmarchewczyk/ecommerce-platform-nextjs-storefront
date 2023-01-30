@@ -15,7 +15,7 @@ import { useForm } from '@mantine/form';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
 import { IconLogin } from '@tabler/icons';
-import { authApi } from '../../../lib/api';
+import { authApi } from '@lib/api';
 
 export default function Page() {
   const router = useRouter();

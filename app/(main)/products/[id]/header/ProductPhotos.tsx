@@ -5,9 +5,9 @@ import {
   CarouselSlide,
   Center,
   Paper,
-} from '../../../../../lib/components/wrappers';
-import { API_URL, productsApi } from '../../../../../lib/api';
-import PageNavigationAnchor from '../../../../../lib/components/ui/PageNavigationAnchor';
+} from '@lib/components/wrappers';
+import { API_URL, productsApi } from '@lib/api';
+import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 
 async function getProductPhotosUrls(id: number) {
   const product = await productsApi.getProduct({ id });
@@ -47,14 +47,14 @@ export default async function ProductPhotos({ id }: { id: number }) {
           indicator: {
             width: 12,
             height: 8,
-            backgroundColor: 'var(--mantine-color-blue-7)',
+            backgroundColor: 'var(--mantine-color-indigo-7)',
             transition: 'width 200ms ease',
             '&[data-active]': {
               width: 24,
             },
           },
           control: {
-            color: 'var(--mantine-color-blue-7)',
+            color: 'var(--mantine-color-indigo-7)',
             '&[data-inactive]': {
               opacity: 0,
               cursor: 'default',

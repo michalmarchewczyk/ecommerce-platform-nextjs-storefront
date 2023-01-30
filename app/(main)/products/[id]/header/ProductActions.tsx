@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Text } from '@mantine/core';
-import { Product } from '../../../../../lib/api';
+import { Product } from '@lib/api';
 import ProductShareButton from './ProductShareButton';
 import ProductCartButton from './ProductCartButton';
 import ProductWishlistButton from './ProductWishlistButton';

@@ -15,7 +15,7 @@ import useSWR from 'swr';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
-import { wishlistsApi } from '../../../../../lib/api';
+import { wishlistsApi } from '@lib/api';
 
 export default function ProductWishlistButton({
   productId,

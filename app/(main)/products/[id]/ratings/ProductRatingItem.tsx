@@ -1,10 +1,5 @@
-import { ProductRating } from '../../../../../lib/api';
-import {
-  Flex,
-  Paper,
-  Rating,
-  Text,
-} from '../../../../../lib/components/wrappers';
+import { ProductRating } from '@lib/api';
+import { Flex, Paper, Rating, Text } from '@lib/components/wrappers';
 
 export default function ProductRatingItem({
   rating,

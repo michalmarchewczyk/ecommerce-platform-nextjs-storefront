@@ -8,10 +8,10 @@ import {
   Flex,
   Title,
   Text,
-} from '../../../../../lib/components/wrappers';
-import { ordersApi } from '../../../../../lib/api';
+} from '@lib/components/wrappers';
+import { ordersApi } from '@lib/api';
+import Price from '@lib/components/ui/Price';
 import OrderBadge from '../OrderBadge';
-import Price from '../../../../../lib/components/ui/Price';
 import OrderItem from './OrderItem';
 import ReturnFormModal from './ReturnFormModal';
 import ReturnBadge from '../../returns/ReturnBadge';

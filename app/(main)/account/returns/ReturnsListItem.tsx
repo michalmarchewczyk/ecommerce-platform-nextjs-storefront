@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Return } from '../../../../lib/api';
-import { Box, Flex, Paper, Text } from '../../../../lib/components/wrappers';
+import { Return } from '@lib/api';
+import { Box, Flex, Paper, Text } from '@lib/components/wrappers';
 import ReturnBadge from './ReturnBadge';
 
 export default function ReturnsListItem({ item }: { item: Return }) {

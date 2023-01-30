@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Checkbox, CheckIcon, ColorSwatch, Group } from '@mantine/core';
-import { AttributeType } from '../../../../lib/api';
+import { AttributeType } from '@lib/api';
 
 type AttributeTypeWithValues = AttributeType & { values: string[] };
 

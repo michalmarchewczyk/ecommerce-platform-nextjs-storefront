@@ -1,5 +1,5 @@
+import { productRatingsApi } from '@lib/api';
 import { Flex, Rating, Text } from '../wrappers';
-import { productRatingsApi } from '../../api';
 
 async function getProductRatings(id: number) {
   const ratings = await productRatingsApi.getProductRatings({ productId: id });

@@ -1,13 +1,7 @@
-import {
-  Box,
-  Flex,
-  Rating,
-  Text,
-  Title,
-} from '../../../../../lib/components/wrappers';
-import Price from '../../../../../lib/components/ui/Price';
+import { Box, Flex, Rating, Text, Title } from '@lib/components/wrappers';
+import Price from '@lib/components/ui/Price';
+import { Product } from '@lib/api';
 import ProductActions from './ProductActions';
-import { Product } from '../../../../../lib/api';
 
 export default function ProductHeader({
   product,

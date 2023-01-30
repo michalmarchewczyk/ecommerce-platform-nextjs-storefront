@@ -2,13 +2,8 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { IconArrowLeft } from '@tabler/icons';
-import {
-  Button,
-  Center,
-  Text,
-  Title,
-} from '../../../../../lib/components/wrappers';
-import { wishlistsApi } from '../../../../../lib/api';
+import { Button, Center, Text, Title } from '@lib/components/wrappers';
+import { wishlistsApi } from '@lib/api';
 import WishlistProduct from './WishlistProduct';
 
 async function getWishlist(id: number) {

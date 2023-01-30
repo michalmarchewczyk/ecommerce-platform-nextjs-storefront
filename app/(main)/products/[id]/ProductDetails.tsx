@@ -1,7 +1,7 @@
-import { Product } from '../../../../lib/api';
-import { Box, Table, Text } from '../../../../lib/components/wrappers';
+import { Product } from '@lib/api';
+import { Box, Table, Text } from '@lib/components/wrappers';
+import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 import styles from './ProductDetails.module.scss';
-import PageNavigationAnchor from '../../../../lib/components/ui/PageNavigationAnchor';
 
 export default function ProductDetails({ product }: { product: Product }) {
   return (

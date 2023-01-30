@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ActionIcon, Drawer, ScrollArea, Space } from '@mantine/core';
 import { IconFilter } from '@tabler/icons';
-import { Text } from '../../../../lib/components/wrappers';
+import { Text } from '@lib/components/wrappers';
 
 export default function CategoryDrawer({
   children,

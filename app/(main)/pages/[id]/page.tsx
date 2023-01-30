@@ -1,7 +1,7 @@
 import { remark } from 'remark';
 import html from 'remark-html';
-import { pagesApi } from '../../../../lib/api';
-import { Container, Text, Title } from '../../../../lib/components/wrappers';
+import { pagesApi } from '@lib/api';
+import { Container, Text, Title } from '@lib/components/wrappers';
 import styles from './page.module.scss';
 
 async function getPage(id: number) {

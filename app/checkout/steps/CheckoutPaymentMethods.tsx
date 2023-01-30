@@ -2,9 +2,9 @@
 
 import useSWR from 'swr';
 import { Box, Paper, Radio, Text } from '@mantine/core';
+import { paymentMethodsApi } from '@lib/api';
+import PriceClient from '@lib/components/ui/PriceClient';
 import { useCheckoutFormContext } from '../checkoutForm';
-import { paymentMethodsApi } from '../../../lib/api';
-import PriceClient from '../../../lib/components/ui/PriceClient';
 
 export default function CheckoutPaymentMethods() {
   const form = useCheckoutFormContext();

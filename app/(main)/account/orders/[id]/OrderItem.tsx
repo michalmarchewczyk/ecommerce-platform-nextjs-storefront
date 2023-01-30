@@ -1,14 +1,9 @@
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Box,
-  Center,
-  Flex,
-  Text,
-} from '../../../../../lib/components/wrappers';
-import { API_URL, OrderItem as OrderItemModel } from '../../../../../lib/api';
-import Price from '../../../../../lib/components/ui/Price';
+import { Box, Center, Flex, Text } from '@lib/components/wrappers';
+import { API_URL, OrderItem as OrderItemModel } from '@lib/api';
+import Price from '@lib/components/ui/Price';
 
 export default function OrderItem({ item }: { item: OrderItemModel }) {
   const { product } = item;

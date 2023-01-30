@@ -1,4 +1,4 @@
-import { pagesApi } from '../../../../lib/api';
+import { pagesApi } from '@lib/api';
 
 async function getPage(id: number) {
   return pagesApi.getPage({ id });

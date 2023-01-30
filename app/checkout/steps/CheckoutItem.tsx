@@ -4,8 +4,8 @@ import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import { Box, Center, Flex, Text } from '@mantine/core';
 import Image from 'next/image';
-import { API_URL, CartItem as CartItemModel } from '../../../lib/api';
-import PriceClient from '../../../lib/components/ui/PriceClient';
+import { API_URL, CartItem as CartItemModel } from '@lib/api';
+import PriceClient from '@lib/components/ui/PriceClient';
 
 const imageLoader = ({ src }: { src: string }) => {
   return src;

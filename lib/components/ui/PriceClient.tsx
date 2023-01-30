@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import { settingsApi } from '../../api';
+import { settingsApi } from '@lib/api';
 
 export default function PriceClient({ price }: { price: number }) {
   const {

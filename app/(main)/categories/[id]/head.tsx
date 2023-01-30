@@ -1,4 +1,4 @@
-import { categoriesApi } from '../../../../lib/api';
+import { categoriesApi } from '@lib/api';
 
 async function getCategory(id: number) {
   return categoriesApi.getCategory(

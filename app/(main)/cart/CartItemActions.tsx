@@ -5,7 +5,7 @@ import { ActionIcon, Flex, NumberInput } from '@mantine/core';
 import { IconShoppingCart, IconShoppingCartX, IconTrash } from '@tabler/icons';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
-import { CartItem, cartsApi } from '../../../lib/api';
+import { CartItem, cartsApi } from '@lib/api';
 
 export default function CartItemActions({ item }: { item: CartItem }) {
   const [loading, setLoading] = useState(false);

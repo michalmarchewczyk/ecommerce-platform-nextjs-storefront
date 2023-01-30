@@ -1,5 +1,5 @@
-import { categoriesApi } from '../../../../lib/api';
-import { Box, Flex, Space, Title } from '../../../../lib/components/wrappers';
+import { categoriesApi } from '@lib/api';
+import { Box, Flex, Space, Title } from '@lib/components/wrappers';
 import CategoriesTree from './CategoriesTree';
 import CategoryFilter from './CategoryFilter';
 import CategoryDrawer from './CategoryDrawer';

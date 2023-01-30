@@ -1,5 +1,6 @@
 import { IconChevronDown, IconChevronRight } from '@tabler/icons';
 import Link from 'next/link';
+import { categoriesApi } from '@lib/api';
 import {
   Box,
   Button,
@@ -14,7 +15,6 @@ import {
   NavLink,
 } from '../../wrappers';
 import styles from './HeaderCategory.module.scss';
-import { categoriesApi } from '../../../api';
 
 async function getCategory(categoryId: number) {
   try {

@@ -4,7 +4,7 @@ import {
   IconChevronRight,
 } from '@tabler/icons';
 import Link from 'next/link';
-import { categoriesApi } from '../../../lib/api';
+import { categoriesApi } from '@lib/api';
 import {
   Box,
   Button,
@@ -12,8 +12,8 @@ import {
   CarouselSlide,
   Group,
   Title,
-} from '../../../lib/components/wrappers';
-import ProductCard from '../../../lib/components/products/ProductCard';
+} from '@lib/components/wrappers';
+import ProductCard from '@lib/components/products/ProductCard';
 
 async function getCategory(categoryId: number) {
   return categoriesApi.getCategory({ id: categoryId });
@@ -73,7 +73,7 @@ export default async function CategorySection({
           styles={{
             control: {
               marginTop: -40,
-              color: 'var(--mantine-color-blue-7)',
+              color: 'var(--mantine-color-indigo-7)',
               '&[data-inactive]': {
                 opacity: 0,
                 cursor: 'default',

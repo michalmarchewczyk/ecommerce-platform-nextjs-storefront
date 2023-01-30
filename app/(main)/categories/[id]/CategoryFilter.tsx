@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { IconX } from '@tabler/icons';
-import { Box, Button, Card, Text } from '../../../../lib/components/wrappers';
-import { AttributeType, categoriesApi } from '../../../../lib/api';
+import { Box, Button, Card, Text } from '@lib/components/wrappers';
+import { AttributeType, categoriesApi } from '@lib/api';
 import CategoryFilterGroup from './CategoryFilterGroup';
 import CategoryPriceFilter from './CategoryPriceFilter';
 

@@ -5,7 +5,7 @@ import { Button, Flex, Modal, Textarea, Title } from '@mantine/core';
 import { IconReceiptRefund } from '@tabler/icons';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { useRouter } from 'next/navigation';
-import { Order, returnsApi } from '../../../../../lib/api';
+import { Order, returnsApi } from '@lib/api';
 
 export default function ReturnFormModal({ order }: { order: Order }) {
   const [opened, setOpened] = useState(false);

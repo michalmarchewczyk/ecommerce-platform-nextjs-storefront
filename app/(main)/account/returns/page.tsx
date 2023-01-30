@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { Flex, Title, Text, Center } from '../../../../lib/components/wrappers';
-import { Order, ordersApi, Return } from '../../../../lib/api';
+import { Flex, Title, Text, Center } from '@lib/components/wrappers';
+import { Order, ordersApi, Return } from '@lib/api';
 import ReturnsListItem from './ReturnsListItem';
 
 async function getUserReturns() {

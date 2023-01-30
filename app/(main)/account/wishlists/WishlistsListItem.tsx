@@ -1,14 +1,8 @@
 import Image from 'next/image';
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
-import {
-  Box,
-  Center,
-  Flex,
-  Paper,
-  Text,
-} from '../../../../lib/components/wrappers';
-import { API_URL, Wishlist } from '../../../../lib/api';
+import { Box, Center, Flex, Paper, Text } from '@lib/components/wrappers';
+import { API_URL, Wishlist } from '@lib/api';
 
 export default function WishlistsListItem({
   wishlist,

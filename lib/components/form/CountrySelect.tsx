@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Noto_Color_Emoji } from '@next/font/google';
 import { countries, Country, getEmojiFlag } from 'countries-list';
 import { CountryCode, getCountryCallingCode } from 'libphonenumber-js';
-import { settingsApi } from '../../api';
+import { settingsApi } from '@lib/api';
 
 const notoColorEmoji = Noto_Color_Emoji({
   weight: ['400'],

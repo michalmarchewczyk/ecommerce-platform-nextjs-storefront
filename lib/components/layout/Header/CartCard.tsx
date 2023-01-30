@@ -1,7 +1,7 @@
 import { IconShoppingCart } from '@tabler/icons';
 import { headers } from 'next/headers';
 import Link from 'next/link';
-import { cartsApi } from '../../../api';
+import { cartsApi } from '@lib/api';
 import {
   ActionIcon,
   HoverCard,

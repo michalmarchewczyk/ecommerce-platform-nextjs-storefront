@@ -1,10 +1,10 @@
+import { categoriesApi } from '@lib/api';
 import { Header, Group, Container, Box } from '../../wrappers';
 import Logo from '../../ui/Logo';
 import styles from './MainHeader.module.scss';
 import AccountCard from './AccountCard';
 import CartCard from './CartCard';
 import HeaderCategory from './HeaderCategory';
-import { categoriesApi } from '../../../api';
 import HeaderDrawer from './HeaderDrawer';
 import DrawerCategory from './DrawerCategory';
 

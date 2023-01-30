@@ -1,7 +1,7 @@
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import Image from 'next/image';
-import { API_URL, CartItem } from '../../../api';
+import { API_URL, CartItem } from '@lib/api';
 import { Center, Flex, Text } from '../../wrappers';
 import Price from '../../ui/Price';
 

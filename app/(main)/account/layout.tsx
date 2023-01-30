@@ -6,9 +6,9 @@ import {
   IconReceiptRefund,
   IconUser,
 } from '@tabler/icons';
-import { usersApi } from '../../../lib/api';
-import PageNavigation from '../../../lib/components/ui/PageNavigation';
-import { Box, Flex } from '../../../lib/components/wrappers';
+import { usersApi } from '@lib/api';
+import PageNavigation from '@lib/components/ui/PageNavigation';
+import { Box, Flex } from '@lib/components/wrappers';
 
 async function getAccount() {
   const cookie = headers().get('cookie') ?? '';
@@ -17,7 +17,7 @@ async function getAccount() {
     headers: { cookie },
   });
   try {
-    return await req;
+    return req;
   } catch (e) {
     return null;
   }

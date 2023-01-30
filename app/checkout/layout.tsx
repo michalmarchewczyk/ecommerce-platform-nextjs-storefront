@@ -8,11 +8,11 @@ import {
   Title,
   Text,
   Box,
-} from '../../lib/components/wrappers';
-import BigLogo from '../../lib/components/ui/BigLogo';
-import Background from '../../lib/components/ui/Background';
-import { cartsApi } from '../../lib/api';
-import Price from '../../lib/components/ui/Price';
+} from '@lib/components/wrappers';
+import BigLogo from '@lib/components/ui/BigLogo';
+import Background from '@lib/components/ui/Background';
+import { cartsApi } from '@lib/api';
+import Price from '@lib/components/ui/Price';
 
 async function getCart() {
   const cookie = headers().get('cookie') ?? '';

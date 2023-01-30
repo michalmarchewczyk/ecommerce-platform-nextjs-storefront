@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { hideNotification, showNotification } from '@mantine/notifications';
 import { IconLogout } from '@tabler/icons';
-import { authApi } from '../../../lib/api';
+import { authApi } from '@lib/api';
 
 export default function Page() {
   const router = useRouter();

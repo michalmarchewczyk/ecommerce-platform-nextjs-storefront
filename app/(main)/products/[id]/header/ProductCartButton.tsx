@@ -5,7 +5,7 @@ import { IconShoppingCartPlus } from '@tabler/icons';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
-import { cartsApi, Product } from '../../../../../lib/api';
+import { cartsApi, Product } from '@lib/api';
 
 export default function ProductCartButton({
   product,

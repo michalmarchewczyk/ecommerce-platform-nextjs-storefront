@@ -1,4 +1,4 @@
-import { settingsApi } from '../../api';
+import { settingsApi } from '@lib/api';
 
 async function getCurrency() {
   return settingsApi.getSettingValueByName({ name: 'Currency' });

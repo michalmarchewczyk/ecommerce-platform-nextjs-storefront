@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { ActionIcon, Box, Center, Flex, Text } from '@mantine/core';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { API_URL, Product, wishlistsApi } from '../../../../../lib/api';
-import PriceClient from '../../../../../lib/components/ui/PriceClient';
+import { API_URL, Product, wishlistsApi } from '@lib/api';
+import PriceClient from '@lib/components/ui/PriceClient';
 
 export default function WishlistProduct({
   product,

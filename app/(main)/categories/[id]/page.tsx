@@ -1,11 +1,6 @@
-import { categoriesApi, Product } from '../../../../lib/api';
-import {
-  Center,
-  Divider,
-  Flex,
-  Text,
-} from '../../../../lib/components/wrappers';
-import ProductCard from '../../../../lib/components/products/ProductCard';
+import { categoriesApi, Product } from '@lib/api';
+import { Center, Divider, Flex, Text } from '@lib/components/wrappers';
+import ProductCard from '@lib/components/products/ProductCard';
 import styles from './page.module.scss';
 import CategoryControls from './CategoryControls';
 import CategoryPagination from './CategoryPagination';

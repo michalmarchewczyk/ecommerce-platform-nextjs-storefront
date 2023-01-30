@@ -5,18 +5,13 @@ import {
   IconPhoto,
   IconStar,
 } from '@tabler/icons';
-import { productRatingsApi, productsApi } from '../../../../lib/api';
+import { productRatingsApi, productsApi } from '@lib/api';
+import { AspectRatio, Box, Divider, Flex } from '@lib/components/wrappers';
+import PageNavigation from '@lib/components/ui/PageNavigation';
 import ProductPhotos from './header/ProductPhotos';
-import {
-  AspectRatio,
-  Box,
-  Divider,
-  Flex,
-} from '../../../../lib/components/wrappers';
 import ProductHeader from './header/ProductHeader';
 import ProductDescription from './ProductDescription';
 import ProductDetails from './ProductDetails';
-import PageNavigation from '../../../../lib/components/ui/PageNavigation';
 import ProductRatings from './ratings/ProductRatings';
 import ProductRatingsLoading from './ratings/ProductRatingsLoading';
 

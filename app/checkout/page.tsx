@@ -10,6 +10,7 @@ import {
   IconTruckDelivery,
 } from '@tabler/icons';
 import useSWR from 'swr';
+import { cartsApi, ordersApi } from '@lib/api';
 import CheckoutShipping from './steps/CheckoutShipping';
 import CheckoutPayment from './steps/CheckoutPayment';
 import CheckoutConfirm from './steps/CheckoutConfirm';
@@ -19,7 +20,6 @@ import {
   useCheckoutForm,
 } from './checkoutForm';
 import CheckoutCompleted from './steps/CheckoutCompleted';
-import { cartsApi, ordersApi } from '../../lib/api';
 
 export default function Page() {
   const [step, setStep] = useState(1);

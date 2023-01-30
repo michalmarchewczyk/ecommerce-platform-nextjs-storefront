@@ -1,5 +1,5 @@
-import { ReturnStatusEnum } from '../../../../lib/api';
-import { Badge } from '../../../../lib/components/wrappers';
+import { ReturnStatusEnum } from '@lib/api';
+import { Badge } from '@lib/components/wrappers';
 
 export default function ReturnBadge({ status }: { status: ReturnStatusEnum }) {
   const color = {

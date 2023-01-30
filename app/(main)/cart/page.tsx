@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { IconChevronRight } from '@tabler/icons';
-import { cartsApi } from '../../../lib/api';
+import { cartsApi } from '@lib/api';
 import {
   Box,
   Title,
@@ -10,9 +10,9 @@ import {
   Flex,
   Divider,
   Button,
-} from '../../../lib/components/wrappers';
+} from '@lib/components/wrappers';
+import Price from '@lib/components/ui/Price';
 import CartItem from './CartItem';
-import Price from '../../../lib/components/ui/Price';
 import ClearCartButton from './ClearCartButton';
 
 async function getCart() {

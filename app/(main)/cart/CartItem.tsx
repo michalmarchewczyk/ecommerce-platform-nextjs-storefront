@@ -1,9 +1,9 @@
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import Image from 'next/image';
-import { API_URL, CartItem as CartItemModel } from '../../../lib/api';
-import { Box, Center, Flex, Text } from '../../../lib/components/wrappers';
-import Price from '../../../lib/components/ui/Price';
+import { API_URL, CartItem as CartItemModel } from '@lib/api';
+import { Box, Center, Flex, Text } from '@lib/components/wrappers';
+import Price from '@lib/components/ui/Price';
 import CartItemActions from './CartItemActions';
 
 export default function CartItem({ item }: { item: CartItemModel }) {
