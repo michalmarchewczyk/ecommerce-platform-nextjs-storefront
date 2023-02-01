@@ -15,9 +15,11 @@ export default function ProductRatingItem({
         </Text>
       </Flex>
       <Flex gap="xs" mb="xs">
-        <Text fw={700}>
-          {rating.user.firstName} {rating.user.lastName}
-        </Text>
+        {rating.user.firstName && rating.user.lastName && (
+          <Text fw={700}>
+            {rating.user.firstName} {rating.user.lastName}
+          </Text>
+        )}
         <Text fw={500} c="gray.7">
           {rating.user.email}
         </Text>

@@ -11,6 +11,7 @@ import {
 import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 import { Product, productRatingsApi } from '@lib/api';
 import ProductRatingItem from './ProductRatingItem';
+import ProductRatingForm from './ProductRatingForm';
 
 async function getProductRatings(id: number) {
   const ratings = await productRatingsApi.getProductRatings(
@@ -57,13 +58,13 @@ export default async function ProductRatings({
       </Text>
       <PageNavigationAnchor label="ratings" />
       <Paper withBorder w="100%" px="sm" mb="md">
-        <Flex>
+        <Flex align="center">
           <Box p="md">
             <Text fz={28} fw={600} mb="xs">
               {average.toFixed(1)} / 5
             </Text>
             <Rating value={average} fractions={4} readOnly size="md" ml={-3} />
-            <Text fz={16} fw={400} mt="md">
+            <Text fz={16} fw={400} mt="md" mb="lg">
               {count} ratings
             </Text>
           </Box>
@@ -83,6 +84,11 @@ export default async function ProductRatings({
             {getRatingBar(2)}
             {getRatingBar(1)}
           </Stack>
+          <Box sx={{ flex: 1 }} />
+          <Divider orientation="vertical" mx="sm" />
+          <Box px="sm">
+            <ProductRatingForm productId={product.id} />
+          </Box>
         </Flex>
       </Paper>
       {withComments.length === 0 && (
