@@ -1,9 +1,15 @@
 import { categoriesApi } from '@lib/api';
 import CategorySection from './CategorySection';
 
+export const revalidate = 20;
+
 async function getFeaturedCategories() {
-  const categoryGroups = await categoriesApi.getCategoryGroups();
-  return categoryGroups.find((g) => g.name === 'featured')?.categories ?? [];
+  try {
+    const categoryGroups = await categoriesApi.getCategoryGroups();
+    return categoryGroups.find((g) => g.name === 'featured')?.categories ?? [];
+  } catch (e) {
+    return [];
+  }
 }
 
 export default async function Page() {

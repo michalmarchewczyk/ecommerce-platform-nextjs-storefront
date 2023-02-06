@@ -9,8 +9,12 @@ import HeaderDrawer from './HeaderDrawer';
 import DrawerCategory from './DrawerCategory';
 
 async function getMainCategories() {
-  const categoryGroups = await categoriesApi.getCategoryGroups();
-  return categoryGroups.find((g) => g.name === 'main')?.categories ?? [];
+  try {
+    const categoryGroups = await categoriesApi.getCategoryGroups();
+    return categoryGroups.find((g) => g.name === 'main')?.categories ?? [];
+  } catch (e) {
+    return [];
+  }
 }
 
 export default async function MainHeader() {

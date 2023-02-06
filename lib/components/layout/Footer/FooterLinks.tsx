@@ -4,10 +4,14 @@ import { Text } from '../../wrappers';
 import styles from './FooterLinks.module.scss';
 
 async function getPageGroups() {
-  const pageGroups = await pagesApi.getPageGroups();
-  return pageGroups.filter((g) =>
-    ['orders', 'info', 'my account'].includes(g.name),
-  );
+  try {
+    const pageGroups = await pagesApi.getPageGroups();
+    return pageGroups.filter((g) =>
+      ['orders', 'info', 'my account'].includes(g.name),
+    );
+  } catch (e) {
+    return [];
+  }
 }
 
 export default async function FooterLinks() {
