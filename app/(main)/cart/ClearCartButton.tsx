@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mantine/core';
 import { cartsApi } from '@lib/api';
+import { mutate } from 'swr';
 
 export default function ClearCartButton() {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export default function ClearCartButton() {
     await cartsApi.updateCart({ cartDto: { items: [] } });
     setLoading(false);
     router.refresh();
+    await mutate('cart');
     showNotification({
       title: 'Cleared cart',
       message: `Deleted all items from cart`,

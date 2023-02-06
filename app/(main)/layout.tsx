@@ -2,8 +2,6 @@ import MainHeader from '@lib/components/layout/Header/MainHeader';
 import MainFooter from '@lib/components/layout/Footer/MainFooter';
 import { Container } from '@lib/components/wrappers';
 
-export const revalidate = 0;
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

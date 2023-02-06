@@ -1,9 +1,18 @@
 import { categoriesApi, Product } from '@lib/api';
-import { Center, Divider, Flex, Text } from '@lib/components/wrappers';
+import {
+  Center,
+  Divider,
+  Flex,
+  Skeleton,
+  Text,
+} from '@lib/components/wrappers';
 import ProductCard from '@lib/components/products/ProductCard';
+import { Suspense } from 'react';
 import styles from './page.module.scss';
 import CategoryControls from './CategoryControls';
 import CategoryPagination from './CategoryPagination';
+
+export const revalidate = 0;
 
 const PAGE_SIZE = 12;
 
@@ -23,14 +32,7 @@ async function getProducts(
   priceMax: number | undefined,
   attributesFilter: Record<string, string[]>,
 ): Promise<[Product[], number]> {
-  let products = await categoriesApi.getCategoryProducts(
-    { id: categoryId },
-    {
-      next: {
-        revalidate: 60,
-      },
-    },
-  );
+  let products = await categoriesApi.getCategoryProducts({ id: categoryId });
   products.sort((a, b) => {
     if (sort.startsWith('price')) {
       return a.price - b.price;
@@ -73,6 +75,7 @@ export default async function Page({
   params: { id: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return null;
   const sort = (searchParams?.sort as sortMethod) ?? 'price-asc';
   const page = searchParams?.page
     ? parseInt(searchParams.page as string, 10)
@@ -123,7 +126,9 @@ export default async function Page({
       >
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard product={product} />
+            <Suspense fallback={<Skeleton w={240} h={370} />}>
+              <ProductCard product={product} />
+            </Suspense>
           </div>
         ))}
       </Flex>

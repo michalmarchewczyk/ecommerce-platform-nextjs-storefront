@@ -6,6 +6,7 @@ import { IconShoppingCart, IconShoppingCartX, IconTrash } from '@tabler/icons';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
 import { CartItem, cartsApi } from '@lib/api';
+import { mutate } from 'swr';
 
 export default function CartItemActions({ item }: { item: CartItem }) {
   const [loading, setLoading] = useState(false);
@@ -23,6 +24,7 @@ export default function CartItemActions({ item }: { item: CartItem }) {
     await cartsApi.updateCart({ cartDto: { items: newItems } });
     setLoading(false);
     router.refresh();
+    await mutate('cart');
     showNotification({
       title: 'Deleted from cart',
       message: `Deleted ${item.product.name} from cart`,
@@ -44,6 +46,7 @@ export default function CartItemActions({ item }: { item: CartItem }) {
     await cartsApi.updateCart({ cartDto: { items: newItems } });
     setLoading(false);
     router.refresh();
+    await mutate('cart');
     showNotification({
       title: 'Updated quantity',
       message: `Updated quantity of ${item.product.name} to ${value}`,

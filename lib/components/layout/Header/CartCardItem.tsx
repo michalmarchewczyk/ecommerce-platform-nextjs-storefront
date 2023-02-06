@@ -1,9 +1,15 @@
+'use client';
+
 import { IconPackage } from '@tabler/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import { API_URL, CartItem } from '@lib/api';
+import PriceClient from '@lib/components/ui/PriceClient';
 import { Center, Flex, Text } from '../../wrappers';
-import Price from '../../ui/Price';
+
+const imageLoader = ({ src }: { src: string }) => {
+  return src;
+};
 
 export default function CartCardItem({ item }: { item: CartItem }) {
   const { product } = item;
@@ -27,6 +33,7 @@ export default function CartCardItem({ item }: { item: CartItem }) {
       >
         {photoId ? (
           <Image
+            loader={imageLoader}
             src={photoUrl}
             width={60}
             height={60}
@@ -57,8 +64,7 @@ export default function CartCardItem({ item }: { item: CartItem }) {
           </Text>
           <Text fz={16} fw={500} c="gray.7">
             {item.quantity}&nbsp;x&nbsp;
-            {/* @ts-expect-error Server Component */}
-            <Price price={product.price} />
+            <PriceClient price={product.price} />
           </Text>
         </div>
       </Flex>

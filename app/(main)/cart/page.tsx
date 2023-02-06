@@ -15,6 +15,8 @@ import Price from '@lib/components/ui/Price';
 import CartItem from './CartItem';
 import ClearCartButton from './ClearCartButton';
 
+export const revalidate = 0;
+
 async function getCart() {
   const cookie = headers().get('cookie') ?? '';
   return cartsApi.getCart({

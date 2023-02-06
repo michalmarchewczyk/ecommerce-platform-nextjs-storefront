@@ -6,7 +6,7 @@ import { API_URL, Product } from '@lib/api';
 import { Card, CardSection, Text, Center, Box, Skeleton } from '../wrappers';
 import styles from './ProductCard.module.scss';
 import Price from '../ui/Price';
-import ProductCartButton from '../../../app/(main)/products/[id]/header/ProductCartButton';
+import ProductCartButton from './ProductCartButton';
 import ProductRating from './ProductRating';
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -56,7 +56,15 @@ export default function ProductCard({ product }: { product: Product }) {
         <Price price={product.price} />
       </Text>
       <Box className={styles.cartButton}>
-        <ProductCartButton product={product} simple />
+        <ProductCartButton
+          productData={{
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            stock: product.stock,
+          }}
+          simple
+        />
       </Box>
       <Link href={`/products/${product.id}`} className={styles.link} />
     </Card>

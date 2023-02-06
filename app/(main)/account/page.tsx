@@ -18,7 +18,7 @@ async function getAccount() {
     headers: { cookie },
   });
   try {
-    return req;
+    return await req;
   } catch (e) {
     return null;
   }

@@ -3,20 +3,19 @@
 import { ActionIcon, Button, NumberInput } from '@mantine/core';
 import { IconShoppingCartPlus } from '@tabler/icons';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
-import { cartsApi, Product } from '@lib/api';
+import { cartsApi } from '@lib/api';
+import { mutate } from 'swr';
 
 export default function ProductCartButton({
-  product,
+  productData,
   simple,
 }: {
-  product: Product;
+  productData: { id: number; name: string; price: number; stock: number };
   simple?: boolean;
 }) {
   const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const addToCart = async () => {
     setLoading(true);
@@ -25,18 +24,18 @@ export default function ProductCartButton({
       quantity: i.quantity,
       productId: i.product.id,
     }));
-    const item = items.find((i) => i.productId === product.id);
+    const item = items.find((i) => i.productId === productData.id);
     if (item) {
-      item.quantity = Math.min(product.stock, item.quantity + quantity);
+      item.quantity = Math.min(productData.stock, item.quantity + quantity);
     } else {
-      items.push({ quantity, productId: product.id });
+      items.push({ quantity, productId: productData.id });
     }
     await cartsApi.updateCart({ cartDto: { items } });
     setLoading(false);
-    router.refresh();
+    await mutate('cart');
     showNotification({
       title: 'Added to cart',
-      message: `Added ${product.name} to cart`,
+      message: `Added ${productData.name} to cart`,
       autoClose: 3000,
       icon: <IconShoppingCartPlus size={18} />,
     });
@@ -63,7 +62,7 @@ export default function ProductCartButton({
         radius="xl"
         size="lg"
         min={1}
-        max={product.stock}
+        max={productData.stock}
         step={1}
         styles={{
           rightSection: { width: '40px' },

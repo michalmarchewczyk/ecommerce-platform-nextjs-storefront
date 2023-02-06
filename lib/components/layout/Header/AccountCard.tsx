@@ -1,3 +1,5 @@
+'use client';
+
 import {
   IconHeart,
   IconLogin,
@@ -7,13 +9,11 @@ import {
   IconUserPlus,
 } from '@tabler/icons';
 import Link from 'next/link';
-import { headers } from 'next/headers';
 import { usersApi } from '@lib/api';
+import useSWR from 'swr';
 import {
   ActionIcon,
   HoverCard,
-  HoverCardTarget,
-  HoverCardDropdown,
   Button,
   Divider,
   Stack,
@@ -22,23 +22,10 @@ import {
   Text,
   Box,
   Flex,
-} from '../../wrappers';
+} from '@mantine/core';
 
-async function getAccount() {
-  const cookie = headers().get('cookie') ?? '';
-  const req = usersApi.getCurrentUser({
-    cache: 'no-store',
-    headers: { cookie },
-  });
-  try {
-    return await req;
-  } catch (e) {
-    return null;
-  }
-}
-
-export default async function AccountCard() {
-  const data = await getAccount();
+export default function AccountCard() {
+  const { data } = useSWR('user', () => usersApi.getCurrentUser());
   const initials = `${data?.firstName?.[0] ?? ''}${data?.lastName?.[0] ?? ''}`;
 
   return (
@@ -50,7 +37,7 @@ export default async function AccountCard() {
       withinPortal
       zIndex={2000}
     >
-      <HoverCardTarget>
+      <HoverCard.Target>
         {data ? (
           <Avatar
             color="indigo"
@@ -67,8 +54,8 @@ export default async function AccountCard() {
             <IconUser size="26" />
           </ActionIcon>
         )}
-      </HoverCardTarget>
-      <HoverCardDropdown>
+      </HoverCard.Target>
+      <HoverCard.Dropdown>
         {data ? (
           <Stack spacing="xs">
             <Flex gap="sm" sx={{ overflow: 'hidden' }} align="center">
@@ -152,7 +139,7 @@ export default async function AccountCard() {
             </Button>
           </Stack>
         )}
-      </HoverCardDropdown>
+      </HoverCard.Dropdown>
     </HoverCard>
   );
 }

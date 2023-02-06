@@ -1,12 +1,11 @@
+'use client';
+
 import { IconShoppingCart } from '@tabler/icons';
-import { headers } from 'next/headers';
 import Link from 'next/link';
 import { cartsApi } from '@lib/api';
 import {
   ActionIcon,
   HoverCard,
-  HoverCardTarget,
-  HoverCardDropdown,
   Center,
   Text,
   Divider,
@@ -15,20 +14,18 @@ import {
   Button,
   Stack,
   Indicator,
-} from '../../wrappers';
-import Price from '../../ui/Price';
+} from '@mantine/core';
+import useSWR from 'swr';
+import PriceClient from '@lib/components/ui/PriceClient';
 import CartCardItem from './CartCardItem';
 
-async function getCart() {
-  const cookie = headers().get('cookie') ?? '';
-  return cartsApi.getCart({
-    cache: 'no-store',
-    headers: { cookie },
-  });
-}
+export default function CartCard() {
+  const { data: cart } = useSWR('cart', () => cartsApi.getCart());
 
-export default async function CartCard() {
-  const cart = await getCart();
+  if (!cart) {
+    return null;
+  }
+
   const total = cart.items.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0,
@@ -43,7 +40,7 @@ export default async function CartCard() {
       withinPortal
       zIndex={2000}
     >
-      <HoverCardTarget>
+      <HoverCard.Target>
         <Indicator
           position="bottom-end"
           size={cart.items.length > 0 ? 18 : 0}
@@ -55,8 +52,8 @@ export default async function CartCard() {
             <IconShoppingCart size={26} />
           </ActionIcon>
         </Indicator>
-      </HoverCardTarget>
-      <HoverCardDropdown>
+      </HoverCard.Target>
+      <HoverCard.Dropdown>
         {cart.items.length === 0 && (
           <Center h={100}>
             <Text fz={24} fw={400} c="gray.6">
@@ -100,8 +97,7 @@ export default async function CartCard() {
                   Total
                 </Text>
                 <Text fz={18} fw={600} c="gray.9">
-                  {/* @ts-expect-error Server Component */}
-                  <Price price={total} />
+                  <PriceClient price={total} />
                 </Text>
               </div>
               <Button radius="xl" size="md" component={Link} href="/cart">
@@ -110,7 +106,7 @@ export default async function CartCard() {
             </Group>
           </>
         )}
-      </HoverCardDropdown>
+      </HoverCard.Dropdown>
     </HoverCard>
   );
 }

@@ -15,6 +15,7 @@ export default async function Head({
 }: {
   params: { id: string };
 }) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return null;
   const category = await getCategory(parseInt(id, 10));
   const title = `${category.name} - Ecommerce Platform`;
 

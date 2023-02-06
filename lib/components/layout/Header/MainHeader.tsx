@@ -50,11 +50,9 @@ export default async function MainHeader() {
 
           <Group sx={{ height: '100%' }}>
             <div>
-              {/* @ts-expect-error Server Component */}
               <AccountCard />
             </div>
             <div>
-              {/* @ts-expect-error Server Component */}
               <CartCard />
             </div>
           </Group>

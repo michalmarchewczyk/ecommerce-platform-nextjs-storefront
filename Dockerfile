@@ -59,4 +59,4 @@ RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--", "--keepAliveTimeout", "60000"]

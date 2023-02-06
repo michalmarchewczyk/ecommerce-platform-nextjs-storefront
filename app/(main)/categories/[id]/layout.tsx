@@ -22,6 +22,7 @@ export default async function Layout({
   params: { id: string };
   children: React.ReactNode;
 }) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return null;
   const category = await getCategory(parseInt(id, 10));
 
   return (

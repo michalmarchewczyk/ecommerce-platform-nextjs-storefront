@@ -10,6 +10,8 @@ import { usersApi } from '@lib/api';
 import PageNavigation from '@lib/components/ui/PageNavigation';
 import { Box, Flex } from '@lib/components/wrappers';
 
+export const revalidate = 0;
+
 async function getAccount() {
   const cookie = headers().get('cookie') ?? '';
   const req = usersApi.getCurrentUser({
@@ -17,7 +19,7 @@ async function getAccount() {
     headers: { cookie },
   });
   try {
-    return req;
+    return await req;
   } catch (e) {
     return null;
   }

@@ -8,6 +8,7 @@ export default async function Head({
 }: {
   params: { id: string };
 }) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return null;
   const page = await getPage(parseInt(id, 10));
   const title = `${page.title} - Ecommerce Platform`;
 
