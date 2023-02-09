@@ -71,6 +71,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
               fill
               sizes="(max-width: 828px) 100vw, 50vw"
               quality={100}
+              priority
               style={{
                 objectFit: 'contain',
                 maxHeight: '100%',
