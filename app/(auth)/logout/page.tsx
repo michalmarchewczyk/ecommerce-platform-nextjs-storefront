@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { hideNotification, showNotification } from '@mantine/notifications';
 import { IconLogout } from '@tabler/icons';
 import { authApi } from '@lib/api';
+import { mutate } from 'swr';
 
 export default function Page() {
   const router = useRouter();
@@ -17,9 +18,10 @@ export default function Page() {
       .catch(() => {
         // ignore
       })
-      .finally(() => {
+      .finally(async () => {
         router.push('/');
         router.refresh();
+        await mutate('user', null, { rollbackOnError: false });
         hideNotification('logout');
         showNotification({
           id: 'logout',

@@ -25,7 +25,7 @@ import {
 } from '@mantine/core';
 
 export default function AccountCard() {
-  const { data } = useSWR('user', () => usersApi.getCurrentUser());
+  const { data, error } = useSWR('user', () => usersApi.getCurrentUser());
   const initials = `${data?.firstName?.[0] ?? ''}${data?.lastName?.[0] ?? ''}`;
 
   return (
@@ -38,7 +38,7 @@ export default function AccountCard() {
       zIndex={2000}
     >
       <HoverCard.Target>
-        {data ? (
+        {!error && data ? (
           <Avatar
             color="indigo"
             size={44}

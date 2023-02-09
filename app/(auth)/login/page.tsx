@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
 import { IconLogin } from '@tabler/icons';
 import { authApi } from '@lib/api';
+import { mutate } from 'swr';
 
 export default function Page() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function Page() {
       const res = await authApi.login({ loginDto: values });
       router.push('/');
       router.refresh();
+      await mutate('user');
       showNotification({
         title: 'Signed in',
         message: `You have been signed in as ${res.email}`,
