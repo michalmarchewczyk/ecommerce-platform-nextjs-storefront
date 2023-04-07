@@ -2,7 +2,14 @@ import { productRatingsApi } from '@lib/api';
 import { Flex, Rating, Text } from '../wrappers';
 
 async function getProductRatings(id: number) {
-  const ratings = await productRatingsApi.getProductRatings({ productId: id });
+  const ratings = await productRatingsApi.getProductRatings(
+    { productId: id },
+    {
+      next: {
+        revalidate: 1,
+      },
+    },
+  );
   const average =
     ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length;
   const count = ratings.length;

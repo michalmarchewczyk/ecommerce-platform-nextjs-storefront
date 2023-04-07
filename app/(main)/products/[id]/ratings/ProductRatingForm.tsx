@@ -42,6 +42,9 @@ export default function ProductRatingForm({
       autoClose: 3000,
       icon: <IconStar size={18} />,
     });
+    setTimeout(() => {
+      router.refresh();
+    }, 1100);
   };
 
   if (isLoading || error) {
