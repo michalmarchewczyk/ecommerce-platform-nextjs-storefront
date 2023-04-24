@@ -54,6 +54,7 @@ export default function CategoryFilterGroup({
             key={value}
             component={Link}
             href={getHref(value)}
+            prefetch
             sx={{
               color: '#ffffff',
               border: params.getAll(attributeType.id.toString()).includes(value)
@@ -73,7 +74,12 @@ export default function CategoryFilterGroup({
   return (
     <Checkbox.Group orientation="vertical" spacing="xs" value={selected}>
       {values.map((value) => (
-        <Link key={value} href={getHref(value)} style={{ cursor: 'inherit' }}>
+        <Link
+          key={value}
+          href={getHref(value)}
+          style={{ cursor: 'inherit' }}
+          prefetch
+        >
           <Checkbox value={value} label={value} />
         </Link>
       ))}

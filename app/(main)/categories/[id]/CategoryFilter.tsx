@@ -64,6 +64,7 @@ export default async function CategoryFilter({
         href={`/categories/${categoryId}`}
         variant="light"
         w="100%"
+        prefetch
       >
         Clear filters
       </Button>

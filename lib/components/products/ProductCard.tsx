@@ -37,6 +37,8 @@ export default function ProductCard({ product }: { product: Product }) {
               maxWidth: '100%',
               objectFit: 'contain',
             }}
+            loading="lazy"
+            priority
           />
         ) : (
           <Center className={styles.photoPlaceholder}>
@@ -66,7 +68,7 @@ export default function ProductCard({ product }: { product: Product }) {
           simple
         />
       </Box>
-      <Link href={`/products/${product.id}`} className={styles.link} />
+      <Link href={`/products/${product.id}`} className={styles.link} prefetch />
     </Card>
   );
 }
