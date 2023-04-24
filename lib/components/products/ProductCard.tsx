@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import Image from 'next/image';
 import { API_URL, Product } from '@lib/api';
+import Price from '@lib/components/ui/Price';
 import { Card, CardSection, Text, Center, Box, Skeleton } from '../wrappers';
 import styles from './ProductCard.module.scss';
-import Price from '../ui/Price';
 import ProductCartButton from './ProductCartButton';
 import ProductRating from './ProductRating';
 

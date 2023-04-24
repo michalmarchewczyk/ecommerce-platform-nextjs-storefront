@@ -1,6 +1,6 @@
 import { categoriesApi } from '@lib/api';
+import Logo from '@lib/components/ui/Logo';
 import { Header, Group, Container, Box } from '../../wrappers';
-import Logo from '../../ui/Logo';
 import styles from './MainHeader.module.scss';
 import AccountCard from './AccountCard';
 import CartCard from './CartCard';
