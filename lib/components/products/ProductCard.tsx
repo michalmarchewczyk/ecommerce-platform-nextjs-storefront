@@ -37,7 +37,6 @@ export default function ProductCard({ product }: { product: Product }) {
               maxWidth: '100%',
               objectFit: 'contain',
             }}
-            loading="lazy"
             priority
           />
         ) : (
