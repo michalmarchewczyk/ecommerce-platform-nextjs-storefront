@@ -34,6 +34,17 @@ async function getProductRatings(id: number) {
   return { average, count };
 }
 
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return {};
+  const product = await getProduct(parseInt(id, 10));
+
+  return { title: product.name };
+}
+
 export default async function Page({
   params: { id },
 }: {

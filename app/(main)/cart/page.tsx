@@ -25,6 +25,10 @@ async function getCart() {
   });
 }
 
+export const metadata = {
+  title: 'Cart',
+};
+
 export default async function Page() {
   const cart = await getCart();
   const total = cart.items.reduce(

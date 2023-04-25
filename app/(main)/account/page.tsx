@@ -24,6 +24,10 @@ async function getAccount() {
   }
 }
 
+export const metadata = {
+  title: 'Account',
+};
+
 export default async function Page() {
   const data = await getAccount();
   const initials = `${data?.firstName?.[0] ?? ''}${data?.lastName?.[0] ?? ''}`;

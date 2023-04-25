@@ -15,6 +15,17 @@ async function getCategory(id: number) {
   );
 }
 
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return {};
+  const category = await getCategory(parseInt(id, 10));
+
+  return { title: category.name };
+}
+
 export default async function Layout({
   params: { id },
   children,

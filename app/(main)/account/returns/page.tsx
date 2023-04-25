@@ -18,6 +18,10 @@ async function getUserReturns() {
     }));
 }
 
+export const metadata = {
+  title: 'Returns',
+};
+
 export default async function Page() {
   const returns = await getUserReturns();
   return (
