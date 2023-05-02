@@ -3,6 +3,19 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Connection',
+            value: 'keep-alive',
+          },
+        ],
+      },
+    ];
+  },
   images: {
     minimumCacheTTL: 60 * 60 * 24,
     remotePatterns: [
