@@ -37,7 +37,11 @@ export default async function HeaderCategory({
 
   if (category.childCategories.length === 0) {
     return (
-      <Link href={`/categories/${category.id}`} className={styles.link}>
+      <Link
+        href={`/categories/${category.id}`}
+        className={styles.link}
+        prefetch
+      >
         {category.name}
       </Link>
     );
@@ -55,7 +59,11 @@ export default async function HeaderCategory({
       zIndex={2000}
     >
       <HoverCardTarget>
-        <Link href={`/categories/${category.id}`} className={styles.link}>
+        <Link
+          href={`/categories/${category.id}`}
+          className={styles.link}
+          prefetch
+        >
           <Center inline>
             <Box component="span" mr={5}>
               {category.name}
@@ -79,6 +87,7 @@ export default async function HeaderCategory({
               href={`/categories/${category.id}`}
               variant="outline"
               radius="xl"
+              prefetch
             >
               View products
             </Button>
@@ -94,6 +103,7 @@ export default async function HeaderCategory({
               rightSection={<IconChevronRight size={18} stroke={2} />}
               component={Link}
               href={`/categories/${childCategory.id}`}
+              prefetch
             />
           ))}
         </Box>

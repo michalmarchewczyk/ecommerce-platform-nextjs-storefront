@@ -3,7 +3,7 @@ import {
   IconBrandTwitter,
   IconBrandYoutube,
 } from '@tabler/icons';
-import Logo from '../../ui/Logo';
+import Logo from '@lib/components/ui/Logo';
 import { ActionIcon, Container, Group, Text } from '../../wrappers';
 import styles from './MainFooter.module.scss';
 import FooterLinks from './FooterLinks';

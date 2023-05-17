@@ -1,7 +1,7 @@
 'use client';
 
-import { Group, Menu, UnstyledButton, Text, Flex } from '@mantine/core';
-import { useState } from 'react';
+import { Flex, Group, Menu, Text, UnstyledButton } from '@mantine/core';
+import { useEffect, useState } from 'react';
 import {
   IconChevronDown,
   IconSortAscending2,
@@ -12,6 +12,7 @@ import {
   IconSortDescendingNumbers,
 } from '@tabler/icons';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types';
 import styles from './CategoryControls.module.scss';
 
 const PAGE_SIZE = 12;
@@ -60,6 +61,14 @@ export default function CategoryControls({
       return [m.value, `${pathname}?${newParams.toString()}`];
     }),
   );
+
+  useEffect(() => {
+    Object.values(links).forEach((link) => {
+      router.prefetch(link, {
+        kind: PrefetchKind.FULL,
+      });
+    });
+  }, [links]);
 
   const updateSort = (method: (typeof sortMethods)[number]) => {
     router.push(links[method.value]);

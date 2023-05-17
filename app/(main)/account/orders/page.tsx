@@ -22,6 +22,10 @@ async function getUserOrders() {
     }));
 }
 
+export const metadata = {
+  title: 'Orders',
+};
+
 export default async function Page() {
   const orders = await getUserOrders();
   return (

@@ -14,6 +14,10 @@ import Background from '@lib/components/ui/Background';
 import { cartsApi } from '@lib/api';
 import Price from '@lib/components/ui/Price';
 
+export const metadata = {
+  title: 'Checkout',
+};
+
 async function getCart() {
   const cookie = headers().get('cookie') ?? '';
   const cart = await cartsApi.getCart({

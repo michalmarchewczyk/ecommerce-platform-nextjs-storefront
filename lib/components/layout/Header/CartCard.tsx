@@ -17,10 +17,15 @@ import {
 } from '@mantine/core';
 import useSWR from 'swr';
 import PriceClient from '@lib/components/ui/PriceClient';
+import { useMemo } from 'react';
 import CartCardItem from './CartCardItem';
 
 export default function CartCard() {
   const { data: cart } = useSWR('cart', () => cartsApi.getCart());
+
+  const items = useMemo(() => {
+    return cart?.items.sort((a, b) => b.id - a.id).slice(0, 6);
+  }, [cart?.items]);
 
   if (!cart) {
     return null;
@@ -71,12 +76,9 @@ export default function CartCard() {
             </Group>
             <Divider my="sm" mx="-md" />
             <Stack spacing={0} mx={-6}>
-              {cart.items
-                .reverse()
-                .slice(0, 6)
-                .map((item) => (
-                  <CartCardItem key={item.id} item={item} />
-                ))}
+              {items?.map((item) => (
+                <CartCardItem key={item.id} item={item} />
+              ))}
               {cart.items.length > 6 && (
                 <Button
                   variant="subtle"
@@ -85,6 +87,7 @@ export default function CartCard() {
                   w="100%"
                   color="gray.7"
                   size="md"
+                  prefetch
                 >
                   + {cart.items.length - 6} more items
                 </Button>
@@ -100,7 +103,13 @@ export default function CartCard() {
                   <PriceClient price={total} />
                 </Text>
               </div>
-              <Button radius="xl" size="md" component={Link} href="/cart">
+              <Button
+                radius="xl"
+                size="md"
+                component={Link}
+                href="/cart"
+                prefetch
+              >
                 View cart
               </Button>
             </Group>

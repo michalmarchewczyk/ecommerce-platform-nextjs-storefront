@@ -31,6 +31,7 @@ export default async function DrawerCategory({
         }
         component={Link}
         href={`/categories/${category.id}`}
+        prefetch
       />
     );
   }
@@ -51,6 +52,7 @@ export default async function DrawerCategory({
         }
         component={Link}
         href={`/categories/${category.id}`}
+        prefetch
       />
       {category.childCategories.map((childCategory) => (
         <div key={childCategory.id}>
@@ -62,6 +64,7 @@ export default async function DrawerCategory({
             }
             component={Link}
             href={`/categories/${childCategory.id}`}
+            prefetch
           />
         </div>
       ))}

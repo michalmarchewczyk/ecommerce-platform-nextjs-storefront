@@ -16,7 +16,7 @@ import ProductRatingForm from './ProductRatingForm';
 async function getProductRatings(id: number) {
   const ratings = await productRatingsApi.getProductRatings(
     { productId: id },
-    { next: { revalidate: 10 } },
+    { next: { revalidate: 1 } },
   );
   const average =
     ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length || 0;

@@ -11,6 +11,13 @@ const roboto = Roboto({
   subsets: ['latin-ext'],
 });
 
+export const metadata = {
+  title: {
+    template: '%s - Ecommerce Platform',
+    default: 'Ecommerce Platform',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {

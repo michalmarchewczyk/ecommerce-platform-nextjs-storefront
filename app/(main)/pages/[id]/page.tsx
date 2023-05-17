@@ -12,6 +12,17 @@ async function getPage(id: number) {
   return { ...page, contentHtml };
 }
 
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return {};
+  const page = await getPage(parseInt(id, 10));
+
+  return { title: page.title };
+}
+
 export default async function Page({
   params: { id },
 }: {

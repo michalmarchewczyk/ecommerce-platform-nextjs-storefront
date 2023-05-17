@@ -25,6 +25,7 @@ export default async function FooterLinks() {
         component={Link}
         href={`/pages/${page.id}`}
         fw={400}
+        prefetch
       >
         {page.title}
       </Text>

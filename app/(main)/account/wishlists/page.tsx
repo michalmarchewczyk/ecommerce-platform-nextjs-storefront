@@ -16,6 +16,10 @@ async function getUserWishlists() {
   }));
 }
 
+export const metadata = {
+  title: 'Wishlists',
+};
+
 export default async function Page() {
   const wishlists = await getUserWishlists();
   return (

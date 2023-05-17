@@ -12,7 +12,8 @@ import styles from './page.module.scss';
 import CategoryControls from './CategoryControls';
 import CategoryPagination from './CategoryPagination';
 
-export const revalidate = 0;
+// export const revalidate = 30;
+// export const dynamic = 'force-static';
 
 const PAGE_SIZE = 12;
 
@@ -32,7 +33,14 @@ async function getProducts(
   priceMax: number | undefined,
   attributesFilter: Record<string, string[]>,
 ): Promise<[Product[], number]> {
-  let products = await categoriesApi.getCategoryProducts({ id: categoryId });
+  let products = await categoriesApi.getCategoryProducts(
+    { id: categoryId },
+    {
+      next: {
+        revalidate: 60,
+      },
+    },
+  );
   products.sort((a, b) => {
     if (sort.startsWith('price')) {
       return a.price - b.price;
@@ -116,7 +124,9 @@ export default async function Page({
 
   return (
     <>
+      {/*<Suspense fallback={<div>LOADING...</div>}>*/}
       <CategoryControls countProducts={countProducts} />
+      {/*</Suspense>*/}
       <Divider my="md" />
       <Flex
         wrap="wrap"
@@ -133,7 +143,9 @@ export default async function Page({
         ))}
       </Flex>
       <Divider mb="xs" />
+      {/*<Suspense fallback={<div>LOADING...</div>}>*/}
       <CategoryPagination countProducts={countProducts} />
+      {/*</Suspense>*/}
     </>
   );
 }

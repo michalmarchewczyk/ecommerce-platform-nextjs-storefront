@@ -15,6 +15,17 @@ async function getWishlist(id: number) {
   return wishlists.find((wishlist) => wishlist.id === id);
 }
 
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  if (!id || Number.isNaN(parseInt(id, 10))) return {};
+  const wishlist = await getWishlist(parseInt(id, 10));
+
+  return { title: wishlist?.name };
+}
+
 export default async function Page({
   params: { id },
 }: {

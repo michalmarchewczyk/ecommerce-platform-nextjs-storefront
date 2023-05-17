@@ -31,6 +31,7 @@ export default async function CategoriesTree({
       href={`/categories/${cat.id}`}
       className={styles.link}
       fw={400}
+      prefetch
     >
       {cat.name}
     </Text>
