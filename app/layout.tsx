@@ -1,14 +1,16 @@
-import { Poppins, Roboto } from '@next/font/google';
+import { Poppins, Roboto } from 'next/font/google';
 import RootStyleRegistry from './emotion';
 import './global.scss';
 
 const poppins = Poppins({
   weight: ['700'],
   subsets: ['latin'],
+  variable: '--font-poppins',
 });
 const roboto = Roboto({
   weight: ['400', '500', '700'],
   subsets: ['latin-ext'],
+  variable: '--font-roboto',
 });
 
 export const metadata = {
@@ -24,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-US" className={`${poppins.className} ${roboto.className}`}>
+    <html
+      lang="en-US"
+      className={`${poppins.className} ${roboto.className} ${poppins.variable} ${roboto.variable}`}
+    >
       <head>
         <title>Ecommerce Platform</title>
       </head>

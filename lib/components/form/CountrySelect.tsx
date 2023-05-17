@@ -3,7 +3,7 @@
 import { Select } from '@mantine/core';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
-import { Noto_Color_Emoji } from '@next/font/google';
+import { Noto_Color_Emoji } from 'next/font/google';
 import { countries, Country, getEmojiFlag } from 'countries-list';
 import { CountryCode, getCountryCallingCode } from 'libphonenumber-js';
 import { settingsApi } from '@lib/api';

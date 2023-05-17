@@ -34,9 +34,9 @@ export default function RootStyleRegistry({
         withNormalizeCSS
         withCSSVariables
         theme={{
-          fontFamily: 'Roboto, sans-serif',
+          fontFamily: 'var(--font-roboto), sans-serif',
           headings: {
-            fontFamily: 'Poppins, sans-serif',
+            fontFamily: 'var(--font-poppins), sans-serif',
           },
           defaultRadius: 'md',
           primaryColor: 'indigo',
