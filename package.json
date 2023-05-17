@@ -21,7 +21,6 @@
     "@mantine/next": "^5.10.5",
     "@mantine/notifications": "^5.10.5",
     "@mantine/styles": "^5.10.0",
-    "@next/font": "^13.3.4",
     "@tabler/icons": "^1.119.0",
     "countries-list": "^2.6.1",
     "embla-carousel-react": "^7.1.0",
