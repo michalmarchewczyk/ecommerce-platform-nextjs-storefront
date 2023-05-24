@@ -14,6 +14,7 @@ export default function ProductCard({ product }: { product: Product }) {
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
   const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photo = product.photos.find((p) => p.id === photoId);
 
   return (
     <Card
@@ -38,6 +39,8 @@ export default function ProductCard({ product }: { product: Product }) {
               objectFit: 'contain',
             }}
             priority
+            placeholder="blur"
+            blurDataURL={photo?.placeholderBase64}
           />
         ) : (
           <Center className={styles.photoPlaceholder}>
