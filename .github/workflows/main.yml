@@ -18,7 +18,41 @@ jobs:
         run: npm ci
       - name: Run ESLint
         run: npm run lint
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: michalmarchewczyk/ecommerce-platform-nestjs-api
+          path: ./server
+      - name: Run dev server
+        run: docker-compose -f docker-compose-dev.yml up -d
+        working-directory: ./server
+      - name: Run cypress
+        uses: cypress-io/github-action@v4
+        env:
+          CYPRESS_API_URL: http://localhost:80
+          CYPRESS_ADMIN_EMAIL: "admin@test.local"
+          CYPRESS_ADMIN_PASSWORD: "test1234"
+        with:
+          browser: chrome
+          start: npm run start
+          wait-on: 'http://localhost:3000'
+      - name: Upload cypress screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - name: Upload cypress videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   build:
+    needs: [ e2e-tests ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
