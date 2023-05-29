@@ -16,6 +16,16 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: '/:slug',
+          destination: '/pages/:slug',
+        },
+      ],
+    };
+  },
   images: {
     minimumCacheTTL: 60 * 60 * 24,
     remotePatterns: [
