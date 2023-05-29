@@ -2,14 +2,19 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import { pagesApi } from '@lib/api';
 import { Container, Text, Title } from '@lib/components/wrappers';
+import { notFound } from 'next/navigation';
 import styles from './page.module.scss';
 
 async function getPage(id: number) {
-  const page = await pagesApi.getPage({ id });
-  const contentHtml = (
-    await remark().use(html).process(page.content)
-  ).toString();
-  return { ...page, contentHtml };
+  try {
+    const page = await pagesApi.getPage({ id });
+    const contentHtml = (
+      await remark().use(html).process(page.content)
+    ).toString();
+    return { ...page, contentHtml };
+  } catch (error) {
+    return notFound();
+  }
 }
 
 export async function generateMetadata({
