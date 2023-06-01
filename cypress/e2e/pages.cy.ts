@@ -12,8 +12,7 @@ describe('Pages', () => {
         });
       });
     });
-    cy.visit('/');
-    cy.reload(true);
+    cy.revalidatePath('/');
   });
 
   it('listing pages', () => {

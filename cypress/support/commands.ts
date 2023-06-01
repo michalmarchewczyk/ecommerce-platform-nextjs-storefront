@@ -16,3 +16,7 @@ Cypress.Commands.add('loginAdmin', () => {
     },
   );
 });
+
+Cypress.Commands.add('revalidatePath', (path) => {
+  cy.request('GET', `/api/revalidate?path=${path}`);
+});
