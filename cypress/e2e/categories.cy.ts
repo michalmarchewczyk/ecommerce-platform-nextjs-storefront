@@ -1,6 +1,26 @@
+import { Category, CategoryCreateDto } from '../../lib/api';
+
 describe('Categories', () => {
   before(() => {
-    const createCategory = (category, parentId?: string) => {
+    cy.request(`${Cypress.env('API_URL')}/categories`)
+      .its('body')
+      .each((category: Category) => {
+        if (category.name.toLowerCase().includes('test')) {
+          cy.request(
+            'DELETE',
+            `${Cypress.env('API_URL')}/categories/${category.id}`,
+          );
+        }
+      });
+
+    type CategoryCreateDtoWithChildren = CategoryCreateDto & {
+      children?: CategoryCreateDtoWithChildren[];
+    };
+
+    const createCategory = (
+      category: CategoryCreateDtoWithChildren,
+      parentId?: string,
+    ) => {
       cy.request('POST', `${Cypress.env('API_URL')}/categories`, category)
         .its('body.id')
         .as('categoryId');
@@ -15,18 +35,18 @@ describe('Categories', () => {
             ...(parentId && { parentCategoryId: parentId }),
           },
         );
-        if (category.children) {
-          category.children.forEach((childCategory) => {
-            createCategory(childCategory, categoryId);
-          });
-        }
+        category.children?.forEach((childCategory) => {
+          createCategory(childCategory, categoryId);
+        });
       });
     };
+
     cy.fixture('testCategories').then((testCategories) => {
-      testCategories.forEach((testCategory) => {
+      testCategories.forEach((testCategory: CategoryCreateDtoWithChildren) => {
         createCategory(testCategory);
       });
     });
+
     cy.revalidatePath('/');
   });
 
