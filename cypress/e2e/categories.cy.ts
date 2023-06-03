@@ -1,5 +1,25 @@
 import { Category, CategoryCreateDto } from '../../lib/api';
 
+type CategoryCreateDtoWithChildren = CategoryCreateDto & {
+  children?: CategoryCreateDtoWithChildren[];
+};
+
+const createCategory = (
+  category: CategoryCreateDtoWithChildren,
+  parentId?: string,
+) => {
+  cy.apiPOST('/categories', category).its('body.id').as('categoryId');
+  cy.get<string>('@categoryId').then((categoryId) => {
+    cy.apiPATCH(`/categories/${categoryId}`, {
+      ...(!parentId && { groups: [{ name: 'main' }, { name: 'featured' }] }),
+      ...(parentId && { parentCategoryId: parentId }),
+    });
+    category.children?.forEach((childCategory) => {
+      createCategory(childCategory, categoryId);
+    });
+  });
+};
+
 describe('Categories', () => {
   before(() => {
     cy.apiGET('/categories')
@@ -9,28 +29,6 @@ describe('Categories', () => {
           cy.apiDELETE(`/categories/${category.id}`);
         }
       });
-
-    type CategoryCreateDtoWithChildren = CategoryCreateDto & {
-      children?: CategoryCreateDtoWithChildren[];
-    };
-
-    const createCategory = (
-      category: CategoryCreateDtoWithChildren,
-      parentId?: string,
-    ) => {
-      cy.apiPOST('/categories', category).its('body.id').as('categoryId');
-      cy.get<string>('@categoryId').then((categoryId) => {
-        cy.apiPATCH(`/categories/${categoryId}`, {
-          ...(!parentId && {
-            groups: [{ name: 'main' }, { name: 'featured' }],
-          }),
-          ...(parentId && { parentCategoryId: parentId }),
-        });
-        category.children?.forEach((childCategory) => {
-          createCategory(childCategory, categoryId);
-        });
-      });
-    };
 
     cy.fixture('testCategories').then((testCategories) => {
       testCategories.forEach((testCategory: CategoryCreateDtoWithChildren) => {
