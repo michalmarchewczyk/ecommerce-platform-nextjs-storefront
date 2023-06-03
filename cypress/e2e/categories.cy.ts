@@ -2,14 +2,11 @@ import { Category, CategoryCreateDto } from '../../lib/api';
 
 describe('Categories', () => {
   before(() => {
-    cy.request(`${Cypress.env('API_URL')}/categories`)
+    cy.apiGET('/categories')
       .its('body')
       .each((category: Category) => {
         if (category.name.toLowerCase().includes('test')) {
-          cy.request(
-            'DELETE',
-            `${Cypress.env('API_URL')}/categories/${category.id}`,
-          );
+          cy.apiDELETE(`/categories/${category.id}`);
         }
       });
 
@@ -21,20 +18,14 @@ describe('Categories', () => {
       category: CategoryCreateDtoWithChildren,
       parentId?: string,
     ) => {
-      cy.request('POST', `${Cypress.env('API_URL')}/categories`, category)
-        .its('body.id')
-        .as('categoryId');
+      cy.apiPOST('/categories', category).its('body.id').as('categoryId');
       cy.get<string>('@categoryId').then((categoryId) => {
-        cy.request(
-          'PATCH',
-          `${Cypress.env('API_URL')}/categories/${categoryId}`,
-          {
-            ...(!parentId && {
-              groups: [{ name: 'main' }, { name: 'featured' }],
-            }),
-            ...(parentId && { parentCategoryId: parentId }),
-          },
-        );
+        cy.apiPATCH(`/categories/${categoryId}`, {
+          ...(!parentId && {
+            groups: [{ name: 'main' }, { name: 'featured' }],
+          }),
+          ...(parentId && { parentCategoryId: parentId }),
+        });
         category.children?.forEach((childCategory) => {
           createCategory(childCategory, categoryId);
         });

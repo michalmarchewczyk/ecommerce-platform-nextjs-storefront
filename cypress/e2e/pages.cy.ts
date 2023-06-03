@@ -2,22 +2,18 @@ import { Page, PageCreateDto } from '../../lib/api';
 
 describe('Pages', () => {
   before(() => {
-    cy.request(`${Cypress.env('API_URL')}/pages`)
+    cy.apiGET('/pages')
       .its('body')
       .each((page: Page) => {
         if (page.title.toLowerCase().includes('test')) {
-          cy.request('DELETE', `${Cypress.env('API_URL')}/pages/${page.id}`);
+          cy.apiDELETE(`/pages/${page.id}`);
         }
       });
 
     cy.fixture('testPages').each((testPage: PageCreateDto) => {
-      cy.request('POST', `${Cypress.env('API_URL')}/pages`, testPage)
-        .its('body.id')
-        .as('pageId');
+      cy.apiPOST('/pages', testPage).its('body.id').as('pageId');
       cy.get('@pageId').then((pageId) => {
-        cy.request('PATCH', `${Cypress.env('API_URL')}/pages/${pageId}`, {
-          groups: [{ name: 'info' }],
-        });
+        cy.apiPATCH(`/pages/${pageId}`, { groups: [{ name: 'info' }] });
       });
     });
 

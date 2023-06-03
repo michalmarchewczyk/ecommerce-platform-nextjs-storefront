@@ -1,10 +1,10 @@
 describe('Auth', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('API_URL')}/users`).then((response) => {
+    cy.apiGET('/users').then((response) => {
       cy.fixture('testUser').then((testUser) => {
         const user = response.body.find((u) => u.email === testUser.email);
         if (user) {
-          cy.request('DELETE', `${Cypress.env('API_URL')}/users/${user.id}`);
+          cy.apiDELETE(`/users/${user.id}`);
         }
       });
     });
@@ -38,7 +38,7 @@ describe('Auth', () => {
 
   it('login', () => {
     cy.fixture('testUser').then((testUser) => {
-      cy.request('POST', `${Cypress.env('API_URL')}/auth/register`, testUser);
+      cy.apiPOST('/auth/register', testUser);
     });
     cy.visit('/login');
     cy.contains('h2', 'Sign in').should('be.visible');
@@ -61,8 +61,8 @@ describe('Auth', () => {
 
   it('logout', () => {
     cy.fixture('testUser').then((testUser) => {
-      cy.request('POST', `${Cypress.env('API_URL')}/auth/register`, testUser);
-      cy.request('POST', `${Cypress.env('API_URL')}/auth/login`, testUser);
+      cy.apiPOST('/auth/register', testUser);
+      cy.apiPOST('/auth/login', testUser);
       cy.visit('/');
       cy.get('header').contains('a', testUser.initials).trigger('mouseover');
       cy.contains('div[role=dialog]', 'Test User').should('exist');
