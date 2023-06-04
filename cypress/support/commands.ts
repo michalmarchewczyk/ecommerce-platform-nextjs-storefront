@@ -29,9 +29,7 @@ Cypress.Commands.add('loginAdmin', () => {
     },
     {
       validate() {
-        cy.apiGET('/users/me')
-          .its('body.email')
-          .should('equal', Cypress.env('ADMIN_EMAIL'));
+        cy.apiGET('/users/me').its('body.email').should('equal', Cypress.env('ADMIN_EMAIL'));
       },
     },
   );

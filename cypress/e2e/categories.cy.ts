@@ -4,14 +4,11 @@ type CategoryCreateDtoWithChildren = CategoryCreateDto & {
   children?: CategoryCreateDtoWithChildren[];
 };
 
-const createCategory = (
-  category: CategoryCreateDtoWithChildren,
-  parentId?: string,
-) => {
+const createCategory = (category: CategoryCreateDtoWithChildren, parentId?: string) => {
   cy.apiPOST('/categories', category).its('body.id').as('categoryId');
   cy.get<string>('@categoryId').then((categoryId) => {
     cy.apiPATCH(`/categories/${categoryId}`, {
-      ...(!parentId && { groups: [{ name: 'main' }, { name: 'featured' }] }),
+      ...(!parentId && { groups: [{ name: 'main' }] }),
       ...(parentId && { parentCategoryId: parentId }),
     });
     category.children?.forEach((childCategory) => {
@@ -45,18 +42,13 @@ describe('Categories', () => {
       testCategories.forEach((testCategory) => {
         cy.get('header').contains('a', testCategory.name).should('exist');
       });
-      cy.get('header')
-        .contains('a', testCategories[0].name)
-        .trigger('mouseover');
+      cy.get('header').contains('a', testCategories[0].name).trigger('mouseover');
       cy.contains('div[role=dialog]', testCategories[0].name).should('exist');
       testCategories[0].children.forEach((childCategory) => {
         cy.contains('div[role=dialog]', childCategory.name).should('exist');
       });
       cy.contains('div[role=dialog] a', 'View products').click({ force: true });
-      cy.location('pathname', { timeout: 10000 }).should(
-        'match',
-        /\/categories\/.+/,
-      );
+      cy.location('pathname', { timeout: 10000 }).should('match', /\/categories\/.+/);
     });
   });
 
@@ -65,10 +57,7 @@ describe('Categories', () => {
       cy.visit('/');
       cy.get('header').contains('a', testCategories[0].name).click();
 
-      cy.location('pathname', { timeout: 10000 }).should(
-        'match',
-        /\/categories\/.+/,
-      );
+      cy.location('pathname', { timeout: 10000 }).should('match', /\/categories\/.+/);
       cy.contains('h2', testCategories[0].name).should('exist');
       cy.contains('ul > li span', testCategories[0].name).should('exist');
       testCategories[0].children.forEach((childCategory) => {
@@ -78,14 +67,9 @@ describe('Categories', () => {
         force: true,
       });
 
-      cy.location('pathname', { timeout: 10000 }).should(
-        'match',
-        /\/categories\/.+/,
-      );
+      cy.location('pathname', { timeout: 10000 }).should('match', /\/categories\/.+/);
       cy.contains('h2', testCategories[0].children[0].name).should('exist');
-      cy.contains('ul > li span', testCategories[0].children[0].name).should(
-        'exist',
-      );
+      cy.contains('ul > li span', testCategories[0].children[0].name).should('exist');
       testCategories[0].children[0].children.forEach((childCategory) => {
         cy.contains('ul > li a', childCategory.name).should('exist');
       });

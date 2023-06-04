@@ -15,18 +15,9 @@ describe('Auth', () => {
     cy.contains('h2', 'Create account').should('be.visible');
     cy.fixture('testUser').then((testUser) => {
       cy.contains('label', 'Email').next().find('input').type(testUser.email);
-      cy.contains('label', 'First name')
-        .next()
-        .find('input')
-        .type(testUser.firstName);
-      cy.contains('label', 'Last name')
-        .next()
-        .find('input')
-        .type(testUser.lastName);
-      cy.contains('label', 'Password')
-        .next()
-        .find('input')
-        .type(testUser.password);
+      cy.contains('label', 'First name').next().find('input').type(testUser.firstName);
+      cy.contains('label', 'Last name').next().find('input').type(testUser.lastName);
+      cy.contains('label', 'Password').next().find('input').type(testUser.password);
       cy.intercept('POST', '/auth/register').as('register');
       cy.contains('button', 'Create account').click();
       cy.wait('@register').then((interception) => {
@@ -44,10 +35,7 @@ describe('Auth', () => {
     cy.contains('h2', 'Sign in').should('be.visible');
     cy.fixture('testUser').then((testUser) => {
       cy.contains('label', 'Email').next().find('input').type(testUser.email);
-      cy.contains('label', 'Password')
-        .next()
-        .find('input')
-        .type(testUser.password);
+      cy.contains('label', 'Password').next().find('input').type(testUser.password);
       cy.intercept('POST', '/auth/login').as('login');
       cy.contains('button', 'Sign in').click();
       cy.wait('@login').then((interception) => {
