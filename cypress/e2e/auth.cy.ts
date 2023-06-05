@@ -23,7 +23,7 @@ describe('Auth', () => {
       cy.wait('@register').then((interception) => {
         expect(interception.response.statusCode).to.equal(201);
       });
-      cy.location('pathname', { timeout: 10000 }).should('equal', '/login');
+      cy.location('pathname').should('equal', '/login');
     });
   });
 
@@ -41,7 +41,7 @@ describe('Auth', () => {
       cy.wait('@login').then((interception) => {
         expect(interception.response.statusCode).to.equal(201);
       });
-      cy.location('pathname', { timeout: 10000 }).should('equal', '/');
+      cy.location('pathname').should('equal', '/');
       cy.get('header').contains('a', testUser.initials).trigger('mouseover');
       cy.contains('div[role=dialog]', 'Test User').should('exist');
     });
@@ -59,7 +59,7 @@ describe('Auth', () => {
       cy.wait('@logout').then((interception) => {
         expect(interception.response.statusCode).to.equal(201);
       });
-      cy.location('pathname', { timeout: 10000 }).should('equal', '/');
+      cy.location('pathname').should('equal', '/');
     });
   });
 });
