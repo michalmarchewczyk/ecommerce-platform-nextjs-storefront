@@ -78,6 +78,9 @@ describe('Attributes', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(5000);
       cy.contains('div', testProducts[0].name).parent().find('a').click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(5000);
+      cy.get('*').first().trigger('mouseover');
     });
 
     cy.get('table').should('exist');

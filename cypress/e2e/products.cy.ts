@@ -80,8 +80,11 @@ describe('Products', () => {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(5000);
     cy.contains('div', 'Test product').parent().find('a').click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(5000);
+    cy.get('*').first().trigger('mouseover');
 
-    cy.location('pathname', { timeout: 60000 }).should('match', /\/products\/.+/);
+    cy.location('pathname').should('match', /\/products\/.+/);
     cy.fixture('testProducts').then((testProducts: ProductCreateDto[]) => {
       const cheapestProduct = testProducts.sort((a, b) => a.price - b.price)[0];
       cy.contains('h3', cheapestProduct.name).should('exist');
