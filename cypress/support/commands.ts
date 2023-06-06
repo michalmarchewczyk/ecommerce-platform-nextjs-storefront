@@ -86,6 +86,7 @@ Cypress.Commands.add('clickLink', { prevSubject: true }, (subject: JQuery<HTMLAn
   cy.wrap(subject).click();
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(5000);
-  cy.get('*').first().trigger('mouseover');
+  cy.get('div').first().trigger('mouseover');
+  cy.get('div').first().trigger('mouseout');
   return cy.wrap(subject);
 });
