@@ -75,12 +75,7 @@ describe('Attributes', () => {
   it('viewing product attributes', () => {
     cy.visit('/');
     cy.fixture('testProducts').then((testProducts: ProductCreateDto[]) => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(5000);
-      cy.contains('div', testProducts[0].name).parent().find('a').click();
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(5000);
-      cy.get('*').first().trigger('mouseover');
+      cy.contains('div', testProducts[0].name).parent().find('a').clickLink();
     });
 
     cy.get('table').should('exist');

@@ -77,12 +77,7 @@ describe('Products', () => {
       cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').click({ force: true });
     });
     cy.location('pathname').should('match', /\/categories\/.+/);
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(5000);
-    cy.contains('div', 'Test product').parent().find('a').click();
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(5000);
-    cy.get('*').first().trigger('mouseover');
+    cy.contains('div', 'Test product').parent().find('a').clickLink();
 
     cy.location('pathname').should('match', /\/products\/.+/);
     cy.fixture('testProducts').then((testProducts: ProductCreateDto[]) => {

@@ -1,4 +1,4 @@
-import { AttributeType, Category, Page, Product } from '../../lib/api';
+import { AttributeType, Category, Page, Product, Wishlist } from '../../lib/api';
 
 Cypress.Commands.add('apiGET', (path) => {
   return cy.request('GET', `${Cypress.env('API_URL')}${path}`);
@@ -60,6 +60,13 @@ Cypress.Commands.add('clearTestData', () => {
         cy.apiDELETE(`/products/${product.id}`);
       }
     });
+  cy.apiGET('/wishlists')
+    .its('body')
+    .each((wishlist: Wishlist) => {
+      if (wishlist.name.toLowerCase().includes('test')) {
+        cy.apiDELETE(`/wishlists/${wishlist.id}`);
+      }
+    });
   cy.apiGET('/attribute-types')
     .its('body')
     .each((attributeType: AttributeType) => {
@@ -71,4 +78,14 @@ Cypress.Commands.add('clearTestData', () => {
 
 Cypress.Commands.add('revalidatePath', (path) => {
   cy.request('GET', `/api/revalidate?path=${path}`);
+});
+
+Cypress.Commands.add('clickLink', { prevSubject: true }, (subject: JQuery<HTMLAnchorElement>) => {
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(5000);
+  cy.wrap(subject).click();
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(5000);
+  cy.get('*').first().trigger('mouseover');
+  return cy.wrap(subject);
 });

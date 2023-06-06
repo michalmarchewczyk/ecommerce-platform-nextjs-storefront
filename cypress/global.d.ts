@@ -7,6 +7,7 @@ declare namespace Cypress {
     apiDELETE<T = any>(path: string): Chainable<Response<T>>;
     loginAdmin(): void;
     clearTestData(): void;
+    clickLink(): Chainable<JQuery<HTMLAnchorElement>>;
     revalidatePath(path: string): void;
   }
 }
