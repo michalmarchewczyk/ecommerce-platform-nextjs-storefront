@@ -1,14 +1,8 @@
-import { Page, PageCreateDto } from '../../lib/api';
+import { PageCreateDto } from '../../lib/api';
 
 describe('Pages', () => {
   before(() => {
-    cy.apiGET('/pages')
-      .its('body')
-      .each((page: Page) => {
-        if (page.title.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/pages/${page.id}`);
-        }
-      });
+    cy.clearTestData();
 
     cy.fixture('testPages').each((testPage: PageCreateDto) => {
       cy.apiPOST('/pages', testPage).its('body.id').as('pageId');

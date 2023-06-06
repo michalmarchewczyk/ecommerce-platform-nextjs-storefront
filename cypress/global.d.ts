@@ -6,6 +6,7 @@ declare namespace Cypress {
     apiPUT<T = any>(path: string, body: RequestBody): Chainable<Response<T>>;
     apiDELETE<T = any>(path: string): Chainable<Response<T>>;
     loginAdmin(): void;
+    clearTestData(): void;
     revalidatePath(path: string): void;
   }
 }

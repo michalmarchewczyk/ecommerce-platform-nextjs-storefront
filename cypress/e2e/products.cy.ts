@@ -1,22 +1,8 @@
-import { Category, CategoryCreateDto, Product, ProductCreateDto } from '../../lib/api';
+import { CategoryCreateDto, ProductCreateDto } from '../../lib/api';
 
 describe('Products', () => {
   before(() => {
-    cy.apiGET('/categories')
-      .its('body')
-      .each((category: Category) => {
-        if (category.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/categories/${category.id}`);
-        }
-      });
-
-    cy.apiGET('/products')
-      .its('body')
-      .each((product: Product) => {
-        if (product.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/products/${product.id}`);
-        }
-      });
+    cy.clearTestData();
 
     cy.fixture('testFeaturedCategory').then((testFeaturedCategory: CategoryCreateDto) => {
       cy.apiPOST('/categories', testFeaturedCategory).its('body.id').as('categoryId');

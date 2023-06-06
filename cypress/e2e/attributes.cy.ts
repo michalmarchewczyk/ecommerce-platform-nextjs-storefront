@@ -1,30 +1,8 @@
-import { Category, CategoryCreateDto, Product, ProductCreateDto, AttributeType, AttributeTypeDto } from '../../lib/api';
+import { CategoryCreateDto, ProductCreateDto, AttributeTypeDto } from '../../lib/api';
 
 describe('Attributes', () => {
   before(() => {
-    cy.apiGET('/categories')
-      .its('body')
-      .each((category: Category) => {
-        if (category.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/categories/${category.id}`);
-        }
-      });
-
-    cy.apiGET('/products')
-      .its('body')
-      .each((product: Product) => {
-        if (product.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/products/${product.id}`);
-        }
-      });
-
-    cy.apiGET('/attribute-types')
-      .its('body')
-      .each((attributeType: AttributeType) => {
-        if (attributeType.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/attribute-types/${attributeType.id}`);
-        }
-      });
+    cy.clearTestData();
 
     cy.fixture('testFeaturedCategory').then((testFeaturedCategory: CategoryCreateDto) => {
       cy.apiPOST('/categories', testFeaturedCategory).its('body.id').as('categoryId');

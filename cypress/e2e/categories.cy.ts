@@ -1,4 +1,4 @@
-import { Category, CategoryCreateDto } from '../../lib/api';
+import { CategoryCreateDto } from '../../lib/api';
 
 type CategoryCreateDtoWithChildren = CategoryCreateDto & {
   children?: CategoryCreateDtoWithChildren[];
@@ -19,13 +19,7 @@ const createCategory = (category: CategoryCreateDtoWithChildren, parentId?: stri
 
 describe('Categories', () => {
   before(() => {
-    cy.apiGET('/categories')
-      .its('body')
-      .each((category: Category) => {
-        if (category.name.toLowerCase().includes('test')) {
-          cy.apiDELETE(`/categories/${category.id}`);
-        }
-      });
+    cy.clearTestData();
 
     cy.fixture('testCategories').then((testCategories) => {
       testCategories.forEach((testCategory: CategoryCreateDtoWithChildren) => {
