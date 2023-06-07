@@ -82,11 +82,19 @@ Cypress.Commands.add('revalidatePath', (path) => {
 
 Cypress.Commands.add('clickLink', { prevSubject: true }, (subject: JQuery<HTMLAnchorElement>) => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(5000);
+  cy.wait(4000);
+  cy.wrap(subject).invoke('attr', 'href').as('href');
   cy.wrap(subject).click();
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(5000);
+  cy.wait(2000);
   cy.get('div').first().trigger('mouseover');
   cy.get('div').first().trigger('mouseout');
+  cy.get<string>('@href').then((href) => {
+    cy.location('pathname').then((pathname) => {
+      if (href && pathname !== href) {
+        cy.visit(href);
+      }
+    });
+  });
   return cy.wrap(subject);
 });

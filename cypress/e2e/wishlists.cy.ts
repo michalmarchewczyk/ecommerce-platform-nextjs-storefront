@@ -84,8 +84,9 @@ describe('Wishlists', () => {
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');
         cy.intercept('PATCH', '/wishlists/*').as('updateWishlist');
-        cy.contains('div', testProduct.name).parent().parent().find('button').click();
+        cy.contains('div', testProduct.name).parent().parent().find('button').clickLink();
         cy.wait('@updateWishlist');
+        cy.contains('div', testProduct.name).should('not.exist');
       });
     cy.revalidatePath('/account/wishlists');
     cy.revalidatePath('/account/wishlists/[id]');
