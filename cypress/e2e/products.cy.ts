@@ -49,7 +49,7 @@ describe('Products', () => {
     });
 
     cy.contains('button', 'Price: low to high').click();
-    cy.contains('button', 'Price: high to low').click();
+    cy.contains('button', 'Price: high to low').clickLink();
     cy.location('search').should('equal', '?sort=price-desc');
     cy.fixture('testProducts').then((testProducts: ProductCreateDto[]) => {
       const mostExpensiveProduct = testProducts.sort((a, b) => b.price - a.price)[0];

@@ -86,6 +86,7 @@ describe('Wishlists', () => {
         cy.intercept('PATCH', '/wishlists/*').as('updateWishlist');
         cy.contains('div', testProduct.name).parent().parent().find('button').clickLink();
         cy.wait('@updateWishlist');
+        cy.reload();
         cy.contains('div', testProduct.name).should('not.exist');
       });
     cy.revalidatePath('/account/wishlists');
