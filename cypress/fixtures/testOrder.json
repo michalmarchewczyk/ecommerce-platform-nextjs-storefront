@@ -1,0 +1,10 @@
+{
+  "fullName": "Test order name",
+  "contactEmail": "test@example.com",
+  "contactPhoneCountry": "+48",
+  "contactPhone": "123456789",
+  "address": "Test address",
+  "city": "Test city",
+  "country": "Poland",
+  "countryCode": "PL"
+}

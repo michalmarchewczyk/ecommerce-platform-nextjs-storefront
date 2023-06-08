@@ -1,0 +1,5 @@
+{
+  "name": "Test payment method",
+  "description": "Test payment method description",
+  "price": 20
+}
