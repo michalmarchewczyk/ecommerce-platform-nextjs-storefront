@@ -46,6 +46,9 @@ Cypress.Commands.add('clearTestData', () => {
         cy.apiDELETE(`/pages/${page.id}`);
       }
     });
+  cy.apiPUT('/carts/my', {
+    items: [],
+  });
   cy.apiGET('/categories')
     .its('body')
     .each((category: Category) => {
