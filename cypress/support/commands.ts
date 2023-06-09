@@ -1,4 +1,14 @@
-import { AttributeType, Category, Page, Product, Wishlist, DeliveryMethod, PaymentMethod, Order } from '../../lib/api';
+import {
+  AttributeType,
+  Category,
+  Page,
+  Product,
+  Wishlist,
+  DeliveryMethod,
+  PaymentMethod,
+  Order,
+  Setting,
+} from '../../lib/api';
 
 Cypress.Commands.add('apiGET', (path) => {
   return cy.request('GET', `${Cypress.env('API_URL')}${path}`);
@@ -39,6 +49,15 @@ Cypress.Commands.add('loginAdmin', () => {
 
 Cypress.Commands.add('clearTestData', () => {
   cy.loginAdmin();
+  cy.apiGET('/settings')
+    .its('body')
+    .each((setting: Setting) => {
+      if (setting.name === 'Countries') {
+        cy.apiPATCH(`/settings/${setting.id}`, {
+          value: 'US,CA,PL',
+        });
+      }
+    });
   cy.apiGET('/pages')
     .its('body')
     .each((page: Page) => {
@@ -124,4 +143,20 @@ Cypress.Commands.add('clickLink', { prevSubject: true }, (subject: JQuery<HTMLAn
     });
   });
   return cy.wrap(subject);
+});
+
+Cypress.Commands.add('loadFixtures', (paths) => {
+  paths.forEach((path) => {
+    cy.fixture(path).as(path);
+  });
+});
+
+Cypress.Commands.add('getAliases', (aliases) => {
+  const result = [] as any[];
+  aliases.forEach((alias) => {
+    cy.get<any>(`@${alias}`).then((value) => {
+      result.push(value);
+    });
+  });
+  return cy.wrap(result);
 });

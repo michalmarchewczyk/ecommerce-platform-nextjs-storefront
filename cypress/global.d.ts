@@ -9,5 +9,7 @@ declare namespace Cypress {
     clearTestData(): void;
     clickLink(): Chainable<JQuery<HTMLAnchorElement>>;
     revalidatePath(path: string): void;
+    loadFixtures(paths: string[]): void;
+    getAliases<V extends Array<any>, T extends ReadonlyArray<string> = ReadonlyArray<string>>(aliases: T): Chainable<V>;
   }
 }

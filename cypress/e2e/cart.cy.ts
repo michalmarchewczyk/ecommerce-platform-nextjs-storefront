@@ -1,28 +1,27 @@
 import { CategoryCreateDto, ProductCreateDto } from '../../lib/api';
 
 describe('Cart', () => {
+  beforeEach(() => {
+    cy.loadFixtures(['testProducts', 'testFeaturedCategory']);
+  });
+
   before(() => {
     cy.clearTestData();
+    cy.loadFixtures(['testProducts', 'testFeaturedCategory']);
 
-    cy.fixture('testFeaturedCategory').then((testFeaturedCategory: CategoryCreateDto) => {
+    cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
       cy.apiPOST('/categories', testFeaturedCategory).its('body.id').as('categoryId');
-      cy.get<string>('@categoryId').then((categoryId) => {
-        cy.apiPATCH(`/categories/${categoryId}`, {
-          groups: [{ name: 'featured' }],
-        });
-      });
+    });
+    cy.get<string>('@categoryId').then((categoryId) => {
+      cy.apiPATCH(`/categories/${categoryId}`, { groups: [{ name: 'featured' }] });
     });
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.apiPOST('/products', testProduct).its('body.id').as('productId');
-        cy.get<string>('@categoryId').then((categoryId) => {
-          cy.get<string>('@productId').then((productId) => {
-            cy.apiPOST(`/categories/${categoryId}/products`, {
-              productId,
-            });
-          });
+        cy.getAliases(['productId', 'categoryId']).then(([productId, categoryId]) => {
+          cy.apiPOST(`/categories/${categoryId}/products`, { productId });
         });
       });
 
@@ -35,7 +34,7 @@ describe('Cart', () => {
     cy.contains('div[role=dialog]', 'Your cart is empty').should('exist');
     cy.get('header a[href="/cart"]').trigger('mouseout');
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 2)
       .each((testProduct: ProductCreateDto) => {
         cy.intercept('PUT', '/carts/my').as('cartUpdate');
@@ -46,7 +45,7 @@ describe('Cart', () => {
         cy.get('header a[href="/cart"]').trigger('mouseout');
       });
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 2, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.visit('/');
@@ -56,7 +55,7 @@ describe('Cart', () => {
         cy.contains('button', 'Add to cart').click();
         cy.get('header a[href="/cart"]').trigger('mouseover');
         cy.contains('div[role=dialog]', 'Cart').should('contain.text', testProduct.name);
-        cy.contains('div[role=dialog]', 'Cart').should('contain.text', '2 x');
+        cy.contains('div[role=dialog]', 'Cart').should('contain.text', '2\u00a0x');
         cy.get('header a[href="/cart"]').trigger('mouseout');
       });
   });
@@ -70,7 +69,7 @@ describe('Cart', () => {
     cy.contains('a', 'View cart').should('not.exist');
     cy.get('header a[href="/cart"]').trigger('mouseout');
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto, ind: number) => {
         cy.intercept('PUT', '/carts/my').as('cartUpdate');
@@ -88,7 +87,7 @@ describe('Cart', () => {
     cy.contains('h2', 'Cart').should('exist');
     cy.contains('div', '4 items').should('exist');
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');

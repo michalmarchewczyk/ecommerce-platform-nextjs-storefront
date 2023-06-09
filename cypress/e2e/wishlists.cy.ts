@@ -1,28 +1,27 @@
 import { CategoryCreateDto, ProductCreateDto } from '../../lib/api';
 
 describe('Wishlists', () => {
+  beforeEach(() => {
+    cy.loadFixtures(['testProducts', 'testFeaturedCategory']);
+  });
+
   before(() => {
     cy.clearTestData();
+    cy.loadFixtures(['testProducts', 'testFeaturedCategory']);
 
-    cy.fixture('testFeaturedCategory').then((testFeaturedCategory: CategoryCreateDto) => {
+    cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
       cy.apiPOST('/categories', testFeaturedCategory).its('body.id').as('categoryId');
-      cy.get<string>('@categoryId').then((categoryId) => {
-        cy.apiPATCH(`/categories/${categoryId}`, {
-          groups: [{ name: 'featured' }],
-        });
-      });
+    });
+    cy.get<string>('@categoryId').then((categoryId) => {
+      cy.apiPATCH(`/categories/${categoryId}`, { groups: [{ name: 'featured' }] });
     });
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.apiPOST('/products', testProduct).its('body.id').as('productId');
-        cy.get<string>('@categoryId').then((categoryId) => {
-          cy.get<string>('@productId').then((productId) => {
-            cy.apiPOST(`/categories/${categoryId}/products`, {
-              productId,
-            });
-          });
+        cy.getAliases(['productId', 'categoryId']).then(([productId, categoryId]) => {
+          cy.apiPOST(`/categories/${categoryId}/products`, { productId });
         });
       });
 
@@ -32,7 +31,7 @@ describe('Wishlists', () => {
   it('creating new wishlist', () => {
     cy.visit('/');
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .its('0')
       .then((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).parent().find('a').clickLink();
@@ -60,7 +59,7 @@ describe('Wishlists', () => {
       name: 'Test wishlist 2',
       productIds: [],
     });
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.visit('/');
@@ -79,7 +78,7 @@ describe('Wishlists', () => {
     cy.location('pathname').should('match', /\/account\/wishlists\/\d+/);
     cy.contains('h2', 'Test wishlist 2').should('exist');
     cy.contains('div', 'No products found').should('not.exist');
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');

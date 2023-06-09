@@ -8,19 +8,24 @@ import {
 } from '../../lib/api';
 
 describe('Orders', () => {
+  beforeEach(() => {
+    cy.loadFixtures(['testDeliveryMethod', 'testPaymentMethod', 'testProducts', 'testOrder']);
+  });
+
   before(() => {
     cy.clearTestData();
+    cy.loadFixtures(['testDeliveryMethod', 'testPaymentMethod', 'testProducts', 'testOrder']);
 
-    cy.fixture('testDeliveryMethod').then((testDeliveryMethod: DeliveryMethodDto) => {
+    cy.get<DeliveryMethodDto>('@testDeliveryMethod').then((testDeliveryMethod) => {
       cy.apiPOST('/delivery-methods', testDeliveryMethod);
     });
 
-    cy.fixture('testPaymentMethod').then((testPaymentMethod: PaymentMethodDto) => {
+    cy.get<PaymentMethodDto>('@testPaymentMethod').then((testPaymentMethod) => {
       cy.apiPOST('/payment-methods', testPaymentMethod);
     });
 
     const productIds: string[] = [];
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.apiPOST('/products', testProduct)
@@ -46,10 +51,10 @@ describe('Orders', () => {
     cy.location('pathname').should('eq', '/checkout');
     cy.contains('h2', 'Checkout').should('exist');
 
-    cy.fixture('testDeliveryMethod').then((testDeliveryMethod: DeliveryMethodDto) => {
+    cy.get<DeliveryMethodDto>('@testDeliveryMethod').then((testDeliveryMethod) => {
       cy.contains('label', testDeliveryMethod.name).click();
     });
-    cy.fixture('testOrder').then((testOrder) => {
+    cy.get<Record<string, string>>('@testOrder').then((testOrder) => {
       cy.contains('label', 'Full name').next().find('input').type(testOrder.fullName);
       cy.contains('label', 'Contact email').next().find('input').type(testOrder.contactEmail);
       cy.contains('label', 'Contact phone').parent().parent().find('div[role=combobox]').click();
@@ -62,27 +67,27 @@ describe('Orders', () => {
     });
     cy.contains('button', 'Next').click();
 
-    cy.fixture('testPaymentMethod').then((testPaymentMethod: PaymentMethodDto) => {
+    cy.get<PaymentMethodDto>('@testPaymentMethod').then((testPaymentMethod) => {
       cy.contains('label', testPaymentMethod.name).click();
     });
     cy.contains('button', 'Next').click();
 
-    cy.fixture('testProducts')
+    cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', `1 x ${testProduct.name}`).should('exist');
         cy.contains('div', testProduct.price).should('exist');
       });
-    cy.fixture('testDeliveryMethod').then((testDeliveryMethod: DeliveryMethodDto) => {
+    cy.get<DeliveryMethodDto>('@testDeliveryMethod').then((testDeliveryMethod) => {
       cy.contains('div', testDeliveryMethod.name).should('exist');
       cy.contains('div', testDeliveryMethod.price).should('exist');
     });
-    cy.fixture('testPaymentMethod').then((testPaymentMethod: PaymentMethodDto) => {
+    cy.get<PaymentMethodDto>('@testPaymentMethod').then((testPaymentMethod) => {
       cy.contains('div', testPaymentMethod.name).should('exist');
       cy.contains('div', testPaymentMethod.price).should('exist');
     });
     cy.contains('div', 'Total').should('exist');
-    cy.fixture('testOrder').then((testOrder) => {
+    cy.get<Record<string, string>>('@testOrder').then((testOrder) => {
       cy.contains('div', testOrder.fullName).should('exist');
       cy.contains('div', testOrder.contactEmail).should('exist');
       cy.contains('div', testOrder.contactPhone).should('exist');
@@ -98,8 +103,7 @@ describe('Orders', () => {
       .should('match', /^\/account\/orders\/[0-9a-f-]+$/);
   });
 
-  // eslint-disable-next-line func-names
-  it.only('viewing order', function () {
+  it('viewing order', () => {
     cy.apiGET('/products')
       .its('body')
       .then((products: Product[]) => {
@@ -119,21 +123,26 @@ describe('Orders', () => {
       })
       .as('paymentMethodId');
 
-    cy.fixture('testOrder').then((testOrder) => {
+    cy.getAliases<[Record<string, string>, number, number, Product[]]>([
+      'testOrder',
+      'deliveryMethodId',
+      'paymentMethodId',
+      'products',
+    ]).then(([testOrder, deliveryMethodId, paymentMethodId, products]) => {
       cy.apiPOST('/orders', {
         fullName: testOrder.fullName,
         contactEmail: testOrder.contactEmail,
         contactPhone: testOrder.contactPhoneCountry + testOrder.contactPhone,
         delivery: {
-          methodId: this.deliveryMethodId,
+          methodId: deliveryMethodId,
           address: testOrder.address,
           city: testOrder.city,
           country: testOrder.countryCode,
         },
         payment: {
-          methodId: this.paymentMethodId,
+          methodId: paymentMethodId,
         },
-        items: this.products.map((p) => ({ productId: p.id, quantity: 3 })),
+        items: products.map((p) => ({ productId: p.id, quantity: 3 })),
       })
         .its('body.id')
         .as('orderId');
@@ -146,16 +155,16 @@ describe('Orders', () => {
       cy.contains('h2', `Order #${id}`).should('exist');
     });
 
-    cy.fixture('testDeliveryMethod').then((testDeliveryMethod: DeliveryMethodDto) => {
+    cy.get<DeliveryMethodDto>('@testDeliveryMethod').then((testDeliveryMethod) => {
       cy.contains('div', testDeliveryMethod.name).should('exist');
       cy.contains('div', testDeliveryMethod.price).should('exist');
     });
-    cy.fixture('testPaymentMethod').then((testPaymentMethod: PaymentMethodDto) => {
+    cy.get<PaymentMethodDto>('@testPaymentMethod').then((testPaymentMethod) => {
       cy.contains('div', testPaymentMethod.name).should('exist');
       cy.contains('div', testPaymentMethod.price).should('exist');
     });
     cy.contains('div', 'Total').should('exist');
-    cy.fixture('testOrder').then((testOrder) => {
+    cy.get<Record<string, string>>('@testOrder').then((testOrder) => {
       cy.contains('div', testOrder.fullName).should('exist');
       cy.contains('div', testOrder.contactEmail).should('exist');
       cy.contains('div', testOrder.contactPhone).should('exist');

@@ -18,13 +18,16 @@ const createCategory = (category: CategoryCreateDtoWithChildren, parentId?: stri
 };
 
 describe('Categories', () => {
+  beforeEach(() => {
+    cy.loadFixtures(['testCategories']);
+  });
+
   before(() => {
     cy.clearTestData();
+    cy.loadFixtures(['testCategories']);
 
-    cy.fixture('testCategories').then((testCategories) => {
-      testCategories.forEach((testCategory: CategoryCreateDtoWithChildren) => {
-        createCategory(testCategory);
-      });
+    cy.get('@testCategories').each((testCategory: CategoryCreateDtoWithChildren) => {
+      createCategory(testCategory);
     });
 
     cy.revalidatePath('/');
@@ -32,7 +35,7 @@ describe('Categories', () => {
 
   it('viewing header categories', () => {
     cy.visit('/');
-    cy.fixture('testCategories').then((testCategories) => {
+    cy.get<CategoryCreateDtoWithChildren[]>('@testCategories').then((testCategories) => {
       testCategories.forEach((testCategory) => {
         cy.get('header').contains('a', testCategory.name).should('exist');
       });
@@ -47,7 +50,7 @@ describe('Categories', () => {
   });
 
   it('navigating categories', () => {
-    cy.fixture('testCategories').then((testCategories) => {
+    cy.get<CategoryCreateDtoWithChildren[]>('@testCategories').then((testCategories) => {
       cy.visit('/');
       cy.get('header').contains('a', testCategories[0].name).click();
 
