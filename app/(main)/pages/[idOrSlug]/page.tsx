@@ -19,7 +19,7 @@ async function getPageById(id: number) {
 
 async function getPageBySlug(slug: string) {
   try {
-    const pages = await pagesApi.getPages();
+    const pages = await pagesApi.getPages({ cache: 'no-store' });
     const page = pages.find((p) => p.slug === slug);
     if (!page) {
       return notFound();

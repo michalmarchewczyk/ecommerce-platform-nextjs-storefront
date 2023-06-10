@@ -13,7 +13,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const photoId = product.photosOrder
     ? parseInt(product.photosOrder.split(',')[0], 10)
     : product.photos[0]?.id;
-  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=false`;
+  const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=true`;
   const photo = product.photos.find((p) => p.id === photoId);
 
   return (
