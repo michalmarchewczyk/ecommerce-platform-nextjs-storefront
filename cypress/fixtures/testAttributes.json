@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Test string attribute",
+    "valueType": "string",
+    "values": ["Test string value 1", "Test string value 2", "Test string value 3", "Test string value 4"]
+  },
+  {
+    "name": "Test number attribute",
+    "valueType": "number",
+    "values": ["1", "10", "100", "1000"]
+  },
+  {
+    "name": "Test boolean attribute",
+    "valueType": "boolean",
+    "values": ["false", "false", "true", "true"]
+  },
+  {
+    "name": "Test color attribute",
+    "valueType": "color",
+    "values": ["#ff0000", "#ff0000", "#ff0000", "#ffffff"]
+  }
+]

@@ -9,7 +9,7 @@ import {
 import { API_URL, productsApi } from '@lib/api';
 import PageNavigationAnchor from '@lib/components/ui/PageNavigationAnchor';
 
-async function getProductPhotosUrls(id: number) {
+async function getProductPhotos(id: number) {
   const product = await productsApi.getProduct({ id });
   let { photos } = product;
   if (product.photosOrder) {
@@ -20,14 +20,14 @@ async function getProductPhotosUrls(id: number) {
       return photosOrder.indexOf(a.id) - photosOrder.indexOf(b.id);
     });
   }
-  return photos.map(
-    (photo) =>
-      `${API_URL}/products/${product.id}/photos/${photo.id}?thumbnail=false`,
-  );
+  return photos.map((photo) => ({
+    url: `${API_URL}/products/${product.id}/photos/${photo.id}?thumbnail=false`,
+    placeholder: photo.placeholderBase64,
+  }));
 }
 
 export default async function ProductPhotos({ id }: { id: number }) {
-  const photosUrls = await getProductPhotosUrls(id);
+  const photos = await getProductPhotos(id);
 
   return (
     <Paper shadow="sm" withBorder radius="lg">
@@ -39,10 +39,10 @@ export default async function ProductPhotos({ id }: { id: number }) {
         controlSize={36}
         align="start"
         slideGap={0}
-        withIndicators={photosUrls.length > 1}
+        withIndicators={photos.length > 1}
         nextControlIcon={<IconChevronRight size={24} />}
         previousControlIcon={<IconChevronLeft size={24} />}
-        draggable={photosUrls.length > 1}
+        draggable={photos.length > 1}
         styles={{
           indicator: {
             width: 12,
@@ -63,7 +63,7 @@ export default async function ProductPhotos({ id }: { id: number }) {
           },
         }}
       >
-        {photosUrls.map((url) => (
+        {photos.map(({ url, placeholder }) => (
           <CarouselSlide key={url} h="100%" w="100%">
             <Image
               src={url}
@@ -76,10 +76,12 @@ export default async function ProductPhotos({ id }: { id: number }) {
                 objectFit: 'contain',
                 maxHeight: '100%',
               }}
+              placeholder="blur"
+              blurDataURL={placeholder}
             />
           </CarouselSlide>
         ))}
-        {photosUrls.length === 0 && (
+        {photos.length === 0 && (
           <Center h="100%" w="100%" bg="gray.2">
             <IconPhotoOff
               size={160}

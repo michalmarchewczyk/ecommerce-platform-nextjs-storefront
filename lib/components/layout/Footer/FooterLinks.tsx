@@ -23,7 +23,7 @@ export default async function FooterLinks() {
         key={page.id}
         className={styles.link}
         component={Link}
-        href={`/pages/${page.id}`}
+        href={page.slug ? `/${page.slug}` : `/pages/${page.id}`}
         fw={400}
         prefetch
       >
