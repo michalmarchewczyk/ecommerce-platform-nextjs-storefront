@@ -1,14 +1,4 @@
-import {
-  AttributeType,
-  Category,
-  Page,
-  Product,
-  Wishlist,
-  DeliveryMethod,
-  PaymentMethod,
-  Order,
-  Setting,
-} from '../../lib/api';
+import { AttributeType, Category, Page, Product, Wishlist, Order, Setting } from '../../lib/api';
 
 Cypress.Commands.add('apiGET', (path) => {
   return cy.request('GET', `${Cypress.env('API_URL')}${path}`);
@@ -104,20 +94,6 @@ Cypress.Commands.add('clearTestData', () => {
     .each((attributeType: AttributeType) => {
       if (attributeType.name.toLowerCase().includes('test')) {
         cy.apiDELETE(`/attribute-types/${attributeType.id}`);
-      }
-    });
-  cy.apiGET('/delivery-methods')
-    .its('body')
-    .each((deliveryMethod: DeliveryMethod) => {
-      if (deliveryMethod.name.toLowerCase().includes('test')) {
-        cy.apiDELETE(`/delivery-methods/${deliveryMethod.id}`);
-      }
-    });
-  cy.apiGET('/payment-methods')
-    .its('body')
-    .each((paymentMethod: PaymentMethod) => {
-      if (paymentMethod.name.toLowerCase().includes('test')) {
-        cy.apiDELETE(`/payment-methods/${paymentMethod.id}`);
       }
     });
 });

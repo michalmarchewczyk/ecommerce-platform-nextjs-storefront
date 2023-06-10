@@ -151,7 +151,7 @@ describe('Orders', () => {
 
     cy.get<string>('@orderId').then((id) => {
       cy.contains('a', `Order #${id}`).clickLink();
-      cy.location('pathname').should('match', /^\/account\/orders\/[0-9a-f-]+$/);
+      cy.location('pathname').should('eq', `/account/orders/${id}`);
       cy.contains('h2', `Order #${id}`).should('exist');
     });
 
