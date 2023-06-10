@@ -30,7 +30,7 @@ describe('Products', () => {
     cy.visit('/');
     cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
       cy.contains('section', testFeaturedCategory.name).should('exist');
-      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').click();
+      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').clickLink();
       cy.location('pathname').should('match', /\/categories\/.+/);
       cy.contains('h2', testFeaturedCategory.name).should('exist');
       cy.contains('div', 'Showing 1 - 12 (12) of 20 products').should('exist');
@@ -40,7 +40,7 @@ describe('Products', () => {
   it('sorting products', () => {
     cy.visit('/');
     cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
-      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').click();
+      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').clickLink();
     });
     cy.get<ProductCreateDto[]>('@testProducts').then((testProducts) => {
       const cheapestProduct = testProducts.sort((a, b) => a.price - b.price)[0];
@@ -73,7 +73,7 @@ describe('Products', () => {
   it('viewing product', () => {
     cy.visit('/');
     cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
-      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').click({ force: true });
+      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').clickLink();
     });
     cy.location('pathname').should('match', /\/categories\/.+/);
     cy.contains('div', 'Test product').parent().find('a').clickLink();

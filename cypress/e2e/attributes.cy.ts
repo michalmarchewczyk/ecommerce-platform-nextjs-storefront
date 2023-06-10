@@ -45,7 +45,7 @@ describe('Attributes', () => {
   it('filtering products', () => {
     cy.visit('/');
     cy.get<CategoryCreateDto>('@testFeaturedCategory').then((testFeaturedCategory) => {
-      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').click();
+      cy.contains('section', testFeaturedCategory.name).contains('a', 'View All Products').clickLink();
     });
     cy.contains('div', 'Showing 1 - 4 (4) of 4 products').should('exist');
     cy.get('@testAttributes').each((testAttribute: AttributeTypeDto & { values: string[] }) => {
