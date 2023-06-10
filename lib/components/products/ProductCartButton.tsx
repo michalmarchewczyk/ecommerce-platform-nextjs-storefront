@@ -2,10 +2,10 @@
 
 import { ActionIcon, Button, NumberInput } from '@mantine/core';
 import { IconShoppingCartPlus } from '@tabler/icons';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { showNotification } from '@mantine/notifications';
-import { cartsApi } from '@lib/api';
 import { mutate } from 'swr';
+import { addToCart as addToCardAction } from '../../actions/cart/addToCart';
 
 export default function ProductCartButton({
   productData,
@@ -15,29 +15,18 @@ export default function ProductCartButton({
   simple?: boolean;
 }) {
   const [quantity, setQuantity] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const addToCart = async () => {
-    setLoading(true);
-    const cart = await cartsApi.getCart();
-    const items = cart.items.map((i) => ({
-      quantity: i.quantity,
-      productId: i.product.id,
-    }));
-    const item = items.find((i) => i.productId === productData.id);
-    if (item) {
-      item.quantity = Math.min(productData.stock, item.quantity + quantity);
-    } else {
-      items.push({ quantity, productId: productData.id });
-    }
-    await cartsApi.updateCart({ cartDto: { items } });
-    setLoading(false);
-    await mutate('cart');
-    showNotification({
-      title: 'Added to cart',
-      message: `Added ${productData.name} to cart`,
-      autoClose: 3000,
-      icon: <IconShoppingCartPlus size={18} />,
+    startTransition(async () => {
+      await addToCardAction(productData.id, quantity, productData.stock);
+      await mutate('cart');
+      showNotification({
+        title: 'Added to cart',
+        message: `Added ${productData.name} to cart`,
+        autoClose: 3000,
+        icon: <IconShoppingCartPlus size={18} />,
+      });
     });
   };
 
@@ -45,7 +34,7 @@ export default function ProductCartButton({
     return (
       <ActionIcon
         onClick={addToCart}
-        loading={loading}
+        loading={isPending}
         variant="filled"
         color="indigo"
         radius="xl"
@@ -82,7 +71,7 @@ export default function ProductCartButton({
         size="lg"
         sx={{ flex: 1 }}
         onClick={addToCart}
-        loading={loading}
+        loading={isPending}
       >
         Add to cart
       </Button>

@@ -2,27 +2,24 @@
 
 import { showNotification } from '@mantine/notifications';
 import { IconShoppingCartOff } from '@tabler/icons';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 import { Button } from '@mantine/core';
-import { cartsApi } from '@lib/api';
 import { mutate } from 'swr';
+import { clearCart as clearCartAction } from '@lib/actions/cart/clearCart';
 
 export default function ClearCartButton() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const clearCart = async () => {
-    setLoading(true);
-    await cartsApi.updateCart({ cartDto: { items: [] } });
-    setLoading(false);
-    router.refresh();
-    await mutate('cart');
-    showNotification({
-      title: 'Cleared cart',
-      message: `Deleted all items from cart`,
-      autoClose: 3000,
-      icon: <IconShoppingCartOff size={18} />,
+    startTransition(async () => {
+      await clearCartAction();
+      await mutate('cart');
+      showNotification({
+        title: 'Cleared cart',
+        message: `Deleted all items from cart`,
+        autoClose: 3000,
+        icon: <IconShoppingCartOff size={18} />,
+      });
     });
   };
 
@@ -33,7 +30,7 @@ export default function ClearCartButton() {
       radius="xl"
       size="md"
       my="-xs"
-      loading={loading}
+      loading={isPending}
       onClick={clearCart}
     >
       Clear cart
