@@ -12,10 +12,11 @@ import {
 } from '@mantine/core';
 import { IconHeartPlus, IconPlus } from '@tabler/icons';
 import useSWR from 'swr';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { wishlistsApi } from '@lib/api';
+import { createWishlist as createWishlistAction } from '@lib/actions/wishlists/createWishlist';
+import { addToWishlist as addToWishlistAction } from '@lib/actions/wishlists/addToWishlist';
 
 export default function ProductWishlistButton({
   productId,
@@ -25,7 +26,7 @@ export default function ProductWishlistButton({
   const [opened, setOpened] = useState(false);
   const [inputOpened, setInputOpened] = useState(false);
   const [wishlistName, setWishlistName] = useState('');
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const {
     data: wishlists,
@@ -34,32 +35,25 @@ export default function ProductWishlistButton({
   } = useSWR('wishlists', () => wishlistsApi.getUserWishlists());
 
   const createWishlist = async () => {
-    await wishlistsApi.createWishlist({
-      wishlistCreateDto: { name: wishlistName, productIds: [] },
+    startTransition(async () => {
+      await createWishlistAction(wishlistName);
+      setInputOpened(false);
+      await mutate();
     });
-    setInputOpened(false);
-    await mutate();
   };
 
   const saveToWishlist = async (wishlistId: number) => {
-    const newProductIds = wishlists
-      ?.find((wishlist) => wishlist.id === wishlistId)
-      ?.products.map((product) => product.id);
-    newProductIds?.push(productId);
-    if (!newProductIds) return;
-    await wishlistsApi.updateWishlist({
-      id: wishlistId,
-      wishlistUpdateDto: { productIds: newProductIds },
+    startTransition(async () => {
+      await addToWishlistAction(wishlistId, productId);
+      setOpened(false);
+      setInputOpened(false);
+      showNotification({
+        title: 'Saved to wishlist',
+        message: `Saved product to wishlist`,
+        autoClose: 3000,
+        icon: <IconHeartPlus size={18} />,
+      });
     });
-    setOpened(false);
-    setInputOpened(false);
-    showNotification({
-      title: 'Saved to wishlist',
-      message: `Saved product to wishlist`,
-      autoClose: 3000,
-      icon: <IconHeartPlus size={18} />,
-    });
-    router.refresh();
   };
 
   if (error) {
@@ -145,7 +139,9 @@ export default function ProductWishlistButton({
             <Button onClick={() => setInputOpened(false)} variant="light">
               Cancel
             </Button>
-            <Button onClick={createWishlist}>Save</Button>
+            <Button onClick={createWishlist} loading={isPending}>
+              Save
+            </Button>
           </Flex>
         )}
       </Modal>

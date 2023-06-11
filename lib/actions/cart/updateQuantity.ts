@@ -31,5 +31,5 @@ export async function updateQuantity(
       },
     },
   );
-  await revalidateTag('cart');
+  revalidateTag('cart');
 }

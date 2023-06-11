@@ -25,5 +25,5 @@ export async function deleteFromCart(productId: number) {
       },
     },
   );
-  await revalidateTag('cart');
+  revalidateTag('cart');
 }

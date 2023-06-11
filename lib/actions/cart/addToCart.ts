@@ -29,5 +29,5 @@ export async function addToCart(id: number, quantity: number, stock: number) {
       },
     },
   );
-  await revalidateTag('cart');
+  revalidateTag('cart');
 }

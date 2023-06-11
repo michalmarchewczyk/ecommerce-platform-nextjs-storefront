@@ -4,10 +4,10 @@ import { IconPackage, IconTrash } from '@tabler/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ActionIcon, Box, Center, Flex, Text } from '@mantine/core';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { API_URL, Product, wishlistsApi } from '@lib/api';
+import { useTransition } from 'react';
+import { API_URL, Product } from '@lib/api';
 import PriceClient from '@lib/components/ui/PriceClient';
+import { deleteFromWishlist as deleteFromWishlistAction } from '@lib/actions/wishlists/deleteFromWishlist';
 
 export default function WishlistProduct({
   product,
@@ -21,26 +21,12 @@ export default function WishlistProduct({
     : product.photos[0]?.id;
   const photoUrl = `${API_URL}/products/${product.id}/photos/${photoId}?thumbnail=true`;
 
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const deleteFromWishlist = async () => {
-    setLoading(true);
-    const wishlists = await wishlistsApi.getUserWishlists();
-    const wishlist = wishlists.find((w) => w.id === wishlistId);
-    if (!wishlist) {
-      setLoading(false);
-      return;
-    }
-    const newProductIds = wishlist.products
-      .map((p) => p.id)
-      .filter((id) => id !== product.id);
-    await wishlistsApi.updateWishlist({
-      id: wishlistId,
-      wishlistUpdateDto: { productIds: newProductIds },
+    startTransition(async () => {
+      await deleteFromWishlistAction(wishlistId, product.id);
     });
-    setLoading(false);
-    router.refresh();
   };
 
   return (
@@ -130,7 +116,7 @@ export default function WishlistProduct({
           size={42}
           radius="xl"
           color="gray.7"
-          loading={loading}
+          loading={isPending}
           onClick={deleteFromWishlist}
         >
           <IconTrash size="24" />

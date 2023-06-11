@@ -14,5 +14,5 @@ export async function clearCart() {
       },
     },
   );
-  await revalidateTag('cart');
+  revalidateTag('cart');
 }

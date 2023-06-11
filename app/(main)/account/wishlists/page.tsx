@@ -8,6 +8,9 @@ async function getUserWishlists() {
   const wishlists = await wishlistsApi.getUserWishlists({
     cache: 'no-store',
     headers: { cookie },
+    next: {
+      tags: ['wishlists'],
+    },
   });
   return wishlists.map((wishlist) => ({
     ...wishlist,

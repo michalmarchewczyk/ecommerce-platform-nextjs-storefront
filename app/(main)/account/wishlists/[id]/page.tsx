@@ -11,6 +11,9 @@ async function getWishlist(id: number) {
   const wishlists = await wishlistsApi.getUserWishlists({
     cache: 'no-store',
     headers: { cookie },
+    next: {
+      tags: ['wishlists'],
+    },
   });
   return wishlists.find((wishlist) => wishlist.id === id);
 }
