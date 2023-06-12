@@ -37,9 +37,7 @@ describe('Cart', () => {
     cy.get('@testProducts')
       .invoke('slice', 0, 2)
       .each((testProduct: ProductCreateDto) => {
-        cy.intercept('PUT', '/carts/my').as('cartUpdate');
         cy.contains('div', testProduct.name).parent().find('button').click({ force: true });
-        cy.wait('@cartUpdate', { timeout: 20000 });
         cy.get('header a[href="/cart"]').trigger('mouseover');
         cy.contains('div[role=dialog]', 'Cart').should('contain.text', testProduct.name);
         cy.get('header a[href="/cart"]').trigger('mouseout');
@@ -72,9 +70,7 @@ describe('Cart', () => {
     cy.get('@testProducts')
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto, ind: number) => {
-        cy.intercept('PUT', '/carts/my').as('cartUpdate');
         cy.contains('div', testProduct.name).parent().find('button').click({ force: true });
-        cy.wait('@cartUpdate');
         cy.get('header a[href="/cart"]')
           .parent()
           .should('contain.text', ind + 1);
@@ -91,9 +87,7 @@ describe('Cart', () => {
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');
-        cy.intercept('PUT', '/carts/my').as('cartUpdate');
         cy.contains('div', testProduct.name).parent().parent().find('button').last().click();
-        cy.wait('@cartUpdate');
         cy.contains('div', testProduct.name).should('not.exist');
       });
 

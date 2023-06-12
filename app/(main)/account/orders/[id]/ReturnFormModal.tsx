@@ -1,16 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Button, Flex, Modal, Textarea, Title } from '@mantine/core';
 import { IconReceiptRefund } from '@tabler/icons';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { useRouter } from 'next/navigation';
-import { Order, returnsApi } from '@lib/api';
+import { Order } from '@lib/api';
+import { createReturn as createReturnAction } from '@lib/actions/orders/createReturn';
 
 export default function ReturnFormModal({ order }: { order: Order }) {
   const [opened, setOpened] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const form = useForm({
     initialValues: {
       message: '',
@@ -23,16 +22,10 @@ export default function ReturnFormModal({ order }: { order: Order }) {
   });
 
   const submit = async () => {
-    setLoading(true);
-    await returnsApi.createReturn({
-      returnCreateDto: {
-        orderId: order.id,
-        message: form.values.message,
-      },
+    startTransition(async () => {
+      await createReturnAction(order.id, form.values.message);
+      setOpened(false);
     });
-    setLoading(false);
-    router.refresh();
-    setOpened(false);
   };
 
   return (
@@ -71,7 +64,7 @@ export default function ReturnFormModal({ order }: { order: Order }) {
             <Button
               type="submit"
               variant="filled"
-              loading={loading}
+              loading={isPending}
               disabled={!form.isValid() || !form.isDirty()}
             >
               Submit

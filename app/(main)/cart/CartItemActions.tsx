@@ -1,57 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { ActionIcon, Flex, NumberInput } from '@mantine/core';
 import { IconShoppingCart, IconShoppingCartX, IconTrash } from '@tabler/icons';
-import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
-import { CartItem, cartsApi } from '@lib/api';
+import { CartItem } from '@lib/api';
 import { mutate } from 'swr';
+import { deleteFromCart as deleteFromCartAction } from '@lib/actions/cart/deleteFromCart';
+import { updateQuantity as updateQuantityAction } from '@lib/actions/cart/updateQuantity';
 
 export default function CartItemActions({ item }: { item: CartItem }) {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const deleteFromCart = async () => {
-    setLoading(true);
-    const cart = await cartsApi.getCart();
-    const newItems = cart.items
-      .filter((i) => i.product.id !== item.product.id)
-      .map((i) => ({
-        quantity: i.quantity,
-        productId: i.product.id,
-      }));
-    await cartsApi.updateCart({ cartDto: { items: newItems } });
-    setLoading(false);
-    router.refresh();
-    await mutate('cart');
-    showNotification({
-      title: 'Deleted from cart',
-      message: `Deleted ${item.product.name} from cart`,
-      autoClose: 3000,
-      icon: <IconShoppingCartX size={18} />,
+    startTransition(async () => {
+      await deleteFromCartAction(item.product.id);
+      await mutate('cart');
+      showNotification({
+        title: 'Deleted from cart',
+        message: `Deleted ${item.product.name} from cart`,
+        autoClose: 3000,
+        icon: <IconShoppingCartX size={18} />,
+      });
     });
   };
 
   const updateQuantity = async (value: number) => {
-    setLoading(true);
-    const cart = await cartsApi.getCart();
-    const newItems = cart.items.map((i) => ({
-      quantity:
-        i.product.id === item.product.id
-          ? Math.min(item.product.stock, value)
-          : i.quantity,
-      productId: i.product.id,
-    }));
-    await cartsApi.updateCart({ cartDto: { items: newItems } });
-    setLoading(false);
-    router.refresh();
-    await mutate('cart');
-    showNotification({
-      title: 'Updated quantity',
-      message: `Updated quantity of ${item.product.name} to ${value}`,
-      autoClose: 3000,
-      icon: <IconShoppingCart size={18} />,
+    startTransition(async () => {
+      await updateQuantityAction(item.product.id, value, item.product.stock);
+      await mutate('cart');
+      showNotification({
+        title: 'Updated quantity',
+        message: `Updated quantity of ${item.product.name} to ${value}`,
+        autoClose: 3000,
+        icon: <IconShoppingCart size={18} />,
+      });
     });
   };
 
@@ -70,7 +53,7 @@ export default function CartItemActions({ item }: { item: CartItem }) {
         }}
         w={100}
         value={item.quantity}
-        disabled={loading}
+        disabled={isPending}
         onChange={async (value) => {
           if (value) {
             await updateQuantity(value);
@@ -82,7 +65,7 @@ export default function CartItemActions({ item }: { item: CartItem }) {
         size={42}
         radius="xl"
         color="gray.7"
-        loading={loading}
+        loading={isPending}
         onClick={deleteFromCart}
       >
         <IconTrash size="24" />

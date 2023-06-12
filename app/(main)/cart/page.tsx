@@ -4,12 +4,12 @@ import { IconChevronRight } from '@tabler/icons';
 import { cartsApi } from '@lib/api';
 import {
   Box,
-  Title,
-  Text,
-  Paper,
-  Flex,
-  Divider,
   Button,
+  Divider,
+  Flex,
+  Paper,
+  Text,
+  Title,
 } from '@lib/components/wrappers';
 import Price from '@lib/components/ui/Price';
 import CartItem from './CartItem';
@@ -22,6 +22,9 @@ async function getCart() {
   return cartsApi.getCart({
     cache: 'no-store',
     headers: { cookie },
+    next: {
+      tags: ['cart'],
+    },
   });
 }
 

@@ -23,6 +23,9 @@ async function getOrder(id: number) {
     {
       cache: 'no-store',
       headers: { cookie },
+      next: {
+        tags: ['orders'],
+      },
     },
   );
 }

@@ -52,7 +52,7 @@ describe('Categories', () => {
   it('navigating categories', () => {
     cy.get<CategoryCreateDtoWithChildren[]>('@testCategories').then((testCategories) => {
       cy.visit('/');
-      cy.get('header').contains('a', testCategories[0].name).click();
+      cy.get('header').contains('a', testCategories[0].name).clickLink();
 
       cy.location('pathname').should('match', /\/categories\/.+/);
       cy.contains('h2', testCategories[0].name).should('exist');

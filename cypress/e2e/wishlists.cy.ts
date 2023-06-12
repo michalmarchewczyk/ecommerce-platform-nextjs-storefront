@@ -65,13 +65,9 @@ describe('Wishlists', () => {
         cy.visit('/');
         cy.contains('div', testProduct.name).parent().find('a').clickLink();
         cy.contains('button', 'Save').click();
-        cy.intercept('PATCH', '/wishlists/*').as('updateWishlist');
         cy.contains('button', 'Test wishlist 2').click();
-        cy.wait('@updateWishlist');
       });
 
-    cy.revalidatePath('/account/wishlists');
-    cy.revalidatePath('/account/wishlists/[id]');
     cy.visit('/account/wishlists');
     cy.contains('a', 'Test wishlist 2').click();
 
@@ -82,14 +78,12 @@ describe('Wishlists', () => {
       .invoke('slice', 0, 4)
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');
-        cy.intercept('PATCH', '/wishlists/*').as('updateWishlist');
         cy.contains('div', testProduct.name).parent().parent().find('button').clickLink();
-        cy.wait('@updateWishlist');
+        cy.revalidatePath('/account/wishlists/');
+        cy.revalidatePath('/account/wishlists/[id]');
         cy.reload();
         cy.contains('div', testProduct.name).should('not.exist');
       });
-    cy.revalidatePath('/account/wishlists');
-    cy.revalidatePath('/account/wishlists/[id]');
     cy.contains('div', 'No products found').should('exist');
   });
 });

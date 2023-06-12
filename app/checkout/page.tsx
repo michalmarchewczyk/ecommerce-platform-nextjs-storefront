@@ -1,7 +1,7 @@
 'use client';
 
 import { Stepper } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   IconCash,
@@ -10,7 +10,8 @@ import {
   IconTruckDelivery,
 } from '@tabler/icons';
 import useSWR from 'swr';
-import { cartsApi, ordersApi } from '@lib/api';
+import { cartsApi } from '@lib/api';
+import { createOrder as createOrderAction } from '@lib/actions/orders/createOrder';
 import CheckoutShipping from './steps/CheckoutShipping';
 import CheckoutPayment from './steps/CheckoutPayment';
 import CheckoutConfirm from './steps/CheckoutConfirm';
@@ -25,6 +26,7 @@ export default function Page() {
   const [step, setStep] = useState(1);
   const router = useRouter();
   const [orderId, setOrderId] = useState<number | null>(null);
+  const [, startTransition] = useTransition();
 
   const updateStep = (value: number) => {
     if (value === 0) {
@@ -64,12 +66,11 @@ export default function Page() {
     const orderDto = { ...form.values, items: orderItems };
     orderDto.contactPhone = `+${orderDto.contactPhone}`;
     orderDto.delivery.postalCode = orderDto.delivery.postalCode || undefined;
-    const order = await ordersApi.createOrder({
-      orderCreateDto: orderDto,
+    startTransition(async () => {
+      const id = await createOrderAction(orderDto);
+      setOrderId(id);
+      updateStep(4);
     });
-    await cartsApi.updateCart({ cartDto: { items: [] } });
-    setOrderId(order.id);
-    updateStep(4);
   };
 
   return (
