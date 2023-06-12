@@ -11,7 +11,7 @@ import {
 } from '@tabler/icons';
 import useSWR from 'swr';
 import { cartsApi } from '@lib/api';
-import { createOrder as createOrderAction } from '@lib/actions/checkout/createOrder';
+import { createOrder as createOrderAction } from '@lib/actions/orders/createOrder';
 import CheckoutShipping from './steps/CheckoutShipping';
 import CheckoutPayment from './steps/CheckoutPayment';
 import CheckoutConfirm from './steps/CheckoutConfirm';

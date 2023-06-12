@@ -8,6 +8,9 @@ async function getUserOrders() {
   const orders = await ordersApi.getUserOrders({
     cache: 'no-store',
     headers: { cookie },
+    next: {
+      tags: ['orders'],
+    },
   });
   return orders
     .sort((a, b) => b.id - a.id)
