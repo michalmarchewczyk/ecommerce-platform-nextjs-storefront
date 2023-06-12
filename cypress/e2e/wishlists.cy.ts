@@ -79,6 +79,9 @@ describe('Wishlists', () => {
       .each((testProduct: ProductCreateDto) => {
         cy.contains('div', testProduct.name).should('exist');
         cy.contains('div', testProduct.name).parent().parent().find('button').clickLink();
+        cy.revalidatePath('/account/wishlists/');
+        cy.revalidatePath('/account/wishlists/[id]');
+        cy.reload();
         cy.contains('div', testProduct.name).should('not.exist');
       });
     cy.contains('div', 'No products found').should('exist');
